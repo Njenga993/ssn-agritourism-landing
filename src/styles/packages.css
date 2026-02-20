@@ -1,0 +1,135 @@
+.packages-section {
+  padding: 6rem 1.5rem;
+  background: #f9f7f2;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+.packages-section.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.packages-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.packages-container h2 {
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
+  color: #1f3d2b;
+}
+
+.packages-intro {
+  max-width: 700px;
+  margin: 0 auto 3rem auto;
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Grid */
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+/* Card */
+.package-card {
+  background: white;
+  padding: 2.5rem 2rem;
+  border-radius: 14px;
+  text-align: left;
+  position: relative;
+  transition: 0.3s ease;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.package-card:hover {
+  transform: translateY(-8px);
+}
+
+/* Featured */
+.package-card.featured {
+  border: 2px solid #1f3d2b;
+}
+
+.featured-badge {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background: #1f3d2b;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.7rem;
+  border-radius: 20px;
+}
+
+/* Typography */
+.package-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #1f3d2b;
+}
+
+.package-subtitle {
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  color: #888;
+}
+
+.package-card p {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.package-card ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.package-card ul li {
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+/* Button */
+.package-btn {
+  display: inline-block;
+  text-decoration: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  background: #1f3d2b;
+  color: white;
+  font-size: 0.85rem;
+  transition: 0.3s ease;
+}
+
+.package-btn:hover {
+  background: #163021;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .packages-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .packages-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .packages-container h2 {
+    font-size: 2rem;
+  }
+}
