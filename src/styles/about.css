@@ -1,6 +1,6 @@
 .about-section {
   padding: 8rem 1.5rem;
-  background: #ffffff; /* Solid white background */
+  background: #ffffff;
   opacity: 0;
   transform: translateY(40px);
   transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
@@ -27,7 +27,7 @@
 .decoration-circle {
   position: absolute;
   border-radius: 50%;
-  background: #f0f7e8; /* Solid light green */
+  background: #f0f7e8;
 }
 
 .circle-1 {
@@ -35,7 +35,7 @@
   height: 400px;
   top: -200px;
   right: -100px;
-  background: #f5f9f0; /* Solid very light green */
+  background: #f5f9f0;
 }
 
 .circle-2 {
@@ -43,7 +43,7 @@
   height: 300px;
   bottom: -150px;
   left: -150px;
-  background: #eaf3e0; /* Solid light green */
+  background: #eaf3e0;
 }
 
 .decoration-leaf {
@@ -119,7 +119,7 @@
   left: 0;
   width: 100%;
   height: 8px;
-  background: #e0f0d0; /* Solid light green highlight */
+  background: #e0f0d0;
   z-index: -1;
   border-radius: 4px;
 }
@@ -135,7 +135,7 @@
 .title-decoration .line {
   width: 50px;
   height: 2px;
-  background: #2e7d32; /* Solid green line */
+  background: #2e7d32;
 }
 
 .title-decoration .diamond {
@@ -157,9 +157,8 @@
   line-height: 1.8;
   color: #444;
   position: relative;
-  padding: 0 2rem;
-  background: #faf9f7; /* Solid light background */
   padding: 2rem 3rem;
+  background: #faf9f7;
   border-radius: 20px;
   border-left: 4px solid #2e7d32;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
@@ -180,151 +179,143 @@
   margin-left: 0.25rem;
 }
 
-/* Stats section */
-.about-stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  margin-bottom: 5rem;
-  padding: 2rem;
-  background: #f5f9f0; /* Solid light green background */
-  border-radius: 20px;
-  border: 1px solid #d0e0c0;
+/* Grid wrapper with wooden background - FULLY VISIBLE */
+.about-grid-wrapper {
+  position: relative;
+  padding: 3rem;
+  border-radius: 40px;
+  background-image: url('/bg.webp');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  margin-bottom: 4rem;
+  border: 2px solid #8b5a2b;
 }
 
-.stat-item {
-  text-align: center;
-  background: white;
-  padding: 1.5rem 1rem;
-  border-radius: 12px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.03);
-  border: 1px solid #e8f0e0;
-}
+/* Removed the white overlay - now wooden background is fully visible */
 
-.stat-number {
-  display: block;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #2e7d32;
-  line-height: 1.2;
-  margin-bottom: 0.5rem;
-}
-
-.stat-label {
-  font-size: 0.9rem;
-  color: #666;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* Grid */
+/* Experience Cards Grid */
 .about-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
-  margin-bottom: 4rem;
+  position: relative;
+  z-index: 1;
 }
 
-/* Cards */
+/* Experience Cards - with semi-transparent background to show wood through */
 .about-card {
-  padding: 2rem 1.5rem;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
   border-radius: 20px;
-  background: white;
+  overflow: hidden;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
-  overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.03);
-  border: 1px solid #e8f0e0;
-}
-
-.about-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: var(--card-color); /* Solid color */
-  transition: height 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(139, 90, 43, 0.3);
 }
 
 .about-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(46, 125, 50, 0.1);
-  border-color: var(--card-color);
+  box-shadow: 0 20px 40px rgba(46, 125, 50, 0.2);
+  border-color: #2e7d32;
+  background: rgba(255, 255, 255, 0.95);
 }
 
-.about-card:hover::before {
-  height: 6px;
+.card-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
 }
 
-.card-icon-wrapper {
-  width: 70px;
-  height: 70px;
-  margin: 0 auto 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--card-color); /* Solid color */
-  border-radius: 50%;
-  transition: all 0.3s ease;
-  color: white;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
-.about-card:hover .card-icon-wrapper {
+.card-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.7));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.about-card:hover .card-image {
   transform: scale(1.1);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.card-icon {
-  width: 35px;
-  height: 35px;
-  stroke-width: 1.5;
+.about-card:hover .card-image-overlay {
+  opacity: 1;
+}
+
+.card-content {
+  padding: 1.5rem;
+  position: relative;
+  z-index: 1;
+  background: transparent; /* Changed to transparent so wood shows through */
 }
 
 .about-card h3 {
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   font-size: 1.2rem;
   color: #1f3d2b;
   font-weight: 600;
 }
 
 .about-card p {
-  font-size: 0.95rem;
-  color: #666;
+  font-size: 0.9rem;
+  color: #2c3e2c;
   line-height: 1.6;
+  font-weight: 500;
 }
 
-.card-hover-line {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
+/* Optional: Add a subtle wooden texture to card titles */
+.about-card h3::after {
+  content: '';
+  display: block;
+  width: 40px;
   height: 2px;
-  background: var(--card-color); /* Solid color */
-  transition: width 0.3s ease;
-}
-
-.about-card:hover .card-hover-line {
-  width: 50px;
+  background: #8b5a2b;
+  margin-top: 0.5rem;
+  opacity: 0.5;
 }
 
 /* CTA Section */
 .about-cta {
-  margin-top: 5rem;
+  margin-top: 3rem;
   padding: 3rem;
-  background: #1f3d2b; /* Solid dark green */
+  background: #1f3d2b;
   border-radius: 30px;
   color: white;
   border: 1px solid #2e7d32;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1), transparent 50%);
+  pointer-events: none;
 }
 
 .cta-text {
   font-size: 1.3rem;
   margin-bottom: 1.5rem;
   opacity: 0.95;
+  position: relative;
 }
 
 .cta-button {
@@ -340,6 +331,8 @@
   transition: all 0.3s ease;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   border: 1px solid #2e7d32;
+  position: relative;
+  z-index: 1;
 }
 
 .cta-button:hover {
@@ -357,14 +350,14 @@
   transform: translateX(5px);
 }
 
-/* Responsive */
+/* Responsive Design */
 @media (max-width: 992px) {
   .about-grid {
     grid-template-columns: repeat(2, 1fr);
   }
   
-  .about-stats {
-    grid-template-columns: repeat(2, 1fr);
+  .about-grid-wrapper {
+    padding: 2rem;
   }
 }
 
@@ -385,24 +378,15 @@
   .quote-mark {
     font-size: 2rem;
   }
+  
+  .about-grid-wrapper {
+    padding: 1.5rem;
+  }
 }
 
 @media (max-width: 600px) {
   .about-grid {
     grid-template-columns: 1fr;
-  }
-  
-  .about-stats {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  
-  .stat-item {
-    padding: 1rem;
-  }
-  
-  .stat-number {
-    font-size: 2rem;
   }
   
   .about-cta {
@@ -419,6 +403,10 @@
   
   .circle-1, .circle-2 {
     opacity: 0.5;
+  }
+  
+  .about-grid-wrapper {
+    padding: 1rem;
   }
 }
 

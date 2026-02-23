@@ -49,8 +49,7 @@ const Navbar = () => {
 
   const navLinks = [
     { href: "#about", label: "About", icon: FiInfo },
-    { href: "#packages", label: "Packages", icon: FiInfo },
-    { href: "#experiences", label: "Experiences", icon: FiStar },
+    { href: "/packages", label: "Packages", icon: FiStar },
     { href: "#testimonials", label: "Testimonials", icon: FiUsers },
     { href: "#location", label: "Location", icon: FiMapPin },
   ];
