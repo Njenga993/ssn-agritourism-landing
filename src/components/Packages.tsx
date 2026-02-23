@@ -1,3 +1,4 @@
+// Packages.tsx
 import { useEffect, useRef, useState } from "react";
 import "../styles/packages.css";
 
@@ -82,56 +83,56 @@ const Packages = () => {
     <section
       id="packages"
       ref={sectionRef}
-      className={`packages-section ${visible ? "show" : ""}`}
+      className={`journey-section ${visible ? "journey-section--visible" : ""}`}
     >
-      <div className="packages-container">
-        <div className="section-header">
-          <h2>Our Agritourism Packages</h2>
-          <p className="packages-intro">
+      <div className="journey-container">
+        <div className="journey-header">
+          <h2 className="journey-header__title">Our Agritourism Packages</h2>
+          <p className="journey-header__subtitle">
             Carefully designed experiences for individuals, institutions,
             and global changemakers seeking immersive agroecological learning.
           </p>
         </div>
 
-        <div className="packages-grid">
+        <div className="experience-grid">
           {packages.map((pkg) => (
-            <div key={pkg.id} className={`package-card ${pkg.featured ? 'featured' : ''}`}>
-              {pkg.featured && <div className="featured-badge">Popular</div>}
+            <div key={pkg.id} className={`experience-card ${pkg.featured ? 'experience-card--featured' : ''}`}>
+              {pkg.featured && <span className="experience-card__badge">Popular</span>}
               
-              <div className="card-image-wrapper">
+              <div className="experience-card__media">
                 <img 
                   src={pkg.image} 
                   alt={pkg.title}
-                  className="card-image"
+                  className="experience-card__image"
+                  loading="lazy"
                 />
-                <div className="card-image-overlay"></div>
               </div>
 
-              <div className="card-content">
-                <h3>{pkg.title}</h3>
-                <p className="card-description">{pkg.description}</p>
+              <div className="experience-card__content">
+                <h3 className="experience-card__title">{pkg.title}</h3>
+                <p className="experience-card__description">{pkg.description}</p>
                 
-                <div className="package-details">
-                  <div className="detail-item">
-                    <span className="detail-icon">📅</span>
-                    <span>{pkg.duration}</span>
+                <div className="experience-card__specs">
+                  <div className="spec-item">
+                    <span className="spec-item__icon" aria-hidden="true">📅</span>
+                    <span className="spec-item__text">{pkg.duration}</span>
                   </div>
-                  <div className="detail-item">
-                    <span className="detail-icon">📍</span>
-                    <span>{pkg.locations}</span>
+                  <div className="spec-item">
+                    <span className="spec-item__icon" aria-hidden="true">📍</span>
+                    <span className="spec-item__text">{pkg.locations}</span>
                   </div>
-                  <div className="detail-item">
-                    <span className="detail-icon">👥</span>
-                    <span>{pkg.groupSize}</span>
+                  <div className="spec-item">
+                    <span className="spec-item__icon" aria-hidden="true">👥</span>
+                    <span className="spec-item__text">{pkg.groupSize}</span>
                   </div>
                 </div>
 
-                <div className="experiences-list">
-                  <h4>What You'll Experience</h4>
-                  <ul>
+                <div className="experience-card__activities">
+                  <h4 className="activities-title">What You'll Experience</h4>
+                  <ul className="activities-list">
                     {pkg.experiences.map((exp, index) => (
-                      <li key={index}>
-                        <span className="experience-icon">✓</span>
+                      <li key={index} className="activities-list__item">
+                        <span className="activities-list__check" aria-hidden="true">✓</span>
                         {exp}
                       </li>
                     ))}
@@ -142,7 +143,7 @@ const Packages = () => {
                   href={pkg.formUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="package-btn"
+                  className="experience-card__button"
                 >
                   Book Now
                 </a>
@@ -151,10 +152,10 @@ const Packages = () => {
           ))}
         </div>
 
-        <div className="explore-more">
-          <a href="/packages" className="explore-btn">
+        <div className="journey-footer">
+          <a href="/packages" className="journey-footer__link">
             Explore All Packages
-            <span className="btn-arrow">→</span>
+            <span className="journey-footer__arrow" aria-hidden="true">→</span>
           </a>
         </div>
       </div>

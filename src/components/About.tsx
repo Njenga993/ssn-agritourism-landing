@@ -1,3 +1,4 @@
+// About.tsx
 import { useEffect, useRef, useState } from "react";
 import "../styles/about.css";
 
@@ -73,74 +74,102 @@ const About = () => {
     <section
       id="about"
       ref={sectionRef}
-      className={`about-section ${visible ? "show" : ""}`}
+      className={`heritage-section ${visible ? "heritage-section--visible" : ""}`}
     >
-      {/* Decorative background elements */}
-      <div className="about-bg-decoration">
-        <div className="decoration-circle "></div>
-        <div className="decoration-circle "></div>
-        <div className="decoration-leaf leaf-1"></div>
-        <div className="decoration-leaf leaf-2"></div>
+      {/* Decorative elements */}
+      <div className="heritage-section__pattern">
+        <div className="heritage-section__circle heritage-section__circle--1"></div>
+        <div className="heritage-section__circle heritage-section__circle--2"></div>
+        <div className="heritage-section__leaf heritage-section__leaf--1"></div>
+        <div className="heritage-section__leaf heritage-section__leaf--2"></div>
       </div>
 
-      <div className="about-container">
-        {/* Section header */}
-        <div className="section-header">
-          <span className="section-subtitle"></span>
-          <h2>
-            What is <span className="text-highlight">Agritourism?</span>
+      <div className="heritage-container">
+        {/* Header */}
+        <div className="heritage-header">
+          <span className="heritage-header__subtitle">Our Story</span>
+          <h2 className="heritage-header__title">
+            What is <span className="heritage-header__highlight">Agritourism?</span>
           </h2>
-          <div className="title-decoration">
-            <span className="line"></span>
-            <span className="diamond">✦</span>
-            <span className="line"></span>
+          <div className="heritage-header__divider">
+            <span className="heritage-header__line"></span>
+            <span className="heritage-header__icon">✦</span>
+            <span className="heritage-header__line"></span>
           </div>
         </div>
 
-        <p className="about-intro">
-          <span className="quote-mark">"</span>
-          Agritourism at Seed Savers Network Kenya is a form of responsible
-          travel that immerses visitors in agroecological farming,
-          indigenous food systems, cultural exchange, and rural
-          livelihoods — while strengthening seed sovereignty and
-          community resilience.
-          <span className="quote-mark closing">"</span>
-        </p>
+        {/* Traditional Left Image - Right Text Layout */}
+        <div className="heritage-story">
+          <div className="heritage-story__image-wrapper">
+            <img 
+              src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&q=80" 
+              alt="Farming landscape with community members"
+              className="heritage-story__image"
+              loading="lazy"
+            />
+            <div className="heritage-story__image-border"></div>
+            <div className="heritage-story__image-accent"></div>
+          </div>
+          
+          <div className="heritage-story__content">
+            <div className="heritage-story__quote-mark" aria-hidden="true">"</div>
+            <p className="heritage-story__text">
+              Agritourism at Seed Savers Network Kenya is a form of responsible
+              travel that immerses visitors in agroecological farming,
+              indigenous food systems, cultural exchange, and rural
+              livelihoods — while strengthening seed sovereignty and
+              community resilience.
+            </p>
+          </div>
+        </div>
 
-        {/* Experience Cards Grid with Wooden Background */}
-        <div className="about-grid-wrapper">
-          <div className="about-grid">
+        {/* Cards Section with Wooden Background */}
+        <div className="heritage-cards-wrapper">
+          <div className="heritage-cards__wooden-bg">
+            <div className="heritage-cards__wooden-overlay"></div>
+          </div>
+          
+          <div className="heritage-cards__header">
+            <h3 className="heritage-cards__title">Experiences That Await You</h3>
+            <p className="heritage-cards__subtitle">Eight unique pathways to connect with the land</p>
+          </div>
+
+          <div className="heritage-cards__grid">
             {experienceCards.map((card, index) => (
               <div 
                 key={index} 
-                className="about-card"
+                className="heritage-card"
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="card-image-wrapper">
+                <div className="heritage-card__image-wrapper">
                   <img 
                     src={card.imageUrl} 
                     alt={card.title}
-                    className="card-image"
+                    className="heritage-card__image"
+                    loading="lazy"
                   />
-                  <div className="card-image-overlay"></div>
+                  <div className="heritage-card__image-overlay"></div>
                 </div>
-                <div className="card-content">
-                  <h3>{card.title}</h3>
-                  <p>{card.description}</p>
+                <div className="heritage-card__content">
+                  <h4 className="heritage-card__title">{card.title}</h4>
+                  <p className="heritage-card__description">{card.description}</p>
+                  <span className="heritage-card__number">{index + 1}</span>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Call to action */}
-        <div className="about-cta">
-          <p className="cta-text">
-            Ready to experience agroecology firsthand?
-          </p>
-          <a href="#packages" className="cta-button">
-            Explore Our Programs
-            <span className="button-arrow">→</span>
-          </a>
+        {/* Call to Action */}
+        <div className="heritage-cta">
+          <div className="heritage-cta__content">
+            <h3 className="heritage-cta__title">Begin Your Journey</h3>
+            <p className="heritage-cta__text">Ready to experience agroecology firsthand?</p>
+            <a href="#packages" className="heritage-cta__button">
+              <span>Explore Programs</span>
+              <span className="heritage-cta__arrow">→</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>

@@ -4,6 +4,7 @@ import PackagesPage from "./pages/PackagesPage"; // Import the new page
 import Navbar from "./components/navbar";
 import Footer from "./components/Footer";
 import MediaAndStoriesPage from "./pages/MediaAndStoriesPage";
+import ContactPage from "./pages/ContactPage";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/packages" element={<PackagesPage />} />
         <Route path="/gallery" element={<MediaAndStoriesPage />} />
         <Route path="/testimonials" element={<MediaAndStoriesPage />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
       {/* Footer is also outside of Routes so it appears on all pages */}
       <Footer />

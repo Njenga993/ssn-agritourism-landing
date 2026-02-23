@@ -1,11 +1,11 @@
+// PackagesPage.tsx
 import React, { useState } from 'react';
 import '../styles/packages-page.css';
 
-// Define the structure for our package data
 interface Package {
   id: number;
   title: string;
-  category: string; // 'individual', 'institution', 'specialized'
+  category: string;
   heroImage: string;
   shortDescription: string;
   duration: string;
@@ -22,8 +22,6 @@ interface Package {
   formUrl: string;
 }
 
-// --- DATA ---
-// This data is extracted from your documents. I've made it detailed and structured.
 const packagesData: Package[] = [
   {
     id: 1,
@@ -81,26 +79,7 @@ const packagesData: Package[] = [
     ],
     includes: ["Accommodation", "All Meals & Tastings", "Transport", "Cultural Guide", "Cooking Classes"],
     formUrl: "https://forms.gle/your-cultural-form"
-  },
-  /*{
-    id: 4,
-    title: "Family Eco-Adventure",
-    category: 'specialized',
-    heroImage: "https://images.unsplash.com/photo-1589391886645-d51941baf7fb?w=800&q=80",
-    shortDescription: "A fun, educational, and hands-on experience designed for families to connect with nature and each other.",
-    duration: "4-6 Days",
-    location: "Family-Friendly Farm Campus",
-    groupSize: "3-8 People",
-    price: "$1,800 - $3,200",
-    itinerary: [
-      { day: 1, title: "Animal Farm Introduction", description: "Meet our friendly farm animals and learn about their role in the ecosystem.", image: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&q=80" },
-      { day: 2, title: "Bug Hunting & Nature Walk", description: "A guided safari to discover the incredible world of insects and plants on the farm.", image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=80" },
-      { day: 3, title: "Planting a Family Tree", description: "Plant a tree together as a family and learn about its importance for the future.", image: "https://images.unsplash.com/photo-1530838936378-85ac52224f94?w=600&q=80" },
-      { day: 4, title: "Pizza Party!", description: "Make your own pizza in our wood-fired oven using ingredients you harvested yourself.", image: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=600&q=80" },
-    ],
-    includes: ["Family Accommodation", "All Meals", "Kid-Friendly Activities", "Supervision", "Materials"],
-    formUrl: "https://forms.gle/your-family-form"
-  }*/
+  }
 ];
 
 const PackagesPage: React.FC = () => {
@@ -116,82 +95,153 @@ const PackagesPage: React.FC = () => {
     : packagesData.filter(pkg => pkg.category === activeFilter);
 
   return (
-    <div className="packages-page">
+    <div className="journey-portal">
       {/* Hero Section */}
-      <header className="hero-section">
-        <div className="hero-content">
-          <h1>Discover Your Agritourism Adventure</h1>
-          <p>Immerse yourself in the heart of Kenya's vibrant food systems. From hands-on farming to cultural exchanges, find the experience that's perfect for you.</p>
-          <a href="#packages-grid" className="hero-cta">Explore Packages</a>
+      <header className="journey-portal__hero">
+        <div className="journey-portal__hero-overlay"></div>
+        <div className="journey-portal__hero-content">
+          <h1 className="journey-portal__hero-title">
+            Discover Your <span className="journey-portal__hero-highlight">Agritourism</span> Adventure
+          </h1>
+          <p className="journey-portal__hero-subtitle">
+            Immerse yourself in the heart of Kenya's vibrant food systems. From hands-on farming to cultural exchanges, find the experience that's perfect for you.
+          </p>
+          <a href="#packages-grid" className="journey-portal__hero-button">
+            Explore Packages
+          </a>
         </div>
+        <div className="journey-portal__hero-pattern"></div>
       </header>
 
       {/* Main Content */}
-      <main>
+      <main className="journey-portal__main">
         {/* Filter Section */}
-        <section className="filter-section">
-          <div className="filter-buttons">
-            <button className={activeFilter === 'all' ? 'active' : ''} onClick={() => setActiveFilter('all')}>All Experiences</button>
-            <button className={activeFilter === 'individual' ? 'active' : ''} onClick={() => setActiveFilter('individual')}>For Individuals</button>
-            <button className={activeFilter === 'institution' ? 'active' : ''} onClick={() => setActiveFilter('institution')}>For Institutions</button>
-            <button className={activeFilter === 'specialized' ? 'active' : ''} onClick={() => setActiveFilter('specialized')}>Special Tours</button>
+        <section className="journey-portal__filter">
+          <div className="journey-portal__filter-container">
+            <div className="journey-portal__filter-buttons">
+              <button 
+                className={`journey-portal__filter-button ${activeFilter === 'all' ? 'journey-portal__filter-button--active' : ''}`}
+                onClick={() => setActiveFilter('all')}
+              >
+                All Experiences
+              </button>
+              <button 
+                className={`journey-portal__filter-button ${activeFilter === 'individual' ? 'journey-portal__filter-button--active' : ''}`}
+                onClick={() => setActiveFilter('individual')}
+              >
+                For Individuals
+              </button>
+              <button 
+                className={`journey-portal__filter-button ${activeFilter === 'institution' ? 'journey-portal__filter-button--active' : ''}`}
+                onClick={() => setActiveFilter('institution')}
+              >
+                For Institutions
+              </button>
+              <button 
+                className={`journey-portal__filter-button ${activeFilter === 'specialized' ? 'journey-portal__filter-button--active' : ''}`}
+                onClick={() => setActiveFilter('specialized')}
+              >
+                Special Tours
+              </button>
+            </div>
           </div>
         </section>
 
         {/* Packages Grid */}
-        <section id="packages-grid" className="packages-grid-section">
-          <div className="packages-grid">
+        <section id="packages-grid" className="journey-portal__grid-section">
+          <div className="journey-portal__grid">
             {filteredPackages.map((pkg) => (
-              <article key={pkg.id} className={`package-card ${expandedId === pkg.id ? 'expanded' : ''}`}>
-                <div className="card-header" onClick={() => handleToggleExpand(pkg.id)}>
-                  <img src={pkg.heroImage} alt={pkg.title} className="card-hero-image" />
-                  <div className="card-title-overlay">
-                    <h3>{pkg.title}</h3>
+              <article 
+                key={pkg.id} 
+                className={`journey-card ${expandedId === pkg.id ? 'journey-card--expanded' : ''}`}
+              >
+                <div className="journey-card__header" onClick={() => handleToggleExpand(pkg.id)}>
+                  <img 
+                    src={pkg.heroImage} 
+                    alt={pkg.title} 
+                    className="journey-card__image"
+                    loading="lazy"
+                  />
+                  <div className="journey-card__overlay">
+                    <h3 className="journey-card__title">{pkg.title}</h3>
                   </div>
                 </div>
                 
-                <div className="card-body">
-                  <p className="card-short-desc">{pkg.shortDescription}</p>
+                <div className="journey-card__body">
+                  <p className="journey-card__description">{pkg.shortDescription}</p>
                   
-                  <div className="card-details">
-                    <span className="detail">📅 {pkg.duration}</span>
-                    <span className="detail">📍 {pkg.location}</span>
-                    <span className="detail">👥 {pkg.groupSize}</span>
-                    <span className="detail price">{pkg.price}</span>
+                  <div className="journey-card__details">
+                    <div className="journey-card__detail">
+                      <span className="journey-card__detail-icon">📅</span>
+                      <span className="journey-card__detail-text">{pkg.duration}</span>
+                    </div>
+                    <div className="journey-card__detail">
+                      <span className="journey-card__detail-icon">📍</span>
+                      <span className="journey-card__detail-text">{pkg.location}</span>
+                    </div>
+                    <div className="journey-card__detail">
+                      <span className="journey-card__detail-icon">👥</span>
+                      <span className="journey-card__detail-text">{pkg.groupSize}</span>
+                    </div>
+                    <div className="journey-card__detail journey-card__detail--price">
+                      <span className="journey-card__price">{pkg.price}</span>
+                    </div>
                   </div>
 
-                  <button className="learn-more-btn" onClick={() => handleToggleExpand(pkg.id)}>
+                  <button 
+                    className="journey-card__expand-button"
+                    onClick={() => handleToggleExpand(pkg.id)}
+                  >
                     {expandedId === pkg.id ? 'Show Less' : 'View Full Itinerary'}
+                    <span className={`journey-card__expand-icon ${expandedId === pkg.id ? 'journey-card__expand-icon--rotated' : ''}`}>▼</span>
                   </button>
                 </div>
 
                 {/* Expanded Content */}
-                <div className="expanded-content">
-                  <div className="itinerary">
-                    <h4>Sample Itinerary</h4>
-                    {pkg.itinerary.map((item) => (
-                      <div key={item.day} className="itinerary-item">
-                        <img src={item.image} alt={item.title} />
-                        <div className="itinerary-text">
-                          <h5>Day {item.day}: {item.title}</h5>
-                          <p>{item.description}</p>
+                <div className="journey-card__expanded">
+                  <div className="journey-card__expanded-inner">
+                    <div className="journey-card__itinerary">
+                      <h4 className="journey-card__section-title">Sample Itinerary</h4>
+                      {pkg.itinerary.map((item) => (
+                        <div key={item.day} className="journey-card__itinerary-item">
+                          <div className="journey-card__itinerary-image-wrapper">
+                            <img 
+                              src={item.image} 
+                              alt={item.title} 
+                              className="journey-card__itinerary-image"
+                              loading="lazy"
+                            />
+                          </div>
+                          <div className="journey-card__itinerary-content">
+                            <h5 className="journey-card__itinerary-day">Day {item.day}</h5>
+                            <h6 className="journey-card__itinerary-title">{item.title}</h6>
+                            <p className="journey-card__itinerary-description">{item.description}</p>
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="includes">
-                    <h4>What's Included</h4>
-                    <ul>
-                      {pkg.includes.map((item, index) => (
-                        <li key={index}>✓ {item}</li>
                       ))}
-                    </ul>
+                    </div>
+
+                    <div className="journey-card__includes">
+                      <h4 className="journey-card__section-title">What's Included</h4>
+                      <ul className="journey-card__includes-list">
+                        {pkg.includes.map((item, index) => (
+                          <li key={index} className="journey-card__includes-item">
+                            <span className="journey-card__includes-check">✓</span>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    <a 
+                      href={pkg.formUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="journey-card__book-button"
+                    >
+                      Book This Experience
+                    </a>
                   </div>
-                  
-                  <a href={pkg.formUrl} target="_blank" rel="noopener noreferrer" className="book-now-btn">
-                    Book This Experience
-                  </a>
                 </div>
               </article>
             ))}
@@ -199,41 +249,81 @@ const PackagesPage: React.FC = () => {
         </section>
 
         {/* What to Expect Section */}
-        <section className="what-to-expect">
-          <h2>What To Expect On Your Journey</h2>
-          <div className="expect-grid">
-            <div className="expect-item">
-              <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80" alt="Accommodation" />
-              <div className="expect-content">
-                <span className="expect-icon">🏡</span>
-                <h3>Comfortable Stays</h3>
-                <p>Rest in authentic, eco-friendly lodges and homestays that reflect local culture and commitment to sustainability.</p>
+        <section className="journey-expectations">
+          <div className="journey-expectations__container">
+            <h2 className="journey-expectations__title">What To Expect On Your Journey</h2>
+            <div className="journey-expectations__grid">
+              <div className="journey-expectations__card">
+                <div className="journey-expectations__image-wrapper">
+                  <img 
+                    src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80" 
+                    alt="Comfortable accommodation" 
+                    className="journey-expectations__image"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="journey-expectations__content">
+                  <span className="journey-expectations__icon">🏡</span>
+                  <h3 className="journey-expectations__card-title">Comfortable Stays</h3>
+                  <p className="journey-expectations__text">
+                    Rest in authentic, eco-friendly lodges and homestays that reflect local culture and commitment to sustainability.
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="expect-item">
-              <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" alt="Cuisine" />
-              <div className="expect-content">
-                <span className="expect-icon">🍲</span>
-                <h3>Authentic Cuisine</h3>
-                <p>Savor farm-to-table meals prepared with fresh, organic ingredients. Participate in cooking classes and learn traditional recipes.</p>
+
+              <div className="journey-expectations__card">
+                <div className="journey-expectations__image-wrapper">
+                  <img 
+                    src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" 
+                    alt="Authentic cuisine" 
+                    className="journey-expectations__image"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="journey-expectations__content">
+                  <span className="journey-expectations__icon">🍲</span>
+                  <h3 className="journey-expectations__card-title">Authentic Cuisine</h3>
+                  <p className="journey-expectations__text">
+                    Savor farm-to-table meals prepared with fresh, organic ingredients. Participate in cooking classes and learn traditional recipes.
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="expect-item">
-              <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&q=80" alt="Community" />
-              <div className="expect-content">
-                <span className="expect-icon">🤝</span>
-                <h3>Real Connections</h3>
-                <p>Engage deeply with local communities, farmers, and experts. It's not just a trip; it's a meaningful exchange.</p>
+
+              <div className="journey-expectations__card">
+                <div className="journey-expectations__image-wrapper">
+                  <img 
+                    src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&q=80" 
+                    alt="Community connections" 
+                    className="journey-expectations__image"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="journey-expectations__content">
+                  <span className="journey-expectations__icon">🤝</span>
+                  <h3 className="journey-expectations__card-title">Real Connections</h3>
+                  <p className="journey-expectations__text">
+                    Engage deeply with local communities, farmers, and experts. It's not just a trip; it's a meaningful exchange.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* Final CTA Section */}
-        <section className="final-cta">
-          <h2>Ready to Start Your Journey?</h2>
-          <p>Have questions or want to customize a package? We're here to help create your perfect agritourism experience.</p>
-          <a href="mailto:info@seedsaverskenya.org?subject=Package Inquiry" className="cta-button">Get In Touch</a>
+        <section className="journey-cta">
+          <div className="journey-cta__container">
+            <h2 className="journey-cta__title">Ready to Start Your Journey?</h2>
+            <p className="journey-cta__text">
+              Have questions or want to customize a package? We're here to help create your perfect agritourism experience.
+            </p>
+            <a 
+              href="mailto:info@seedsaverskenya.org?subject=Package Inquiry" 
+              className="journey-cta__button"
+            >
+              Get In Touch
+            </a>
+          </div>
         </section>
       </main>
     </div>
