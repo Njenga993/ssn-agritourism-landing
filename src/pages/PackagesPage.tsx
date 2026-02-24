@@ -1,6 +1,11 @@
-// PackagesPage.tsx
 import React, { useState } from 'react';
 import '../styles/packages-page.css';
+
+interface Experience {
+  title: string;
+  description: string;
+  image: string;
+}
 
 interface Package {
   id: number;
@@ -12,73 +17,191 @@ interface Package {
   location: string;
   groupSize: string;
   price: string;
-  itinerary: {
-    day: number;
-    title: string;
-    description: string;
-    image: string;
-  }[];
+  priceNote?: string;
+  experiences: Experience[];
   includes: string[];
+  excludes?: string[];
   formUrl: string;
+  keyFeatures?: string[];
+  targetAudience?: string[];
 }
 
 const packagesData: Package[] = [
   {
     id: 1,
-    title: "Global Agroecology Fellowship",
+    title: "Global Fellowship Package",
     category: 'individual',
     heroImage: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=800&q=80",
-    shortDescription: "Its a learning program designed for international students, researchers, and professionals, as well as individuals interested in sustainable farming systems in East Africa.",
-    duration: "1 month - 12 months",
-    location: "Multiple Sites in Kenya",
-    groupSize: " People",
-    price: "Contact for Pricing",
-    itinerary: [
-      { day: 1, title: "Arrival & Orientation", description: "Settle into our main campus. Meet the team and get an overview of Kenyan agroecology.", image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80" },
-      { day: 5, title: "Seed Bank Immersion", description: "Hands-on experience at our community seed bank. Learn conservation, multiplication, and distribution.", image: "https://images.unsplash.com/photo-1583748159012-ae53b9a0c35d?w=600&q=80" },
-      { day: 15, title: "Community Farm Stay", description: "Live and work with a local farming community. Participate in daily activities and cultural exchanges.", image: "https://images.unsplash.com/photo-1592982537327-a6d3680b8a8a?w=600&q=80" },
-      { day: 30, title: "Capstone Project", description: "Design and implement a project that addresses a real-world challenge faced by our partner communities.", image: "https://images.unsplash.com/photo-1625728683244-3d822d40a5c2?w=600&q=80" },
+    shortDescription: "An immersive agritourism and learning program designed for international students, researchers, and professionals interested in sustainable farming systems, agroecology, and community-led sustainability in East Africa.",
+    duration: "Minimum 2 weeks (longer stays possible)",
+    location: "Nakuru County (near Gilgil and Lake Elementaita)",
+    groupSize: "Individual",
+    price: "From USD 433",
+    priceNote: "2 weeks: USD 433 | 3 weeks: EUR 548 | Additional week: EUR 161",
+    experiences: [
+      { 
+        title: "Hands-On Farming", 
+        description: "Participate in daily farming activities including planting, weeding, harvesting, milking, and animal care alongside small-scale farmers.",
+        image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80" 
+      },
+      { 
+        title: "Indigenous Seed Practices", 
+        description: "Learn seed selection, cleaning, drying, storage, and community seed banking. Understand agrobiodiversity and seed sovereignty.",
+        image: "https://images.unsplash.com/photo-1583748159012-ae53b9a0c35d?w=600&q=80" 
+      },
+      { 
+        title: "Community Engagement", 
+        description: "Participate in knowledge-sharing sessions with farmer groups and contribute to community-based initiatives.",
+        image: "https://images.unsplash.com/photo-1592982537327-a6d3680b8a8a?w=600&q=80" 
+      },
+      { 
+        title: "Agroecology Learning", 
+        description: "Gain exposure to climate-resilient farming methods and sustainable agricultural practices.",
+        image: "https://images.unsplash.com/photo-1625728683244-3d822d40a5c2?w=600&q=80" 
+      }
     ],
-    includes: ["Accommodation", "All Meals", "Local Transport", "Training Materials", "Mentorship"],
-    formUrl: "https://forms.gle/your-fellowship-form"
+    includes: [
+      "Pre-Departure Support",
+      "Airport Pickup",
+      "Project Orientation",
+      "Accommodation (SSN centre or host family)",
+      "3 Meals Daily",
+      "In-Country Support"
+    ],
+    excludes: [
+      "Flights",
+      "Visas",
+      "Insurance",
+      "Vaccination",
+      "Personal Expenses"
+    ],
+    formUrl: "https://forms.gle/your-fellowship-form",
+    keyFeatures: [
+      "Live and work alongside farmers",
+      "Monday-Friday, 5-8 hours daily",
+      "Free weekends for rest/travel",
+      "18 years and above",
+      "Year-round availability"
+    ],
+    targetAudience: [
+      "Agriculture and agroecology students",
+      "Food systems researchers",
+      "Development studies professionals",
+      "Sustainability practitioners",
+      "Seed systems and biodiversity enthusiasts"
+    ]
   },
   {
     id: 2,
-    title: "Institutional Learning Exchange",
+    title: "Conference & Learning Exchange",
     category: 'institution',
     heroImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
-    shortDescription: "Tailored conferences, workshops, and field visits for universities, NGOs, and corporate groups.",
-    duration: "3-7 Days",
-    location: "Main Campus & Partner Farms",
-    groupSize: "10-50 People",
+    shortDescription: "Short-duration, high-impact agritourism learning experiences for schools, universities, conferences, and professional delegations. Hosted at the SSN Agroecology Learning Centre.",
+    duration: "2-4 hours",
+    location: "SSN Agroecology Learning Centre, Nakuru County",
+    groupSize: "Flexible (pricing varies by group size)",
     price: "Custom Quote",
-    itinerary: [
-      { day: 1, title: "Welcome & Keynote", description: "Introduction to our work with a keynote on the future of food systems in Africa.", image: "https://images.unsplash.com/photo-1511578314322-379308476870?w=600&q=80" },
-      { day: 2, title: "Thematic Workshops", description: "Deep-dive sessions on topics like 'Permaculture Design' or 'Indigenous Food Systems'.", image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&q=80" },
-      { day: 3, title: "Field Immersion", description: "Visits to our most successful partner farms. See theory put into practice.", image: "https://images.unsplash.com/photo-1600857062241-98e5dba7f214?w=600&q=80" },
-      { day: 4, title: "Networking & Action Planning", description: "Collaborative session to develop actionable plans for your organization.", image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=600&q=80" },
+    experiences: [
+      { 
+        title: "For School Groups", 
+        description: "Age-appropriate demonstrations on basic agriculture, food systems, seed saving, biodiversity awareness, and environmental stewardship.",
+        image: "https://images.unsplash.com/photo-1511578314322-379308476870?w=600&q=80" 
+      },
+      { 
+        title: "For University Students & Researchers", 
+        description: "Technical learning on food forest design, community seed banking, nurseries, seed characterization, composting, soil health, and agrobiodiversity conservation.",
+        image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&q=80" 
+      },
+      { 
+        title: "For Professional Delegations", 
+        description: "Tailored sessions for academic conferences, CSO meetings, policy exchanges, and study tours with practical demonstrations and dialogue.",
+        image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=600&q=80" 
+      },
+      { 
+        title: "Practical Demonstrations", 
+        description: "Interactive learning experiences focused on real agricultural systems, seed conservation, and community-led solutions.",
+        image: "https://images.unsplash.com/photo-1600857062241-98e5dba7f214?w=600&q=80" 
+      }
     ],
-    includes: ["Conference Facilities", "Catering", "Accommodation", "Transport", "Expert Facilitators"],
-    formUrl: "https://forms.gle/your-institutional-form"
+    includes: [
+      "Structured learning environment",
+      "Direct interaction with practitioners",
+      "Practical demonstrations",
+      "Knowledge exchange sessions",
+      "Flexible programming"
+    ],
+    formUrl: "https://forms.gle/your-institutional-form",
+    keyFeatures: [
+      "15+ years of grassroots experience",
+      "National institution trusted by farmers and researchers",
+      "Safe and credible learning destination",
+      "Tailored to age and academic level",
+      "Meals and refreshments available on request"
+    ],
+    targetAudience: [
+      "Primary and secondary schools",
+      "University students and researchers",
+      "Conference delegations",
+      "CSO and donor meetings",
+      "Study tours"
+    ]
   },
   {
     id: 3,
-    title: "Solo / Group Experience",
+    title: "Solo & Small-Group Agritourism",
     category: 'specialized',
     heroImage: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
-    shortDescription: "A fully customized, short-stay agritourism experience designed for individual travelers, couples, families, friends, and small learning groups seeking authentic, hands-on exposure to sustainable farming, seed systems, food culture, and rural life in Kenya.",
-    duration: "5-10 Days",
-    location: "Rift Valley & Western Kenya",
-    groupSize: "6-12 People",
-    price: "Contact for Pricing",
-    itinerary: [
-      { day: 1, title: "Nairobi Food Scene", description: "Explore urban markets and restaurants championing local ingredients.", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80" },
-      { day: 3, title: "Farm-to-Table Experience", description: "Harvest ingredients with a farmer and learn to cook a traditional meal under their guidance.", image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" },
-      { day: 5, title: "Indigenous Seed Workshop", description: "Learn about the connection between heritage seeds, nutrition, and cultural identity.", image: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=600&q=80" },
-      { day: 7, title: "Community Feast", description: "Participate in a traditional community celebration, a vibrant showcase of music, dance, and food.", image: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=600&q=80" },
+    shortDescription: "A fully customized, short-stay agritourism experience for individual travelers, couples, families, and small groups seeking authentic, hands-on exposure to sustainable farming, seed systems, food culture, and rural life in Kenya.",
+    duration: "Half-day, full-day, or multi-day stays",
+    location: "Nakuru County (near Gilgil and Lake Elementaita)",
+    groupSize: "1-12 People",
+    price: "70-100 USD per day/person",
+    priceNote: "Example price includes accommodation, full board, transport, and activities. Final pricing tailored to your needs.",
+    experiences: [
+      { 
+        title: "Farming & Agroecology", 
+        description: "Hands-on participation in daily farm activities: planting, weeding, harvesting, and livestock care. Learn about soil health, composting, and natural pest management.",
+        image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80" 
+      },
+      { 
+        title: "Indigenous Seed & Biodiversity", 
+        description: "Experience seed selection, cleaning, drying, and storage. Visit community seed banks and learn about agrobiodiversity and seed sovereignty.",
+        image: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=600&q=80" 
+      },
+      { 
+        title: "Food & Cultural Experiences", 
+        description: "Prepare and share traditional meals using locally grown produce. Enjoy food tasting sessions and cultural exchange with host farmers.",
+        image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" 
+      },
+      { 
+        title: "Nature & Landscape", 
+        description: "Guided walks within and around the SSN landscape. Optional excursions to nearby ecological and cultural sites by arrangement.",
+        image: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=600&q=80" 
+      }
     ],
-    includes: ["Accommodation", "All Meals & Tastings", "Transport", "Cultural Guide", "Cooking Classes"],
-    formUrl: "https://forms.gle/your-cultural-form"
+    includes: [
+      "Accommodation (SSN centre or host family)",
+      "Full board meals",
+      "Transport",
+      "Hands-on activities",
+      "Cultural exchange",
+      "Flexible scheduling"
+    ],
+    formUrl: "https://forms.gle/your-cultural-form",
+    keyFeatures: [
+      "Authentic, non-commercial experiences",
+      "Direct learning from farmers",
+      "Flexible and ethical engagement",
+      "Supports grassroots agroecology",
+      "Can be learning-focused, relaxed retreat, or mixed program"
+    ],
+    targetAudience: [
+      "Solo travelers and slow-travel enthusiasts",
+      "Couples and families",
+      "Small groups of friends or clubs",
+      "Researchers, writers, photographers",
+      "Diaspora visitors reconnecting with heritage"
+    ]
   }
 ];
 
@@ -141,7 +264,7 @@ const PackagesPage: React.FC = () => {
                 className={`journey-portal__filter-button ${activeFilter === 'specialized' ? 'journey-portal__filter-button--active' : ''}`}
                 onClick={() => setActiveFilter('specialized')}
               >
-                Special Tours
+                Small Groups
               </button>
             </div>
           </div>
@@ -187,12 +310,15 @@ const PackagesPage: React.FC = () => {
                       <span className="journey-card__price">{pkg.price}</span>
                     </div>
                   </div>
+                  {pkg.priceNote && (
+                    <p className="journey-card__price-note">{pkg.priceNote}</p>
+                  )}
 
                   <button 
                     className="journey-card__expand-button"
                     onClick={() => handleToggleExpand(pkg.id)}
                   >
-                    {expandedId === pkg.id ? 'Show Less' : 'View Full Itinerary'}
+                    {expandedId === pkg.id ? 'Show Less' : 'View Experiences'}
                     <span className={`journey-card__expand-icon ${expandedId === pkg.id ? 'journey-card__expand-icon--rotated' : ''}`}>▼</span>
                   </button>
                 </div>
@@ -200,27 +326,58 @@ const PackagesPage: React.FC = () => {
                 {/* Expanded Content */}
                 <div className="journey-card__expanded">
                   <div className="journey-card__expanded-inner">
-                    <div className="journey-card__itinerary">
-                      <h4 className="journey-card__section-title">Sample Itinerary</h4>
-                      {pkg.itinerary.map((item) => (
-                        <div key={item.day} className="journey-card__itinerary-item">
-                          <div className="journey-card__itinerary-image-wrapper">
+                    {/* Key Features */}
+                    {pkg.keyFeatures && (
+                      <div className="journey-card__key-features">
+                        <h4 className="journey-card__section-title">Key Features</h4>
+                        <ul className="journey-card__features-list">
+                          {pkg.keyFeatures.map((feature, index) => (
+                            <li key={index} className="journey-card__features-item">
+                              <span className="journey-card__features-bullet">•</span>
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Target Audience */}
+                    {pkg.targetAudience && (
+                      <div className="journey-card__target-audience">
+                        <h4 className="journey-card__section-title">Perfect For</h4>
+                        <ul className="journey-card__audience-list">
+                          {pkg.targetAudience.map((audience, index) => (
+                            <li key={index} className="journey-card__audience-item">
+                              <span className="journey-card__audience-bullet">✓</span>
+                              {audience}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Experiences/Activities */}
+                    <div className="journey-card__experiences">
+                      <h4 className="journey-card__section-title">Experiences & Activities</h4>
+                      {pkg.experiences.map((exp, index) => (
+                        <div key={index} className="journey-card__experience-item">
+                          <div className="journey-card__experience-image-wrapper">
                             <img 
-                              src={item.image} 
-                              alt={item.title} 
-                              className="journey-card__itinerary-image"
+                              src={exp.image} 
+                              alt={exp.title} 
+                              className="journey-card__experience-image"
                               loading="lazy"
                             />
                           </div>
-                          <div className="journey-card__itinerary-content">
-                            <h5 className="journey-card__itinerary-day">Day {item.day}</h5>
-                            <h6 className="journey-card__itinerary-title">{item.title}</h6>
-                            <p className="journey-card__itinerary-description">{item.description}</p>
+                          <div className="journey-card__experience-content">
+                            <h5 className="journey-card__experience-title">{exp.title}</h5>
+                            <p className="journey-card__experience-description">{exp.description}</p>
                           </div>
                         </div>
                       ))}
                     </div>
 
+                    {/* What's Included */}
                     <div className="journey-card__includes">
                       <h4 className="journey-card__section-title">What's Included</h4>
                       <ul className="journey-card__includes-list">
@@ -232,6 +389,21 @@ const PackagesPage: React.FC = () => {
                         ))}
                       </ul>
                     </div>
+
+                    {/* What's Excluded (if applicable) */}
+                    {pkg.excludes && (
+                      <div className="journey-card__excludes">
+                        <h4 className="journey-card__section-title">What's Excluded</h4>
+                        <ul className="journey-card__excludes-list">
+                          {pkg.excludes.map((item, index) => (
+                            <li key={index} className="journey-card__excludes-item">
+                              <span className="journey-card__excludes-bullet">✗</span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                     
                     <a 
                       href={pkg.formUrl} 
@@ -239,7 +411,7 @@ const PackagesPage: React.FC = () => {
                       rel="noopener noreferrer" 
                       className="journey-card__book-button"
                     >
-                      Book This Experience
+                      Inquire About This Package
                     </a>
                   </div>
                 </div>
@@ -251,22 +423,22 @@ const PackagesPage: React.FC = () => {
         {/* What to Expect Section */}
         <section className="journey-expectations">
           <div className="journey-expectations__container">
-            <h2 className="journey-expectations__title">What To Expect On Your Journey</h2>
+            <h2 className="journey-expectations__title">Why Choose Seed Savers Network</h2>
             <div className="journey-expectations__grid">
               <div className="journey-expectations__card">
                 <div className="journey-expectations__image-wrapper">
                   <img 
                     src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80" 
-                    alt="Comfortable accommodation" 
+                    alt="Authentic farm stays" 
                     className="journey-expectations__image"
                     loading="lazy"
                   />
                 </div>
                 <div className="journey-expectations__content">
-                  <span className="journey-expectations__icon">🏡</span>
-                  <h3 className="journey-expectations__card-title">Comfortable Stays</h3>
+                  <span className="journey-expectations__icon">🌱</span>
+                  <h3 className="journey-expectations__card-title">Authentic Experiences</h3>
                   <p className="journey-expectations__text">
-                    Rest in authentic, eco-friendly lodges and homestays that reflect local culture and commitment to sustainability.
+                    Non-commercial, community-led experiences with direct learning from farmers and practitioners. Support grassroots agroecology and seed conservation.
                   </p>
                 </div>
               </div>
@@ -275,16 +447,16 @@ const PackagesPage: React.FC = () => {
                 <div className="journey-expectations__image-wrapper">
                   <img 
                     src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" 
-                    alt="Authentic cuisine" 
+                    alt="Traditional cuisine" 
                     className="journey-expectations__image"
                     loading="lazy"
                   />
                 </div>
                 <div className="journey-expectations__content">
-                  <span className="journey-expectations__icon">🍲</span>
-                  <h3 className="journey-expectations__card-title">Authentic Cuisine</h3>
+                  <span className="journey-expectations__icon">🌽</span>
+                  <h3 className="journey-expectations__card-title">Food & Culture</h3>
                   <p className="journey-expectations__text">
-                    Savor farm-to-table meals prepared with fresh, organic ingredients. Participate in cooking classes and learn traditional recipes.
+                    Prepare and share traditional meals using locally grown produce. Experience indigenous recipes and genuine cultural exchange with host communities.
                   </p>
                 </div>
               </div>
@@ -300,9 +472,9 @@ const PackagesPage: React.FC = () => {
                 </div>
                 <div className="journey-expectations__content">
                   <span className="journey-expectations__icon">🤝</span>
-                  <h3 className="journey-expectations__card-title">Real Connections</h3>
+                  <h3 className="journey-expectations__card-title">15+ Years of Trust</h3>
                   <p className="journey-expectations__text">
-                    Engage deeply with local communities, farmers, and experts. It's not just a trip; it's a meaningful exchange.
+                    A national grassroots institution trusted by farmers, researchers, and international partners for leadership in agroecology and seed conservation.
                   </p>
                 </div>
               </div>

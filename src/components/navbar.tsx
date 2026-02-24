@@ -70,8 +70,8 @@ const Navbar = () => {
           <a href="#home" className="navigation-bar__logo">
             <span className="navigation-bar__logo-icon"></span>
             <div className="navigation-bar__logo-text">
-              <span className="navigation-bar__logo-main">SSN Agritourism</span>
-              <span className="navigation-bar__logo-sub">Seed Savers Network Kenya</span>
+              <span className="navigation-bar__logo-main">Seed, Food and Culture</span>
+              <span className="navigation-bar__logo-sub">Tourism</span>
             </div>
           </a>
         </motion.div>

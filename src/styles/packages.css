@@ -472,4 +472,105 @@
   .journey-footer__link:hover {
     gap: 0.8rem;
   }
+  /* Add to packages.css */
+
+.experience-card__price-note {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.spec-item--price {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.experience-card__audience {
+  margin: 1rem 0;
+}
+
+.audience-badge {
+  display: inline-block;
+  background-color: #f5f5f5;
+  color: #2e7d32;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  border: 1px solid #c8e6c9;
+}
+
+.experience-card__includes {
+  margin: 1.5rem 0;
+}
+
+.includes-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a2e1a;
+  margin-bottom: 0.75rem;
+}
+
+.includes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.includes-list__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #4a4a4a;
+  margin-bottom: 0.4rem;
+}
+
+.includes-list__bullet {
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+.experience-card__actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.experience-card__button--secondary {
+  background-color: transparent;
+  color: #2e7d32;
+  border: 2px solid #2e7d32;
+}
+
+.experience-card__button--secondary:hover {
+  background-color: #f1f8e9;
+  color: #1b5e20;
+  border-color: #1b5e20;
+}
+
+.experience-card__button--primary {
+  background-color: #2e7d32;
+  color: white;
+  flex: 1;
+}
+
+.experience-card__button--primary:hover {
+  background-color: #1b5e20;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .experience-card__actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .experience-card__button {
+    width: 100%;
+    text-align: center;
+  }
+}
 }
