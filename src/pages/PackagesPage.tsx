@@ -435,7 +435,7 @@ const PackagesPage: React.FC = () => {
                   />
                 </div>
                 <div className="journey-expectations__content">
-                  <span className="journey-expectations__icon">🌱</span>
+                  <span className="journey-expectations__icon"></span>
                   <h3 className="journey-expectations__card-title">Authentic Experiences</h3>
                   <p className="journey-expectations__text">
                     Non-commercial, community-led experiences with direct learning from farmers and practitioners. Support grassroots agroecology and seed conservation.
@@ -453,7 +453,7 @@ const PackagesPage: React.FC = () => {
                   />
                 </div>
                 <div className="journey-expectations__content">
-                  <span className="journey-expectations__icon">🌽</span>
+                  <span className="journey-expectations__icon"></span>
                   <h3 className="journey-expectations__card-title">Food & Culture</h3>
                   <p className="journey-expectations__text">
                     Prepare and share traditional meals using locally grown produce. Experience indigenous recipes and genuine cultural exchange with host communities.
@@ -471,7 +471,7 @@ const PackagesPage: React.FC = () => {
                   />
                 </div>
                 <div className="journey-expectations__content">
-                  <span className="journey-expectations__icon">🤝</span>
+                  <span className="journey-expectations__icon"></span>
                   <h3 className="journey-expectations__card-title">15+ Years of Trust</h3>
                   <p className="journey-expectations__text">
                     A national grassroots institution trusted by farmers, researchers, and international partners for leadership in agroecology and seed conservation.

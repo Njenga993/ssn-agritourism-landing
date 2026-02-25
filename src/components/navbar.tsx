@@ -146,8 +146,8 @@ const Navbar = () => {
             >
               <div className="navigation-bar__mobile-header">
                 <div className="navigation-bar__mobile-brand">
-                  <span className="navigation-bar__mobile-icon">🌱</span>
-                  <span className="navigation-bar__mobile-title">SSN Agritourism</span>
+                  <span className="navigation-bar__mobile-icon"></span>
+                  <span className="navigation-bar__mobile-title">Seed, food and Culture Tourism</span>
                 </div>
                 <button 
                   className="navigation-bar__mobile-close"

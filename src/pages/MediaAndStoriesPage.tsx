@@ -88,10 +88,6 @@ const MediaAndStoriesPage = () => {
             Experience the journey through the eyes of our community — from hands-on farming to cultural exchanges
           </p>
         </div>
-        <div className="hero-scroll-indicator">
-          <span>Scroll to explore</span>
-          <div className="scroll-arrow">↓</div>
-        </div>
       </section>
 
       {/* Tab Navigation */}
