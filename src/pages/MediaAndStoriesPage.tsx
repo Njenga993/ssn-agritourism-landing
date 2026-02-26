@@ -1,43 +1,65 @@
-import { useState } from "react";
+import  { useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/media-and-stories-page.css";
 
+// Import images from assets folder
+import heroImage from "../assets/hero_1.webp";
+
+// Gallery photos
+import photo1 from "../assets/women-cultivating-crops-in-green-fields-4771650.webp";
+import photo2 from "../assets/cb.webp";
+import photo3 from "../assets/agri002.jpg";
+import photo4 from "../assets/solo.jpeg";
+import photo5 from "../assets/hero_1.webp";
+import photo6 from "../assets/holding.webp";
+import photo7 from "../assets/kikopey.webp";
+import photo8 from "../assets/seeds.webp";
+import photo9 from "../assets/seed-ambasadors.webp";
+
+// People avatars
+import annaAvatar from "../assets/hero_1.webp";
+import michaelAvatar from "../assets/hero_1.webp";
+import claireAvatar from "../assets/hero_1.webp";
+import kenjiAvatar from "../assets/hero_1.webp";
+import fatimaAvatar from "../assets/hero_1.webp";
+import davidAvatar from "../assets/hero_1.webp";
+import sarahAvatar from "../assets/sab.jpeg";
+
+// Video thumbnails (you'll need to create these)
+import videoThumb1 from "../assets/hero_1.webp";
+import videoThumb2 from "../assets/solo.jpeg";
+import videoThumb3 from "../assets/kikopey.webp";
+import videoThumb4 from "../assets/n.webp";
+
+
 // --- DATA ---
 const allPhotos = [
-  { id: 1, src: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=1200&q=80", alt: "Harvesting fresh vegetables", category: "farm-life", location: "Nakuru County", date: "March 2024" },
-  { id: 2, src: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=1200&q=80", alt: "Community sharing a meal", category: "community", location: "Gilgil", date: "February 2024" },
-  { id: 3, src: "https://images.unsplash.com/photo-1592983551836-79d9a2a1ca90?w=1200&q=80", alt: "Hands planting seeds in soil", category: "workshop", location: "Learning Centre", date: "January 2024" },
-  { id: 4, src: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&q=80", alt: "A variety of heirloom tomatoes", category: "produce", location: "Demonstration Farm", date: "March 2024" },
-  { id: 5, src: "https://images.unsplash.com/photo-1500937386664-56d1df06b4ca?w=1200&q=80", alt: "Sunset over a green field", category: "landscape", location: "Lake Elementaita", date: "December 2023" },
-  { id: 6, src: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1200&q=80", alt: "A farmer with a basket of produce", category: "people", location: "Partner Farm", date: "February 2024" },
-  { id: 7, src: "https://images.unsplash.com/photo-1464226184884-fa7b2c8d9b3c?w=1200&q=80", alt: "Seed bank storage", category: "facility", location: "SSN Headquarters", date: "January 2024" },
-  { id: 8, src: "https://images.unsplash.com/photo-1592982537327-a6d3680b8a8a?w=1200&q=80", alt: "Children learning about farming", category: "education", location: "School Program", date: "March 2024" },
-  { id: 9, src: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1200&q=80", alt: "Fellowship participants", category: "people", location: "Training Centre", date: "February 2024" },
+  { id: 1, src: photo1, alt: "Harvesting fresh vegetables", category: "farm-life", location: "Nakuru County", date: "March 2024" },
+  { id: 2, src: photo2, alt: "Community sharing a meal", category: "community", location: "Gilgil", date: "February 2024" },
+  { id: 3, src: photo3, alt: "Hands planting seeds in soil", category: "workshop", location: "Learning Centre", date: "January 2024" },
+  { id: 4, src: photo4, alt: "Visitors Touring", category: "community", location: "Demonstration Farm", date: "March 2024" },
+  { id: 5, src: photo5, alt: "Seedsavers Center", category: "landscape", location: "Lake Elementaita", date: "December 2023" },
+  { id: 6, src: photo6, alt: "A farmer with a basket of produce", category: "people", location: "Partner Farm", date: "February 2024" },
+  { id: 7, src: photo7, alt: "Seed bank storage", category: "facility", location: "SSN Headquarters", date: "January 2024" },
+  { id: 8, src: photo8, alt: "Indigenous Seeds", category: "education", location: "School Program", date: "March 2024" },
+  { id: 9, src: photo9, alt: "Fellowship participants", category: "people", location: "Training Centre", date: "February 2024" },
 ];
 
 const allVideos = [
-  { id: 101, embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", title: "Seed Sovereignty Workshop Highlights", duration: "4:32", date: "March 2024", views: "1.2K" },
-  { id: 102, embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", title: "A Day in the Life at Seed Savers", duration: "8:15", date: "February 2024", views: "3.4K" },
-  { id: 103, embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", title: "Community Conference Testimonials", duration: "6:47", date: "January 2024", views: "892" },
-  { id: 104, embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", title: "Indigenous Seed Saving Techniques", duration: "12:23", date: "December 2023", views: "2.1K" },
+  { id: 101, embedUrl: "https://www.youtube.com/embed/7Isnch3jVCU", title: "Seed Savers Network Learning Center", duration: "4:32", date: "March 2024", views: "1.2K", thumbnail: videoThumb1 },
+  { id: 102, embedUrl: "https://www.youtube.com/embed/0I7e5QyA2d0", title: "A Day in the Life at Seed Savers", duration: "8:15", date: "February 2024", views: "3.4K", thumbnail: videoThumb2 },
+  { id: 103, embedUrl: "https://www.youtube.com/embed/hjIpKa0hkZs", title: "Community Conference Testimonials", duration: "6:47", date: "January 2024", views: "892", thumbnail: videoThumb3 },
+  { id: 104, embedUrl: "https://www.youtube.com/embed/hLDigBo1qoM", title: "Indigenous Seed Saving Techniques", duration: "12:23", date: "December 2023", views: "2.1K", thumbnail: videoThumb4 },
 ];
 
 const allTestimonials = [
-  { id: 201, name: "Anna Müller", location: "Germany", type: "Researcher", quote: "This was more than travel — it was education, culture, and community. I left with practical agroecology skills and a deeper understanding of seed sovereignty.", image: "https://images.unsplash.com/photo-1494790108777-296ef5a9b6b9?w=200&q=80", program: "Global Fellowship" },
-  { id: 202, name: "Michael Johnson", location: "United States", type: "Institutional", quote: "The conference hosting environment was inspiring and deeply authentic. Our institution gained valuable insight into community-driven agricultural systems.", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80", program: "Learning Exchange" },
-  { id: 203, name: "Claire Dubois", location: "France", type: "Tourist", quote: "Participating in seed conservation and traditional cooking sessions was transformative. It connected sustainability with culture in a powerful way.", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80", program: "Solo Package" },
-  { id: 204, name: "Kenji Tanaka", location: "Japan", type: "Student", quote: "As an agricultural student, this experience was invaluable. It's one thing to read about permaculture, and another to see it thriving.", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80", program: "Global Fellowship" },
-  { id: 205, name: "Fatima Al-Fassi", location: "Morocco", type: "Partner", quote: "Our partnership with Seed Savers Kenya has been instrumental in our own seed bank projects. The knowledge exchange is truly bidirectional.", image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80", program: "Institutional" },
-  { id: 206, name: "David O'Connell", location: "Ireland", type: "Volunteer", quote: "Volunteering here gave me a sense of purpose. The work is tangible, the community is welcoming, and the impact is real.", image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80", program: "Volunteer Program" },
+  { id: 201, name: "Anna Müller", location: "Germany", type: "Researcher", quote: "This was more than travel — it was education, culture, and community. I left with practical agroecology skills and a deeper understanding of seed sovereignty.", image: annaAvatar, program: "Global Fellowship" },
+  { id: 202, name: "Michael Johnson", location: "United States", type: "Institutional", quote: "The conference hosting environment was inspiring and deeply authentic. Our institution gained valuable insight into community-driven agricultural systems.", image: michaelAvatar, program: "Learning Exchange" },
+  { id: 203, name: "Claire Dubois", location: "France", type: "Tourist", quote: "Participating in seed conservation and traditional cooking sessions was transformative. It connected sustainability with culture in a powerful way.", image: claireAvatar, program: "Solo Package" },
+  { id: 204, name: "Kenji Tanaka", location: "Japan", type: "Student", quote: "As an agricultural student, this experience was invaluable. It's one thing to read about permaculture, and another to see it thriving.", image: kenjiAvatar, program: "Global Fellowship" },
+  { id: 205, name: "Fatima Al-Fassi", location: "Morocco", type: "Partner", quote: "Our partnership with Seed Savers Kenya has been instrumental in our own seed bank projects. The knowledge exchange is truly bidirectional.", image: fatimaAvatar, program: "Institutional" },
+  { id: 206, name: "David O'Connell", location: "Ireland", type: "Volunteer", quote: "Volunteering here gave me a sense of purpose. The work is tangible, the community is welcoming, and the impact is real.", image: davidAvatar, program: "Volunteer Program" },
 ];
-
-// Stats for impact section
-/*const impactStats = [
-  { value: "15+", label: "Years of Experience", icon: "🌱" },
-  { value: "5,000+", label: "Farmers Supported", icon: "👨‍🌾" },
-  { value: "200+", label: "Indigenous Seeds Preserved", icon: "🌽" },
-  { value: "50+", label: "Countries Reached", icon: "🌍" },
-];*/
 
 const MediaAndStoriesPage = () => {
   const [activeTab, setActiveTab] = useState<'gallery' | 'stories' | 'impact'>('gallery');
@@ -79,7 +101,7 @@ const MediaAndStoriesPage = () => {
   return (
     <main className="media-stories-page">
       {/* Hero Section */}
-      <section className="media-hero">
+      <section className="media-hero" style={{ backgroundImage: `url(${heroImage})` }}>
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <Link to="/" className="back-link">← Back to Home</Link>
@@ -108,13 +130,6 @@ const MediaAndStoriesPage = () => {
               <span className="tab-icon"></span>
               Visitor Stories
             </button>
-            {/*<button 
-              className={`tab ${activeTab === 'impact' ? 'active' : ''}`}
-              onClick={() => setActiveTab('impact')}
-            >
-              <span className="tab-icon">🌍</span>
-              Our Impact
-            </button>*/}
           </div>
         </div>
       </section>
@@ -173,7 +188,7 @@ const MediaAndStoriesPage = () => {
                   return (
                     <div key={item.id} className="gallery-card video-card" onClick={() => openLightbox('video', item.embedUrl, { title: item.title })}>
                       <div className="card-media">
-                        <img src={`https://img.youtube.com/vi/${item.embedUrl.split('/').pop()}/hqdefault.jpg`} alt={item.title} />
+                        <img src={item.thumbnail} alt={item.title} />
                         <div className="play-button">
                           <span>▶</span>
                         </div>
@@ -228,13 +243,13 @@ const MediaAndStoriesPage = () => {
               <div className="featured-content">
                 <span className="featured-badge">Featured Story</span>
                 <blockquote>
-                  "The Seed Savers Network isn't just preserving seeds — they're preserving knowledge, culture, and hope for future generations."
+                  "The Seed Savers Network isn't just preserving seeds  they're preserving knowledge, culture, and hope for future generations."
                 </blockquote>
                 <div className="featured-author">
-                  <img src="https://images.unsplash.com/photo-1494790108777-296ef5a9b6b9?w=200&q=80" alt="Dr. Sarah Kimani" />
+                  <img src={sarahAvatar} alt="Dr. Sarah Kimani" />
                   <div>
-                    <strong>Dr. Sarah Kimani</strong>
-                    <span>Food Sovereignty Researcher, University of Nairobi</span>
+                    <strong>sebastian</strong>
+                    <span>T.B.C</span>
                   </div>
                 </div>
               </div>
@@ -280,70 +295,6 @@ const MediaAndStoriesPage = () => {
             </div>
           </section>
         )}
-
-        {/* IMPACT TAB 
-        {activeTab === 'impact' && (
-          <section className="impact-section fade-in">
-            <div className="section-header">
-              <h2>Our Impact & Reach</h2>
-              <p>15 years of grassroots work in agroecology and seed conservation</p>
-            </div>
-
-            
-            <div className="stats-grid">
-              {impactStats.map((stat, index) => (
-                <div key={index} className="stat-card">
-                  <div className="stat-icon">{stat.icon}</div>
-                  <div className="stat-value">{stat.value}</div>
-                  <div className="stat-label">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-
-            
-            <div className="impact-story-card">
-              <div className="impact-story-content">
-                <h3>Preserving Kenya's Agricultural Heritage</h3>
-                <p>
-                  Since 2009, Seed Savers Network has worked directly with farming communities across Kenya to 
-                  preserve indigenous seeds, promote agroecological practices, and ensure food sovereignty for 
-                  future generations. Our community seed banks now house over 200 varieties of indigenous crops, 
-                  protecting biodiversity and traditional knowledge.
-                </p>
-                <div className="impact-highlights">
-                  <div className="highlight">
-                    <span>200+</span>
-                    <small>Seed varieties</small>
-                  </div>
-                  <div className="highlight">
-                    <span>50+</span>
-                    <small>Community seed banks</small>
-                  </div>
-                  <div className="highlight">
-                    <span>15</span>
-                    <small>Counties in Kenya</small>
-                  </div>
-                </div>
-              </div>
-              <div className="impact-story-image">
-                <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=800&q=80" alt="Seed bank" />
-              </div>
-            </div>
-
-           
-            <div className="partners-section">
-              <h3>Trusted By</h3>
-              <div className="partner-logos">
-                <div className="partner-logo">University of Nairobi</div>
-                <div className="partner-logo">Biovision Foundation</div>
-                <div className="partner-logo">FAO Kenya</div>
-                <div className="partner-logo">Kenya Agricultural Institute</div>
-                <div className="partner-logo">Slow Food International</div>
-                <div className="partner-logo">ICIPE</div>
-              </div>
-            </div>
-          </section> 
-        )}*/}
       </div>
 
       {/* Lightbox */}

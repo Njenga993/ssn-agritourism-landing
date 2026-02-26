@@ -2,6 +2,17 @@
 import { useEffect, useRef, useState } from "react";
 import "../styles/about.css";
 
+// ✅ Imported images from assets folder
+import agri001 from "../assets/ecology.jpeg";
+import agroecology from "../assets/women-cultivating-crops-in-green-fields-4771650.webp";
+import seedSovereignty from "../assets/agri001.jpg";
+import communityEngagement from "../assets/seed-ambasadors.webp";
+import culturalExchange from "../assets/holding.webp";
+import regenerativeTravel from "../assets/hero_1.webp";
+import permaculture from "../assets/agri002.jpg";
+import foodSovereignty from "../assets/n.webp";
+import forestGardens from "../assets/images+forest.jpeg";
+
 const About = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
@@ -31,42 +42,42 @@ const About = () => {
     {
       title: "Agroecology",
       description: "Learn regenerative farming practices rooted in biodiversity and soil health.",
-      imageUrl: "https://images.unsplash.com/photo-1592982538628-3543b5ab33a8?w=600&h=400&fit=crop"
+      imageUrl: agroecology
     },
     {
       title: "Seed Sovereignty",
       description: "Engage with indigenous seed systems and community-led conservation.",
-      imageUrl: "https://images.unsplash.com/photo-1592849649363-57a268638d10?w=600&h=400&fit=crop"
+      imageUrl: seedSovereignty
     },
     {
       title: "Community Engagement",
       description: "Build meaningful relationships with local farmers and rural communities.",
-      imageUrl: "https://images.unsplash.com/photo-1628668146493-4a706bcd1c2a?w=600&h=400&fit=crop"
+      imageUrl: communityEngagement
     },
     {
       title: "Cultural Exchange",
       description: "Experience indigenous food, traditions, and authentic rural life.",
-      imageUrl: "https://images.unsplash.com/photo-1516749396381-5e7e9453f3a5?w=600&h=400&fit=crop"
+      imageUrl: culturalExchange
     },
     {
       title: "Regenerative Travel",
       description: "Travel that gives back to the land and communities while minimizing impact.",
-      imageUrl: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&h=400&fit=crop"
+      imageUrl: regenerativeTravel
     },
     {
       title: "Permaculture",
       description: "Discover design systems that mimic natural ecosystems for sustainability.",
-      imageUrl: "https://images.unsplash.com/photo-1585435557343-3b3d4d3a822a?w=600&h=400&fit=crop"
+      imageUrl: permaculture
     },
     {
       title: "Food Sovereignty",
       description: "Support local food systems and traditional knowledge preservation.",
-      imageUrl: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop"
+      imageUrl: foodSovereignty
     },
     {
-      title: "Forest Gardens",
+      title: "Food Forest",
       description: "Explore multi-story food forests combining trees, shrubs, and perennial plants.",
-      imageUrl: "https://images.unsplash.com/photo-1540289497509-74468690b6d5?w=600&h=400&fit=crop"
+      imageUrl: forestGardens
     }
   ];
 
@@ -89,7 +100,7 @@ const About = () => {
         <div className="heritage-header">
           <span className="heritage-header__subtitle">Our Story</span>
           <h2 className="heritage-header__title">
-            What is <span className="heritage-header__highlight">Agritourism?</span>
+            What is <span className="heritage-header__highlight">Ecology, Food and Culture Tourism?</span>
           </h2>
           <div className="heritage-header__divider">
             <span className="heritage-header__line"></span>
@@ -102,7 +113,7 @@ const About = () => {
         <div className="heritage-story">
           <div className="heritage-story__image-wrapper">
             <img 
-              src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&q=80" 
+              src={agri001}
               alt="Farming landscape with community members"
               className="heritage-story__image"
               loading="lazy"
@@ -114,12 +125,10 @@ const About = () => {
           <div className="heritage-story__content">
             <div className="heritage-story__quote-mark" aria-hidden="true">"</div>
             <p className="heritage-story__text">
-              Agritourism at Seed Savers Network Kenya is a form of responsible
-              travel that immerses visitors in agroecological farming,
-              indigenous food systems, cultural exchange, and rural
-              livelihoods — while strengthening seed sovereignty and
-              community resilience.
-            </p>
+  Ecology, Food and Culture Tourism  is a subsection of Seed Savers Network Kenya, designed as a form of responsible 
+  travel that immerses visitors in agroecological farming, indigenous food systems, cultural 
+  exchange, and rural livelihoods — while strengthening seed sovereignty and community resilience.
+</p>
           </div>
         </div>
 

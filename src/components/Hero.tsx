@@ -59,7 +59,7 @@ const Hero = () => {
         {/* Badge */}
         <div className="ssn-hero__badge">
           <span className="ssn-hero__badge-dot"></span>
-          Seed, food and Culture tourism
+          Ecology, Food and Culture Tourism 
         </div>
 
         {/* Headline */}
@@ -71,7 +71,7 @@ const Hero = () => {
 
         {/* Description */}
         <p>
-          Immersive farm-based learning rooted in seed sovereignty,
+          A Subsection of Seed Savers Network Kenya that offers Immersive farm-based learning rooted in seed sovereignty,
           culture, and community resilience.
         </p>
 

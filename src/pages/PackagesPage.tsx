@@ -1,182 +1,139 @@
 import React, { useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import '../styles/packages-page.css';
 
-interface Experience {
-  title: string;
-  description: string;
-  image: string;
-}
 
-interface Package {
-  id: number;
-  title: string;
-  category: string;
-  heroImage: string;
-  shortDescription: string;
-  duration: string;
-  location: string;
-  groupSize: string;
-  price: string;
-  priceNote?: string;
-  experiences: Experience[];
-  includes: string[];
-  excludes?: string[];
-  formUrl: string;
-  keyFeatures?: string[];
-  targetAudience?: string[];
-}
+import authenticFarmStays from '../assets/holding.webp';
+import Global from '../assets/Global.jpeg';
+import traditionalCuisine from '../assets/n.webp';
+import communityConnections from '../assets/hero_1.webp';
+import seedBank from '../assets/kikopey.webp';
+import indigenousSeeds from '../assets/seeds.webp';
+import communityMeetings from '../assets/cb.webp';
+import agroecology from '../assets/conference-room.webp';
+import traditionalFarming from '../assets/agri002.jpg';
+import Principles from '../assets/winowing.webp';
+import indigenousSeedBiodiversity from '../assets/solo.jpeg';
+import natureLandscape from '../assets/downloa_elemend.jpeg';
 
-const packagesData: Package[] = [
+const packagesData = [
   {
     id: 1,
     title: "Global Fellowship Package",
-    category: 'individual',
-    heroImage: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=800&q=80",
     shortDescription: "An immersive agritourism and learning program designed for international students, researchers, and professionals interested in sustainable farming systems, agroecology, and community-led sustainability in East Africa.",
-    duration: "Minimum 2 weeks (longer stays possible)",
-    location: "Nakuru County (near Gilgil and Lake Elementaita)",
-    groupSize: "Individual",
+    heroImage: Global,
+    duration: "Minimum 2 weeks",
+    location: "Nakuru & Surrounding Counties",
+    groupSize: "6-12 participants",
+    category: "individual",
     price: "From USD 433",
-    priceNote: "2 weeks: USD 433 | 3 weeks: EUR 548 | Additional week: EUR 161",
+    priceNote: "Includes accommodation, meals, transport, and farm visits. Price varies with group size and itinerary.",
     experiences: [
       { 
-        title: "Hands-On Farming", 
-        description: "Participate in daily farming activities including planting, weeding, harvesting, milking, and animal care alongside small-scale farmers.",
-        image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80" 
+        title: "Seed Bank Visits", 
+        description: "Explore community seed banks, learn conservation techniques, and understand seed sovereignty movements.",
+        image: seedBank
       },
       { 
-        title: "Indigenous Seed Practices", 
-        description: "Learn seed selection, cleaning, drying, storage, and community seed banking. Understand agrobiodiversity and seed sovereignty.",
-        image: "https://images.unsplash.com/photo-1583748159012-ae53b9a0c35d?w=600&q=80" 
+        title: "Indigenous Seeds Workshop", 
+        description: "Hands-on experience with indigenous seed varieties, selection, and traditional preservation methods.",
+        image: indigenousSeeds
       },
       { 
-        title: "Community Engagement", 
-        description: "Participate in knowledge-sharing sessions with farmer groups and contribute to community-based initiatives.",
-        image: "https://images.unsplash.com/photo-1592982537327-a6d3680b8a8a?w=600&q=80" 
-      },
-      { 
-        title: "Agroecology Learning", 
-        description: "Gain exposure to climate-resilient farming methods and sustainable agricultural practices.",
-        image: "https://images.unsplash.com/photo-1625728683244-3d822d40a5c2?w=600&q=80" 
+        title: "Community Meetings", 
+        description: "Participate in farmer group meetings, discuss challenges, and share solutions in agroecology.",
+        image: communityMeetings
       }
     ],
     includes: [
-      "Pre-Departure Support",
-      "Airport Pickup",
-      "Project Orientation",
-      "Accommodation (SSN centre or host family)",
-      "3 Meals Daily",
-      "In-Country Support"
+      "Agroecology & climate-resilient farming methods",
+      "Hands-on farming (planting, weeding, harvesting, milking)",
+      "Indigenous seed practices & community seed banking",
+      "Community engagement & knowledge-sharing",
+      "Live with a host farming family"
     ],
-    excludes: [
-      "Flights",
-      "Visas",
-      "Insurance",
-      "Vaccination",
-      "Personal Expenses"
-    ],
-    formUrl: "https://forms.gle/your-fellowship-form",
     keyFeatures: [
-      "Live and work alongside farmers",
-      "Monday-Friday, 5-8 hours daily",
-      "Free weekends for rest/travel",
-      "18 years and above",
-      "Year-round availability"
+      "Direct farmer-to-farmer knowledge exchange",
+      "Visit multiple farming communities",
+      "Participatory learning approach",
+      "Cultural immersion and homestay options",
+      "Supports seed sovereignty initiatives"
     ],
     targetAudience: [
-      "Agriculture and agroecology students",
-      "Food systems researchers",
-      "Development studies professionals",
-      "Sustainability practitioners",
-      "Seed systems and biodiversity enthusiasts"
+      "Farmers and agricultural professionals",
+      "Agroecology practitioners",
+      "Seed sovereignty advocates",
+      "Agricultural students and researchers",
+      "Sustainable agriculture enthusiasts"
     ]
   },
   {
     id: 2,
     title: "Conference & Learning Exchange",
-    category: 'institution',
-    heroImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
     shortDescription: "Short-duration, high-impact agritourism learning experiences for schools, universities, conferences, and professional delegations. Hosted at the SSN Agroecology Learning Centre.",
-    duration: "2-4 hours",
-    location: "SSN Agroecology Learning Centre, Nakuru County",
-    groupSize: "Flexible (pricing varies by group size)",
-    price: "Custom Quote",
+    heroImage: agroecology,
+    duration: "2-4 hours/ Day ",
+    location: "SSN Agroecology Learning Centre",
+    groupSize: "50-60 participants",
+    category: "institution",
+    price: "Flexible (pricing varies)",
+    priceNote: "Comprehensive program including all meals, accommodation, training materials, and field trips.",
     experiences: [
       { 
-        title: "For School Groups", 
-        description: "Age-appropriate demonstrations on basic agriculture, food systems, seed saving, biodiversity awareness, and environmental stewardship.",
-        image: "https://images.unsplash.com/photo-1511578314322-379308476870?w=600&q=80" 
+        title: "Agroecology Principles", 
+        description: "Learn core principles, design thinking, and practical applications of agroecological systems.",
+        image: Principles
       },
       { 
-        title: "For University Students & Researchers", 
-        description: "Technical learning on food forest design, community seed banking, nurseries, seed characterization, composting, soil health, and agrobiodiversity conservation.",
-        image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&q=80" 
-      },
-      { 
-        title: "For Professional Delegations", 
-        description: "Tailored sessions for academic conferences, CSO meetings, policy exchanges, and study tours with practical demonstrations and dialogue.",
-        image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=600&q=80" 
-      },
-      { 
-        title: "Practical Demonstrations", 
-        description: "Interactive learning experiences focused on real agricultural systems, seed conservation, and community-led solutions.",
-        image: "https://images.unsplash.com/photo-1600857062241-98e5dba7f214?w=600&q=80" 
+        title: "Traditional Farming Systems", 
+        description: "Study indigenous farming knowledge, intercropping systems, and natural resource management.",
+        image: traditionalFarming
       }
     ],
     includes: [
-      "Structured learning environment",
-      "Direct interaction with practitioners",
-      "Practical demonstrations",
-      "Knowledge exchange sessions",
-      "Flexible programming"
+      "Expert-led workshops and seminars",
+      "Field visits to model farms",
+      "Training materials and resources",
+      "Practical hands-on sessions",
+      "Accommodation and all meals",
+      "Local transportation"
     ],
-    formUrl: "https://forms.gle/your-institutional-form",
     keyFeatures: [
-      "15+ years of grassroots experience",
-      "National institution trusted by farmers and researchers",
-      "Safe and credible learning destination",
-      "Tailored to age and academic level",
-      "Meals and refreshments available on request"
+      "Intensive learning program",
+      "Expert facilitators and practitioners",
+      "Blend of theory and practice",
+      "Visit successful agroecology farms",
+      "Networking opportunities"
     ],
     targetAudience: [
-      "Primary and secondary schools",
-      "University students and researchers",
-      "Conference delegations",
-      "CSO and donor meetings",
-      "Study tours"
+      "Agricultural institutions",
+      "University students and faculty",
+      "NGO staff and development workers",
+      "Policy makers and agricultural advisors",
+      "Sustainable agriculture professionals"
     ]
   },
   {
     id: 3,
     title: "Solo & Small-Group Agritourism",
-    category: 'specialized',
-    heroImage: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
     shortDescription: "A fully customized, short-stay agritourism experience for individual travelers, couples, families, and small groups seeking authentic, hands-on exposure to sustainable farming, seed systems, food culture, and rural life in Kenya.",
-    duration: "Half-day, full-day, or multi-day stays",
-    location: "Nakuru County (near Gilgil and Lake Elementaita)",
-    groupSize: "1-12 People",
+    heroImage: indigenousSeedBiodiversity,
+    duration: "Half-day to multi-day",
+    location: "SSN Landscape Communities",
+    groupSize: "1 - unlimited",
+    category: "specialized",
     price: "70-100 USD per day/person",
     priceNote: "Example price includes accommodation, full board, transport, and activities. Final pricing tailored to your needs.",
     experiences: [
       { 
-        title: "Farming & Agroecology", 
-        description: "Hands-on participation in daily farm activities: planting, weeding, harvesting, and livestock care. Learn about soil health, composting, and natural pest management.",
-        image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80" 
-      },
-      { 
         title: "Indigenous Seed & Biodiversity", 
         description: "Experience seed selection, cleaning, drying, and storage. Visit community seed banks and learn about agrobiodiversity and seed sovereignty.",
-        image: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=600&q=80" 
-      },
-      { 
-        title: "Food & Cultural Experiences", 
-        description: "Prepare and share traditional meals using locally grown produce. Enjoy food tasting sessions and cultural exchange with host farmers.",
-        image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" 
+        image: indigenousSeedBiodiversity
       },
       { 
         title: "Nature & Landscape", 
         description: "Guided walks within and around the SSN landscape. Optional excursions to nearby ecological and cultural sites by arrangement.",
-        image: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=600&q=80" 
+        image: natureLandscape
       }
     ],
     includes: [
@@ -187,7 +144,6 @@ const packagesData: Package[] = [
       "Cultural exchange",
       "Flexible scheduling"
     ],
-    formUrl: "https://forms.gle/your-cultural-form",
     keyFeatures: [
       "Authentic, non-commercial experiences",
       "Direct learning from farmers",
@@ -208,6 +164,7 @@ const packagesData: Package[] = [
 const PackagesPage: React.FC = () => {
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [activeFilter, setActiveFilter] = useState<string>('all');
+  const { ref: heroRef, inView: heroInView } = useInView({ threshold: 0.1, triggerOnce: true });
 
   const handleToggleExpand = (id: number) => {
     setExpandedId(expandedId === id ? null : id);
@@ -220,20 +177,25 @@ const PackagesPage: React.FC = () => {
   return (
     <div className="journey-portal">
       {/* Hero Section */}
-      <header className="journey-portal__hero">
+      <header ref={heroRef} className={`journey-portal__hero ${heroInView ? 'journey-portal__hero--visible' : ''}`}>
         <div className="journey-portal__hero-overlay"></div>
+        <div className="journey-portal__hero-particles"></div>
         <div className="journey-portal__hero-content">
           <h1 className="journey-portal__hero-title">
-            Discover Your <span className="journey-portal__hero-highlight">Agritourism</span> Adventure
+            Our Ecology, Food and Culture  <span className="journey-portal__hero-highlight">Tourism Packages</span>
           </h1>
           <p className="journey-portal__hero-subtitle">
-            Immerse yourself in the heart of Kenya's vibrant food systems. From hands-on farming to cultural exchanges, find the experience that's perfect for you.
+            A subsection of Seed Savers Network Kenya offering authentic, community-led experiences designed for individuals, institutions, and small groups seeking immersive agroecological learning in Kenya.
           </p>
-          <a href="#packages-grid" className="journey-portal__hero-button">
-            Explore Packages
-          </a>
+          {/*<div className="journey-portal__hero-buttons">
+            <a href="#packages-grid" className="journey-portal__hero-button journey-portal__hero-button--primary">
+              Explore Packages
+            </a>
+            <a href="#expectations" className="journey-portal__hero-button journey-portal__hero-button--secondary">
+              Learn More
+            </a>
+          </div>*/}
         </div>
-        <div className="journey-portal__hero-pattern"></div>
       </header>
 
       {/* Main Content */}
@@ -241,6 +203,7 @@ const PackagesPage: React.FC = () => {
         {/* Filter Section */}
         <section className="journey-portal__filter">
           <div className="journey-portal__filter-container">
+            <h2 className="journey-portal__filter-title">Choose Your Experience</h2>
             <div className="journey-portal__filter-buttons">
               <button 
                 className={`journey-portal__filter-button ${activeFilter === 'all' ? 'journey-portal__filter-button--active' : ''}`}
@@ -273,19 +236,24 @@ const PackagesPage: React.FC = () => {
         {/* Packages Grid */}
         <section id="packages-grid" className="journey-portal__grid-section">
           <div className="journey-portal__grid">
-            {filteredPackages.map((pkg) => (
+            {filteredPackages.map((pkg, index) => (
               <article 
                 key={pkg.id} 
                 className={`journey-card ${expandedId === pkg.id ? 'journey-card--expanded' : ''}`}
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="journey-card__header" onClick={() => handleToggleExpand(pkg.id)}>
-                  <img 
-                    src={pkg.heroImage} 
-                    alt={pkg.title} 
-                    className="journey-card__image"
-                    loading="lazy"
-                  />
+                  <div className="journey-card__image-wrapper">
+                    <img 
+                      src={pkg.heroImage} 
+                      alt={pkg.title} 
+                      className="journey-card__image"
+                      loading="lazy"
+                    />
+                    <div className="journey-card__image-overlay"></div>
+                  </div>
                   <div className="journey-card__overlay">
+                    <div className="journey-card__badge">{pkg.category}</div>
                     <h3 className="journey-card__title">{pkg.title}</h3>
                   </div>
                 </div>
@@ -296,48 +264,93 @@ const PackagesPage: React.FC = () => {
                   <div className="journey-card__details">
                     <div className="journey-card__detail">
                       <span className="journey-card__detail-icon">📅</span>
-                      <span className="journey-card__detail-text">{pkg.duration}</span>
+                      <div>
+                        <span className="journey-card__detail-label">Duration</span>
+                        <span className="journey-card__detail-text">{pkg.duration}</span>
+                      </div>
                     </div>
                     <div className="journey-card__detail">
                       <span className="journey-card__detail-icon">📍</span>
-                      <span className="journey-card__detail-text">{pkg.location}</span>
+                      <div>
+                        <span className="journey-card__detail-label">Location</span>
+                        <span className="journey-card__detail-text">{pkg.location}</span>
+                      </div>
                     </div>
                     <div className="journey-card__detail">
-                      <span className="journey-card__detail-icon">👥</span>
-                      <span className="journey-card__detail-text">{pkg.groupSize}</span>
-                    </div>
-                    <div className="journey-card__detail journey-card__detail--price">
-                      <span className="journey-card__price">{pkg.price}</span>
+                      <span className="journey-card__detail-icon"></span>
+                      <div>
+                        <span className="journey-card__detail-label">Group Size</span>
+                        <span className="journey-card__detail-text">{pkg.groupSize}</span>
+                      </div>
                     </div>
                   </div>
-                  {pkg.priceNote && (
-                    <p className="journey-card__price-note">{pkg.priceNote}</p>
-                  )}
+                  
+                  <div className="journey-card__price-section">
+                    <span className="journey-card__price">{pkg.price}</span>
+                    {pkg.priceNote && (
+                      <p className="journey-card__price-note">{pkg.priceNote}</p>
+                    )}
+                  </div>
 
                   <button 
                     className="journey-card__expand-button"
                     onClick={() => handleToggleExpand(pkg.id)}
                   >
-                    {expandedId === pkg.id ? 'Show Less' : 'View Experiences'}
+                    {expandedId === pkg.id ? 'Show Less' : 'View Full Details'}
                     <span className={`journey-card__expand-icon ${expandedId === pkg.id ? 'journey-card__expand-icon--rotated' : ''}`}>▼</span>
                   </button>
                 </div>
 
-                {/* Expanded Content */}
+                {/* Expanded Content - Redesigned */}
                 <div className="journey-card__expanded">
                   <div className="journey-card__expanded-inner">
+                    {/* Quick Overview */}
+                    <div className="journey-card__overview">
+                      <h4 className="journey-card__section-title">Package Overview</h4>
+                      <div className="journey-card__overview-grid">
+                        <div className="journey-card__overview-item">
+                          <span className="journey-card__overview-icon"></span>
+                          <div>
+                            <h5>Focus</h5>
+                            <p>{pkg.title}</p>
+                          </div>
+                        </div>
+                        <div className="journey-card__overview-item">
+                          <span className="journey-card__overview-icon"></span>
+                          <div>
+                            <h5>Duration</h5>
+                            <p>{pkg.duration}</p>
+                          </div>
+                        </div>
+                        <div className="journey-card__overview-item">
+                          <span className="journey-card__overview-icon"></span>
+                          <div>
+                            <h5>Location</h5>
+                            <p>{pkg.location}</p>
+                          </div>
+                        </div>
+                        <div className="journey-card__overview-item">
+                          <span className="journey-card__overview-icon"></span>
+                          <div>
+                            <h5>Price</h5>
+                            <p>{pkg.price}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     {/* Key Features */}
                     {pkg.keyFeatures && (
                       <div className="journey-card__key-features">
                         <h4 className="journey-card__section-title">Key Features</h4>
-                        <ul className="journey-card__features-list">
+                        <div className="journey-card__features-grid">
                           {pkg.keyFeatures.map((feature, index) => (
-                            <li key={index} className="journey-card__features-item">
-                              <span className="journey-card__features-bullet">•</span>
-                              {feature}
-                            </li>
+                            <div key={index} className="journey-card__feature-card">
+                              <span className="journey-card__feature-icon">✓</span>
+                              <p>{feature}</p>
+                            </div>
                           ))}
-                        </ul>
+                        </div>
                       </div>
                     )}
 
@@ -345,74 +358,84 @@ const PackagesPage: React.FC = () => {
                     {pkg.targetAudience && (
                       <div className="journey-card__target-audience">
                         <h4 className="journey-card__section-title">Perfect For</h4>
-                        <ul className="journey-card__audience-list">
+                        <div className="journey-card__audience-grid">
                           {pkg.targetAudience.map((audience, index) => (
-                            <li key={index} className="journey-card__audience-item">
-                              <span className="journey-card__audience-bullet">✓</span>
-                              {audience}
-                            </li>
+                            <div key={index} className="journey-card__audience-card">
+                              <span className="journey-card__audience-icon"></span>
+                              <p>{audience}</p>
+                            </div>
                           ))}
-                        </ul>
+                        </div>
                       </div>
                     )}
 
                     {/* Experiences/Activities */}
                     <div className="journey-card__experiences">
                       <h4 className="journey-card__section-title">Experiences & Activities</h4>
-                      {pkg.experiences.map((exp, index) => (
-                        <div key={index} className="journey-card__experience-item">
-                          <div className="journey-card__experience-image-wrapper">
-                            <img 
-                              src={exp.image} 
-                              alt={exp.title} 
-                              className="journey-card__experience-image"
-                              loading="lazy"
-                            />
+                      <div className="journey-card__experiences-grid">
+                        {pkg.experiences.map((exp, index) => (
+                          <div key={index} className="journey-card__experience-card">
+                            <div className="journey-card__experience-image-wrapper">
+                              <img 
+                                src={exp.image} 
+                                alt={exp.title} 
+                                className="journey-card__experience-image"
+                                loading="lazy"
+                              />
+                              <div className="journey-card__experience-overlay"></div>
+                            </div>
+                            <div className="journey-card__experience-content">
+                              <h5 className="journey-card__experience-title">
+                                <span className="journey-card__experience-number">0{index + 1}</span>
+                                {exp.title}
+                              </h5>
+                              <p className="journey-card__experience-description">{exp.description}</p>
+                            </div>
                           </div>
-                          <div className="journey-card__experience-content">
-                            <h5 className="journey-card__experience-title">{exp.title}</h5>
-                            <p className="journey-card__experience-description">{exp.description}</p>
-                          </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
 
                     {/* What's Included */}
                     <div className="journey-card__includes">
                       <h4 className="journey-card__section-title">What's Included</h4>
-                      <ul className="journey-card__includes-list">
+                      <div className="journey-card__includes-grid">
                         {pkg.includes.map((item, index) => (
-                          <li key={index} className="journey-card__includes-item">
-                            <span className="journey-card__includes-check">✓</span>
-                            {item}
-                          </li>
+                          <div key={index} className="journey-card__include-item">
+                            <span className="journey-card__include-icon">✓</span>
+                            <p>{item}</p>
+                          </div>
                         ))}
-                      </ul>
+                      </div>
                     </div>
 
-                    {/* What's Excluded (if applicable) */}
+                    {/* What's Excluded - Optional, can be added back if needed 
                     {pkg.excludes && (
                       <div className="journey-card__excludes">
-                        <h4 className="journey-card__section-title">What's Excluded</h4>
-                        <ul className="journey-card__excludes-list">
+                        <h4 className="journey-card__section-title">What's Not Included</h4>
+                        <div className="journey-card__excludes-grid">
                           {pkg.excludes.map((item, index) => (
-                            <li key={index} className="journey-card__excludes-item">
-                              <span className="journey-card__excludes-bullet">✗</span>
-                              {item}
-                            </li>
+                            <div key={index} className="journey-card__exclude-item">
+                              <span className="journey-card__exclude-icon">✗</span>
+                              <p>{item}</p>
+                            </div>
                           ))}
-                        </ul>
+                        </div>
                       </div>
-                    )}
+                    )}*/}
                     
-                    <a 
-                      href={pkg.formUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="journey-card__book-button"
-                    >
-                      Inquire About This Package
-                    </a>
+                    // Replace this section in the expanded content:
+<div className="journey-card__booking">
+  <a 
+    href={`mailto:info@seedsaverskenya.org?subject=Package Inquiry - ${pkg.title}`} 
+    className="journey-card__book-button"
+  >
+    Inquire About This Package
+  </a>
+  <p className="journey-card__booking-note">
+    Custom packages available - Contact us for personalized experiences
+  </p>
+</div>
                   </div>
                 </div>
               </article>
@@ -421,18 +444,24 @@ const PackagesPage: React.FC = () => {
         </section>
 
         {/* What to Expect Section */}
-        <section className="journey-expectations">
+        <section id="expectations" className="journey-expectations">
           <div className="journey-expectations__container">
-            <h2 className="journey-expectations__title">Why Choose Seed Savers Network</h2>
+            <div className="journey-expectations__header">
+              <h2 className="journey-expectations__title">Why Choose Seed Savers Network</h2>
+              <p className="journey-expectations__subtitle">
+                Experience authentic agroecology with Kenya's trusted grassroots institution
+              </p>
+            </div>
             <div className="journey-expectations__grid">
               <div className="journey-expectations__card">
                 <div className="journey-expectations__image-wrapper">
                   <img 
-                    src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80" 
+                    src={authenticFarmStays} 
                     alt="Authentic farm stays" 
                     className="journey-expectations__image"
                     loading="lazy"
                   />
+                  <div className="journey-expectations__image-overlay"></div>
                 </div>
                 <div className="journey-expectations__content">
                   <span className="journey-expectations__icon"></span>
@@ -440,17 +469,19 @@ const PackagesPage: React.FC = () => {
                   <p className="journey-expectations__text">
                     Non-commercial, community-led experiences with direct learning from farmers and practitioners. Support grassroots agroecology and seed conservation.
                   </p>
+                
                 </div>
               </div>
 
               <div className="journey-expectations__card">
                 <div className="journey-expectations__image-wrapper">
                   <img 
-                    src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" 
+                    src={traditionalCuisine} 
                     alt="Traditional cuisine" 
                     className="journey-expectations__image"
                     loading="lazy"
                   />
+                  <div className="journey-expectations__image-overlay"></div>
                 </div>
                 <div className="journey-expectations__content">
                   <span className="journey-expectations__icon"></span>
@@ -458,45 +489,96 @@ const PackagesPage: React.FC = () => {
                   <p className="journey-expectations__text">
                     Prepare and share traditional meals using locally grown produce. Experience indigenous recipes and genuine cultural exchange with host communities.
                   </p>
+                
                 </div>
               </div>
 
               <div className="journey-expectations__card">
                 <div className="journey-expectations__image-wrapper">
                   <img 
-                    src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&q=80" 
+                    src={communityConnections} 
                     alt="Community connections" 
                     className="journey-expectations__image"
                     loading="lazy"
                   />
+                  <div className="journey-expectations__image-overlay"></div>
                 </div>
                 <div className="journey-expectations__content">
                   <span className="journey-expectations__icon"></span>
-                  <h3 className="journey-expectations__card-title">15+ Years of Trust</h3>
+                  <h3 className="journey-expectations__card-title">Years of Trust</h3>
                   <p className="journey-expectations__text">
                     A national grassroots institution trusted by farmers, researchers, and international partners for leadership in agroecology and seed conservation.
                   </p>
+                 
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Final CTA Section */}
+        {/* Testimonials Section 
+        <section className="journey-testimonials">
+          <div className="journey-testimonials__container">
+            <h2 className="journey-testimonials__title">What Our Visitors Say</h2>
+            <div className="journey-testimonials__grid">
+              <div className="journey-testimonials__card">
+                <div className="journey-testimonials__quote">"</div>
+                <p className="journey-testimonials__text">
+                  The farmer-to-farmer exchange was transformative. I learned practical agroecology techniques that I've implemented back home.
+                </p>
+                <div className="journey-testimonials__author">
+                  <div className="journey-testimonials__avatar"></div>
+                  <div>
+                    <h5>Sarah Mitchell</h5>
+                    <span>Agricultural Researcher</span>
+                  </div>
+                </div>
+              </div>
+              <div className="journey-testimonials__card">
+                <div className="journey-testimonials__quote">"</div>
+                <p className="journey-testimonials__text">
+                  An authentic cultural experience that connected me with Kenya's agricultural heritage. The homestay was incredible!
+                </p>
+                <div className="journey-testimonials__author">
+                  <div className="journey-testimonials__avatar"></div>
+                  <div>
+                    <h5>David Chen</h5>
+                    <span>Sustainable Tourism Advocate</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>*/}
+
+        {/* Final CTA Section 
         <section className="journey-cta">
           <div className="journey-cta__container">
-            <h2 className="journey-cta__title">Ready to Start Your Journey?</h2>
-            <p className="journey-cta__text">
-              Have questions or want to customize a package? We're here to help create your perfect agritourism experience.
-            </p>
-            <a 
-              href="mailto:info@seedsaverskenya.org?subject=Package Inquiry" 
-              className="journey-cta__button"
-            >
-              Get In Touch
-            </a>
+            <div className="journey-cta__content">
+              <h2 className="journey-cta__title">Ready to Start Your Journey?</h2>
+              <p className="journey-cta__text">
+                Have questions or want to customize a package? We're here to help create your perfect agritourism experience.
+              </p>
+              <div className="journey-cta__buttons">
+                <a 
+                  href="mailto:info@seedsaverskenya.org?subject=Package Inquiry" 
+                  className="journey-cta__button journey-cta__button--primary"
+                >
+                  Get In Touch
+                </a>
+                <a 
+                  href="tel:+254123456789" 
+                  className="journey-cta__button journey-cta__button--secondary"
+                >
+                  Call Us
+                </a>
+              </div>
+            </div>
+            <div className="journey-cta__visual">
+              <div className="journey-cta__pattern"></div>
+            </div>
           </div>
-        </section>
+        </section>*/}
       </main>
     </div>
   );

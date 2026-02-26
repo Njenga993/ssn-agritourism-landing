@@ -67,7 +67,7 @@ const LocationContact = () => {
             Find Us in the <span className="connect-header__highlight">Heart of Kenya</span>
           </h2>
           <p className="connect-header__subtitle">
-            Reach out to plan your visit or learn more about our agritourism experiences
+            Reach out to plan your visit or learn more about our Ecology, Food and Culture Tourism  experiences
           </p>
         </motion.div>
 

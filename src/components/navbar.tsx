@@ -70,8 +70,8 @@ const Navbar = () => {
           <a href="#home" className="navigation-bar__logo">
             <span className="navigation-bar__logo-icon"></span>
             <div className="navigation-bar__logo-text">
-              <span className="navigation-bar__logo-main">Seed, Food and Culture</span>
-              <span className="navigation-bar__logo-sub">Tourism</span>
+              <span className="navigation-bar__logo-main">Ecology, Food and Culture Tourism </span>
+              {/*<span className="navigation-bar__logo-sub">Tourism</span>*/}
             </div>
           </a>
         </motion.div>
@@ -147,7 +147,7 @@ const Navbar = () => {
               <div className="navigation-bar__mobile-header">
                 <div className="navigation-bar__mobile-brand">
                   <span className="navigation-bar__mobile-icon"></span>
-                  <span className="navigation-bar__mobile-title">Seed, food and Culture Tourism</span>
+                  <span className="navigation-bar__mobile-title">Ecology, Food and Culture Tourism </span>
                 </div>
                 <button 
                   className="navigation-bar__mobile-close"

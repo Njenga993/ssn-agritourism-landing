@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import "../styles/packages.css";
 
+// ✅ Proper local image imports
+import fellowshipImage from "../assets/ecology.jpeg";
+import conferenceImage from "../assets/conference-room.webp";
+import soloImage from "../assets/solo.jpeg";
+
 const Packages = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
@@ -30,7 +35,7 @@ const Packages = () => {
     {
       id: 1,
       title: "Global Fellowship Package",
-      image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&q=80",
+      image: fellowshipImage,
       description: "An immersive agritourism and learning program designed for international students, researchers, and professionals interested in sustainable farming systems, agroecology, and community-led sustainability in East Africa.",
       duration: "Min. 2 weeks",
       locations: "Nakuru County (near Gilgil & Lake Elementaita)",
@@ -57,7 +62,7 @@ const Packages = () => {
     {
       id: 2,
       title: "Conference & Learning Exchange",
-      image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
+      image: conferenceImage,
       description: "Short-duration, high-impact agritourism learning experiences for schools, universities, conferences, and professional delegations. Hosted at the SSN Agroecology Learning Centre.",
       duration: "2-4 hours",
       locations: "SSN Agroecology Learning Centre",
@@ -84,7 +89,7 @@ const Packages = () => {
     {
       id: 3,
       title: "Solo & Small-Group Agritourism",
-      image: "https://images.unsplash.com/photo-1596422950024-3e9e0c6b5d98?w=800&q=80",
+      image: soloImage,
       description: "A fully customized, short-stay agritourism experience for individual travelers, couples, families, and small groups seeking authentic, hands-on exposure to sustainable farming, seed systems, food culture, and rural life in Kenya.",
       duration: "Half-day to multi-day",
       locations: "Nakuru County (near Gilgil & Lake Elementaita)",
@@ -118,11 +123,12 @@ const Packages = () => {
     >
       <div className="journey-container">
         <div className="journey-header">
-          <h2 className="journey-header__title">Our Agritourism Packages</h2>
+          <h2 className="journey-header__title">Our Ecology, Food and Culture Tourism Packages</h2>
           <p className="journey-header__subtitle">
-            Authentic, community-led experiences designed for individuals, institutions,
-            and small groups seeking immersive agroecological learning in Kenya.
-          </p>
+  A subsection of Seed Savers Network Kenya offering authentic, community-led experiences designed
+   for individuals, institutions, and small groups seeking immersive agroecological learning in 
+   Kenya.
+</p>
         </div>
 
         <div className="experience-grid">
