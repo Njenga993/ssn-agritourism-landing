@@ -9,7 +9,7 @@ import seedSovereignty from "../assets/agri001.jpg";
 import communityEngagement from "../assets/seed-ambasadors.webp";
 import culturalExchange from "../assets/holding.webp";
 import regenerativeTravel from "../assets/hero_1.webp";
-import permaculture from "../assets/agri002.jpg";
+import permaculture from "../assets/permculture.jpeg";
 import foodSovereignty from "../assets/n.webp";
 import forestGardens from "../assets/images+forest.jpeg";
 

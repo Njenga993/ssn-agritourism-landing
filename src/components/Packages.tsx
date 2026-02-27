@@ -177,7 +177,7 @@ const Packages = () => {
                 </div>
 
                 <div className="experience-card__activities">
-                  <h4 className="activities-title">Key Experiences</h4>
+                  <h4 className="activities-title">Your Experiences</h4>
                   <ul className="activities-list">
                     {pkg.experiences.map((exp, index) => (
                       <li key={index} className="activities-list__item">
