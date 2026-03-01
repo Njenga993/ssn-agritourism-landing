@@ -127,7 +127,7 @@ const About = () => {
             <p className="heritage-story__text">
   Ecology, Food and Culture Tourism  is a subsection of Seed Savers Network Kenya, designed as a form of responsible 
   travel that immerses visitors in agroecological farming, indigenous food systems, cultural 
-  exchange, and rural livelihoods  while strengthening seed sovereignty and community resilience.
+  exchange, and rural livelihoods - while strengthening seed sovereignty and community resilience.
 </p>
           </div>
         </div>
