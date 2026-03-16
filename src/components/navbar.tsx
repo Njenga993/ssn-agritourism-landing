@@ -50,7 +50,7 @@ const Navbar = () => {
 
   const navLinks = [
     { href: "/", label: "Home", icon: FiHome },
-    { href: "/#about", label: "About", icon: FiInfo },
+    { href: "/about", label: "About", icon: FiInfo },
     { href: "/packages", label: "Packages", icon: FiStar },
     { href: "/testimonials", label: "Stories", icon: FiUsers },
     { href: "/#locationtrust", label: "Visit", icon: FiMapPin },

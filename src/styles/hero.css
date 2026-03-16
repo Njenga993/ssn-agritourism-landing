@@ -1,43 +1,63 @@
-/* hero.css - All classes prefixed with ssn-hero */
-.ssn-hero {
+/* =========================================
+   HERO — DESIGN TOKENS
+   ========================================= */
+:root {
+  --soil:    #1c1410;
+  --bark:    #2e1f0e;
+  --moss:    #2d4a22;
+  --leaf:    #4a7c3f;
+  --sage:    #8faa7a;
+  --straw:   #d9c9a3;
+  --cream:   #f4efe6;
+  --border-light: rgba(217,201,163,0.18);
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body:    "DM Sans", "Helvetica Neue", sans-serif;
+  --font-mono:    "DM Mono", "Courier New", monospace;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap");
+
+/* =========================================
+   SHELL
+   ========================================= */
+.hero {
   position: relative;
   height: 100vh;
+  min-height: 640px;
   width: 100%;
   overflow: hidden;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #1a2e1a; /* Solid fallback color */
+  flex-direction: column;
+  background: var(--bark);
+  font-family: var(--font-body);
+  color: var(--cream);
 }
 
-/* Video Wrapper */
-.ssn-hero__video-wrapper {
+/* =========================================
+   VIDEO BACKGROUND
+   ========================================= */
+.hero__bg {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
+  z-index: 0;
   opacity: 0;
-  transition: opacity 1s ease;
+  transition: opacity 1.4s ease;
 }
 
-.ssn-hero--ready .ssn-hero__video-wrapper {
+.hero--ready .hero__bg {
   opacity: 1;
 }
 
-.ssn-hero__video {
+.hero__yt {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  transform: translate(-50%, -50%);
-  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.ssn-hero__iframe {
+.hero__iframe {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -45,345 +65,401 @@
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  object-fit: cover;
 }
 
-@media (min-aspect-ratio: 16/9) {
-  .ssn-hero__iframe {
-    height: 56.25vw;
-  }
-}
+@media (min-aspect-ratio: 16/9) { .hero__iframe { height: 56.25vw; } }
+@media (max-aspect-ratio: 16/9) { .hero__iframe { width: 177.78vh; } }
 
-@media (max-aspect-ratio: 16/9) {
-  .ssn-hero__iframe {
-    width: 177.78vh;
-  }
-}
-
-/* Simple Overlay - Solid color, no gradient */
-.ssn-hero__overlay {
+/* dark veil — no gradient, dark with slight warm tint */
+.hero__veil {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(10, 26, 10, 0.7); /* Solid dark green overlay */
-  z-index: 2;
+  inset: 0;
+  background: rgba(22, 14, 8, 0.72);
+  z-index: 1;
 }
 
-/* Content */
-.ssn-hero__content {
+/* =========================================
+   ISSUE BAR (magazine top strip)
+   ========================================= */
+.hero__issue-bar {
   position: relative;
-  text-align: center;
-  color: white;
-  max-width: 800px;
-  padding: 0 1.5rem;
-  z-index: 3;
-  animation: ssnFadeIn 1s ease-out;
-}
-
-/* Badge */
-.ssn-hero__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.15);
-  padding: 0.5rem 1.5rem;
-  border-radius: 50px;
-  margin-bottom: 2rem;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  animation: ssnSlideUp 0.8s ease;
-}
-
-.ssn-hero__badge-dot {
-  width: 8px;
-  height: 8px;
-  background-color: #8bc34a;
-  border-radius: 50%;
-  display: inline-block;
-  animation: ssnPulse 2s infinite;
-}
-
-@keyframes ssnPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.2); }
-}
-
-/* Headline */
-.ssn-hero__content h1 {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  line-height: 1.2;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  animation: ssnSlideUp 0.8s ease 0.1s both;
-}
-
-.ssn-hero__highlight {
-  color: #8bc34a;
-  display: inline-block;
-}
-
-.ssn-hero__subheadline {
-  display: inline-block;
-  color: #ffffff;
-}
-
-/* Description */
-.ssn-hero__content p {
-  font-size: clamp(1rem, 2vw, 1.3rem);
-  margin-bottom: 2.5rem;
-  opacity: 0.9;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.6;
-  font-weight: 300;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  animation: ssnSlideUp 0.8s ease 0.2s both;
-}
-
-/* Stats */
-.ssn-hero__stats {
+  z-index: 10;
   display: flex;
-  justify-content: center;
-  gap: 2.5rem;
-  margin-bottom: 2.5rem;
-  padding: 1.2rem;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 12px;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-  animation: ssnSlideUp 0.8s ease 0.3s both;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 48px;
+  border-bottom: 1px solid var(--border-light);
+  opacity: 0;
+  animation: fadeDown 0.6s var(--ease-out) 0.2s forwards;
 }
 
-.ssn-hero__stat {
-  text-align: center;
-}
-
-.ssn-hero__stat-number {
-  display: block;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #8bc34a;
-  line-height: 1.2;
-}
-
-.ssn-hero__stat-label {
-  font-size: 0.85rem;
-  opacity: 0.8;
-  letter-spacing: 0.5px;
+.hero__issue-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
+  color: var(--sage);
+  white-space: nowrap;
 }
 
-/* Buttons */
-.ssn-hero__buttons {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 3rem;
-  animation: ssnSlideUp 0.8s ease 0.4s both;
+.hero__issue-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--border-light);
 }
 
-.ssn-hero__btn {
-  padding: 1rem 2.5rem;
-  border-radius: 50px;
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  display: inline-block;
-  border: 2px solid transparent;
-  cursor: pointer;
-}
-
-.ssn-hero__btn--primary {
-  background-color: #2e7d32;
-  color: white;
-  border-color: #2e7d32;
-}
-
-.ssn-hero__btn--primary:hover {
-  background-color: #1b5e20;
-  border-color: #1b5e20;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-.ssn-hero__btn--secondary {
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  color: white;
-  background-color: transparent;
-}
-
-.ssn-hero__btn--secondary:hover {
-  border-color: white;
-  background-color: rgba(255, 255, 255, 0.1);
-  transform: translateY(-2px);
-}
-
-/* Scroll Indicator */
-.ssn-hero__scroll {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  animation: ssnFadeIn 1s ease 0.8s both;
-}
-
-.ssn-hero__scroll-arrow {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  animation: ssnBounce 2.5s infinite;
-}
-
-.ssn-hero__scroll-arrow span {
-  display: block;
-  width: 10px;
-  height: 10px;
-  border-right: 2px solid white;
-  border-bottom: 2px solid white;
-  transform: rotate(45deg);
-}
-
-.ssn-hero__scroll-arrow span:nth-child(2) {
-  margin-top: -5px;
-  animation: ssnFadeDelay 1.5s infinite;
-}
-
-.ssn-hero__scroll-arrow span:nth-child(3) {
-  margin-top: -5px;
-  animation: ssnFadeDelay 1.5s infinite 0.2s;
-}
-
-.ssn-hero__scroll-text {
-  font-size: 0.8rem;
-  letter-spacing: 2px;
+.hero__issue-date {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  opacity: 0.7;
+  color: rgba(217,201,163,0.4);
+  white-space: nowrap;
+}
+
+/* =========================================
+   THREE-COLUMN BODY
+   ========================================= */
+.hero__body {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 60px 1fr 200px;
+  gap: 0;
+  align-items: center;
+  padding: 0 48px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+/* ── LEFT COLUMN — vertical label ── */
+.hero__col-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 24px;
+  border-right: 1px solid var(--border-light);
+  height: 100%;
+  opacity: 0;
+  animation: fadeIn 0.6s var(--ease-out) 0.35s forwards;
+}
+
+.hero__vert-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(143,170,122,0.55);
   writing-mode: vertical-rl;
   transform: rotate(180deg);
-  margin-top: 5px;
 }
 
-/* Animations */
-@keyframes ssnFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+/* ── CENTRE COLUMN ── */
+.hero__col-centre {
+  padding: 0 56px;
 }
 
-@keyframes ssnSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.hero__kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin: 0 0 28px;
+  opacity: 0;
+  animation: fadeUp 0.7s var(--ease-out) 0.4s forwards;
 }
 
-@keyframes ssnBounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-10px);
-  }
-  60% {
-    transform: translateY(-5px);
-  }
+/* headline — staggered lines */
+.hero__headline {
+  font-family: var(--font-display);
+  font-size: clamp(58px, 8.5vw, 118px);
+  line-height: 0.92;
+  font-weight: 700;
+  margin: 0 0 36px;
+  display: flex;
+  flex-direction: column;
 }
 
-@keyframes ssnFadeDelay {
-  0%, 100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 1;
-  }
+.hero__headline-line {
+  display: block;
+  opacity: 0;
+  transform: translateY(44px);
+  animation: fadeUp 1s var(--ease-out) forwards;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .ssn-hero__content h1 {
-    font-size: 2rem;
+.hero__headline-line--1 { animation-delay: 0.5s; }
+.hero__headline-line--2 {
+  animation-delay: 0.65s;
+  font-style: italic;
+  color: var(--straw);
+  padding-left: 40px; /* editorial indent */
+}
+.hero__headline-line--3 { animation-delay: 0.8s; }
+
+.hero__deck {
+  font-size: clamp(15px, 1.4vw, 18px);
+  font-weight: 300;
+  color: rgba(244,239,230,0.72);
+  max-width: 520px;
+  line-height: 1.7;
+  margin: 0 0 44px;
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease-out) 1s forwards;
+}
+
+/* ── ACTIONS ── */
+.hero__actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  opacity: 0;
+  animation: fadeUp 0.7s var(--ease-out) 1.15s forwards;
+}
+
+.hero__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition:
+    background 0.32s ease,
+    color 0.32s ease,
+    border-color 0.32s ease,
+    transform 0.4s var(--ease-out);
+}
+
+.hero__btn svg {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.hero__btn--fill {
+  background: var(--cream);
+  color: var(--soil);
+  padding: 14px 28px;
+  border: 1px solid var(--cream);
+}
+
+.hero__btn--fill:hover {
+  background: var(--straw);
+  border-color: var(--straw);
+  transform: translateY(-3px);
+}
+
+.hero__btn--fill:hover svg {
+  transform: translateX(5px);
+}
+
+.hero__btn--ghost {
+  color: rgba(244,239,230,0.7);
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(217,201,163,0.3);
+}
+
+.hero__btn--ghost:hover {
+  color: var(--cream);
+  border-color: var(--cream);
+  transform: translateY(-2px);
+}
+
+/* ── RIGHT COLUMN — stats ── */
+.hero__col-right {
+  padding-left: 36px;
+  border-left: 1px solid var(--border-light);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  animation: fadeIn 0.8s var(--ease-out) 0.9s forwards;
+}
+
+.hero__stat-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+
+.hero__stat {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.hero__stat:last-child {
+  border-bottom: none;
+}
+
+.hero__stat-n {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 700;
+  color: var(--straw);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.hero__stat-l {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(143,170,122,0.7);
+  white-space: pre-line;
+  line-height: 1.5;
+}
+
+/* =========================================
+   FOOTER STRIP
+   ========================================= */
+.hero__footer-strip {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 48px;
+  opacity: 0;
+  animation: fadeIn 0.6s var(--ease-out) 1.35s forwards;
+}
+
+.hero__scroll-cue {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.hero__scroll-word {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(143,170,122,0.6);
+}
+
+/* animated scroll track */
+.hero__scroll-track {
+  position: relative;
+  width: 1px;
+  height: 42px;
+  background: rgba(217,201,163,0.15);
+  overflow: hidden;
+}
+
+.hero__scroll-dot {
+  position: absolute;
+  top: -6px;
+  left: -1px;
+  width: 3px;
+  height: 6px;
+  background: var(--sage);
+  border-radius: 2px;
+  animation: scrollDot 2s var(--ease-out) 1.6s infinite;
+}
+
+@keyframes scrollDot {
+  0%   { top: -6px; opacity: 1; }
+  80%  { top: 44px; opacity: 0.3; }
+  100% { top: -6px; opacity: 0; }
+}
+
+.hero__footer-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--border-light);
+}
+
+.hero__footer-copy {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(217,201,163,0.25);
+  white-space: nowrap;
+}
+
+/* =========================================
+   KEYFRAMES
+   ========================================= */
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 1000px) {
+  .hero__body {
+    grid-template-columns: 48px 1fr;
+    padding: 0 32px;
+  }
+  .hero__col-right { display: none; }
+  .hero__col-centre { padding: 0 36px; }
+
+  /* move stats below deck on tablet */
+  .hero__col-centre { position: relative; }
+}
+
+@media (max-width: 700px) {
+  .hero__body {
+    grid-template-columns: 1fr;
+    padding: 32px 24px;
+    align-items: flex-end;
+  }
+  .hero__col-left { display: none; }
+  .hero__col-centre { padding: 0; }
+  .hero__issue-bar { padding: 12px 24px; }
+  .hero__footer-strip { padding: 12px 24px; }
+  .hero__footer-copy { display: none; }
+
+  .hero__headline {
+    font-size: clamp(48px, 13vw, 72px);
   }
 
-  .ssn-hero__content p {
-    font-size: 1rem;
-    padding: 0 1rem;
-  }
-  
-  .ssn-hero__buttons {
+  .hero__actions {
     flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+    align-items: flex-start;
+    gap: 14px;
   }
-  
-  .ssn-hero__btn {
-    width: 100%;
-    max-width: 250px;
-    text-align: center;
-    padding: 0.9rem 2rem;
-  }
-  
-  .ssn-hero__stats {
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
-    max-width: 250px;
-  }
-  
-  .ssn-hero__scroll-text {
-    display: none;
-  }
+
+  .hero__btn--fill { width: 100%; justify-content: center; }
 }
 
-@media (max-width: 480px) {
-  .ssn-hero__badge {
-    font-size: 0.8rem;
-    padding: 0.4rem 1rem;
-  }
-  
-  .ssn-hero__stat-number {
-    font-size: 1.5rem;
-  }
-  
-  .ssn-hero__stat-label {
-    font-size: 0.75rem;
-  }
-}
-
-/* Reduce motion preference */
+/* =========================================
+   REDUCED MOTION
+   ========================================= */
 @media (prefers-reduced-motion: reduce) {
-  .ssn-hero__content,
-  .ssn-hero__badge,
-  .ssn-hero__content h1,
-  .ssn-hero__content p,
-  .ssn-hero__stats,
-  .ssn-hero__buttons,
-  .ssn-hero__scroll,
-  .ssn-hero__badge-dot,
-  .ssn-hero__scroll-arrow {
+  .hero__kicker,
+  .hero__headline-line,
+  .hero__deck,
+  .hero__actions,
+  .hero__col-left,
+  .hero__col-right,
+  .hero__issue-bar,
+  .hero__footer-strip,
+  .hero__bg {
     animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
-  
-  .ssn-hero__btn:hover {
-    transform: none;
-  }
+  .hero__scroll-dot { animation: none; }
 }

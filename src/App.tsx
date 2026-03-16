@@ -5,6 +5,7 @@ import Navbar from "./components/navbar";
 import Footer from "./components/Footer";
 import MediaAndStoriesPage from "./pages/MediaAndStoriesPage";
 import ContactPage from "./pages/ContactPage";
+import AboutPage from "./pages/Aboutpage"; // Import the About page
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
 
         {/* This route renders the PackagesPage component when the user goes to "/packages" */}
+        <Route path="/about" element={<AboutPage />} />
         <Route path="/packages" element={<PackagesPage />} />
         <Route path="/gallery" element={<MediaAndStoriesPage />} />
         <Route path="/testimonials" element={<MediaAndStoriesPage />} />

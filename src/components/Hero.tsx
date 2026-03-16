@@ -1,21 +1,21 @@
 // Hero.tsx
 import { useRef, useState } from "react";
 import "../styles/hero.css";
-import YouTube from 'react-youtube';
+import YouTube from "react-youtube";
 
 const Hero = () => {
   const [isVideoReady, setIsVideoReady] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
 
   const opts = {
-    height: '100%',
-    width: '100%',
+    height: "100%",
+    width: "100%",
     playerVars: {
       autoplay: 1,
       controls: 0,
       mute: 1,
       loop: 1,
-      playlist: '7Isnch3jVCU',
+      playlist: "7Isnch3jVCU",
       rel: 0,
       showinfo: 0,
       modestbranding: 1,
@@ -29,90 +29,106 @@ const Hero = () => {
     setIsVideoReady(true);
   };
 
-  const onError = (error: any) => {
-    console.log('YouTube Player Error:', error);
-    setIsVideoReady(true); // Still show content even if video fails
-  };
+  const onError = () => setIsVideoReady(true);
 
   return (
-    <section 
+    <section
       ref={heroRef}
-      className={`ssn-hero ${isVideoReady ? 'ssn-hero--ready' : ''}`}
+      className={`hero ${isVideoReady ? "hero--ready" : ""}`}
     >
-      {/* Video Background */}
-      <div className="ssn-hero__video-wrapper">
+      {/* ── VIDEO BG ── */}
+      <div className="hero__bg">
         <YouTube
           videoId="7Isnch3jVCU"
           opts={opts}
-          className="ssn-hero__video"
-          iframeClassName="ssn-hero__iframe"
+          className="hero__yt"
+          iframeClassName="hero__iframe"
           onReady={onReady}
           onError={onError}
         />
-        
-        {/* Simple Overlay - No gradients */}
-        <div className="ssn-hero__overlay"></div>
+        <div className="hero__veil" />
       </div>
-      
-      {/* Main Content */}
-      <div className="ssn-hero__content">
-        {/* Badge */}
-        <div className="ssn-hero__badge">
-          <span className="ssn-hero__badge-dot"></span>
-          Ecology, Food and Culture Tourism 
+
+      {/* ── ISSUE LINE (magazine top strip) ── */}
+      <div className="hero__issue-bar">
+        <span className="hero__issue-tag">Seed Savers Network Kenya</span>
+        <span className="hero__issue-rule" aria-hidden="true" />
+        <span className="hero__issue-date">Est. 2009 · Gilgil,Nakuru  Kenya</span>
+      </div>
+
+      {/* ── MAIN EDITORIAL LAYOUT ── */}
+      <div className="hero__body">
+
+        {/* left column — vertical label */}
+        <div className="hero__col-left">
+          <span className="hero__vert-label">Ecology · Food · Culture</span>
         </div>
 
-        {/* Headline */}
-        <h1>
-          Experience <span className="ssn-hero__highlight">Agroecology</span>
-          <br />
-          <span className="ssn-hero__subheadline">in Action</span>
-        </h1>
+        {/* centre column — headline */}
+        <div className="hero__col-centre">
+          <p className="hero__kicker">Immersive agroecology tourism</p>
 
-        {/* Description */}
-        <p>
-          A Subsection of Seed Savers Network Kenya that offers Immersive farm-based learning rooted in seed sovereignty,
-          culture, and community resilience.
-        </p>
+          <h1 className="hero__headline">
+            <span className="hero__headline-line hero__headline-line--1">
+              Where Land
+            </span>
+            <span className="hero__headline-line hero__headline-line--2">
+              <em>Speaks</em>
+            </span>
+            <span className="hero__headline-line hero__headline-line--3">
+              to People
+            </span>
+          </h1>
 
-        {/* Stats 
-        <div className="ssn-hero__stats">
-          <div className="ssn-hero__stat">
-            <span className="ssn-hero__stat-number">15+</span>
-            <span className="ssn-hero__stat-label">Years</span>
-          </div>
-          <div className="ssn-hero__stat">
-            <span className="ssn-hero__stat-number">200+</span>
-            <span className="ssn-hero__stat-label">Seed Varieties</span>
-          </div>
-          <div className="ssn-hero__stat">
-            <span className="ssn-hero__stat-number">50+</span>
-            <span className="ssn-hero__stat-label">Communities</span>
-          </div>
-        </div>*/}
+          <p className="hero__deck">
+            A subsection of Seed Savers Network Kenya Offering
+            Farm-based learning rooted in seed sovereignty,
+            indigenous food systems, and community resilience —
+            across rural Kenya.
+          </p>
 
-        {/* Buttons */}
-        <div className="ssn-hero__buttons">
-          <a href="#packages" className="ssn-hero__btn ssn-hero__btn--primary">
-            Explore Packages
-          </a>
-          <a
-            href="mailto:info@seedsaverskenya.org"
-            className="ssn-hero__btn ssn-hero__btn--secondary"
-          >
-            Book Your Experience
-          </a>
+          <div className="hero__actions">
+            <a href="#packages" className="hero__btn hero__btn--fill">
+              Explore Packages
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+            <a href="mailto:info@seedsaverskenya.org" className="hero__btn hero__btn--ghost">
+              Book Experience
+            </a>
+          </div>
         </div>
 
-        {/* Scroll Indicator 
-        <div className="ssn-hero__scroll">
-          <div className="ssn-hero__scroll-arrow">
-            <span></span>
-            <span></span>
-            <span></span>
+        {/* right column — stats */}
+        <div className="hero__col-right">
+          <div className="hero__stat-stack">
+            {[
+              { n: "15+",  l: "Years of\nstewardship" },
+              { n: "300+", l: "Indigenous\nseed varieties" },
+              { n: "40+",  l: "Partner\ncommunities" },
+            ].map(({ n, l }) => (
+              <div className="hero__stat" key={n}>
+                <strong className="hero__stat-n">{n}</strong>
+                <span className="hero__stat-l">{l}</span>
+              </div>
+            ))}
           </div>
-          <span className="ssn-hero__scroll-text">Scroll</span>
-        </div>*/}
+        </div>
+      </div>
+
+      {/* ── BOTTOM STRIP ── */}
+      <div className="hero__footer-strip">
+        <a href="#story" className="hero__scroll-cue" aria-label="Scroll down">
+          <span className="hero__scroll-word">Scroll</span>
+          <span className="hero__scroll-track">
+            <span className="hero__scroll-dot" />
+          </span>
+        </a>
+        <span className="hero__footer-rule" aria-hidden="true" />
+        <span className="hero__footer-copy">
+          A subsection of Seed Savers Network Kenya
+        </span>
       </div>
     </section>
   );
