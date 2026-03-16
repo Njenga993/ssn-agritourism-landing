@@ -53,7 +53,7 @@ const Hero = () => {
       <div className="hero__issue-bar">
         <span className="hero__issue-tag">Seed Savers Network Kenya</span>
         <span className="hero__issue-rule" aria-hidden="true" />
-        <span className="hero__issue-date">Est. 2009 · Gilgil,Nakuru  Kenya</span>
+        <span className="hero__issue-date">Est. 2009 · Gilgil,Nakuru Kenya</span>
       </div>
 
       {/* ── MAIN EDITORIAL LAYOUT ── */}
@@ -83,7 +83,7 @@ const Hero = () => {
           <p className="hero__deck">
             A subsection of Seed Savers Network Kenya Offering
             Farm-based learning rooted in seed sovereignty,
-            indigenous food systems, and community resilience —
+            indigenous food systems, and community resilience 
             across rural Kenya.
           </p>
 
@@ -104,9 +104,9 @@ const Hero = () => {
         <div className="hero__col-right">
           <div className="hero__stat-stack">
             {[
-              { n: "15+",  l: "Years of\nstewardship" },
-              { n: "300+", l: "Indigenous\nseed varieties" },
-              { n: "40+",  l: "Partner\ncommunities" },
+              { n: "17+",  l: "Years of\nstewardship" },
+              { n: "3000+", l: "Indigenous\nseed varieties" },
+              { n: "400+",  l: "Partner\ncommunities" },
             ].map(({ n, l }) => (
               <div className="hero__stat" key={n}>
                 <strong className="hero__stat-n">{n}</strong>

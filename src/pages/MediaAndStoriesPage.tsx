@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "../styles/media-and-stories-page.css";
 
@@ -15,6 +15,9 @@ import photo6 from "../assets/holding.webp";
 import photo7 from "../assets/kikopey.webp";
 import photo8 from "../assets/seeds.webp";
 import photo9 from "../assets/seed-ambasadors.webp";
+import photo10 from "../assets/ecology.jpeg";
+import photo11 from "../assets/permculture.jpeg";
+import photo12 from "../assets/winowing.webp";
 
 // People avatars
 import annaAvatar from "../assets/hero_1.webp";
@@ -25,24 +28,26 @@ import fatimaAvatar from "../assets/hero_1.webp";
 import davidAvatar from "../assets/hero_1.webp";
 import sarahAvatar from "../assets/sab.jpeg";
 
-// Video thumbnails (you'll need to create these)
+// Video thumbnails
 import videoThumb1 from "../assets/hero_1.webp";
 import videoThumb2 from "../assets/solo.jpeg";
 import videoThumb3 from "../assets/kikopey.webp";
 import videoThumb4 from "../assets/n.webp";
 
-
 // --- DATA ---
 const allPhotos = [
-  { id: 1, src: photo1, alt: "Harvesting fresh vegetables", category: "farm-life", location: "Nakuru County", date: "March 2024" },
-  { id: 2, src: photo2, alt: "Community sharing a meal", category: "community", location: "Gilgil", date: "February 2024" },
-  { id: 3, src: photo3, alt: "Hands planting seeds in soil", category: "workshop", location: "Learning Centre", date: "January 2024" },
-  { id: 4, src: photo4, alt: "Visitors Touring", category: "community", location: "Demonstration Farm", date: "March 2024" },
-  { id: 5, src: photo5, alt: "Seedsavers Center", category: "landscape", location: "Lake Elementaita", date: "December 2023" },
-  { id: 6, src: photo6, alt: "A farmer with a basket of produce", category: "people", location: "Partner Farm", date: "February 2024" },
-  { id: 7, src: photo7, alt: "Seed bank storage", category: "facility", location: "SSN Headquarters", date: "January 2024" },
-  { id: 8, src: photo8, alt: "Indigenous Seeds", category: "education", location: "School Program", date: "March 2024" },
-  { id: 9, src: photo9, alt: "Fellowship participants", category: "people", location: "Training Centre", date: "February 2024" },
+  { id: 1, src: photo1, alt: "Women cultivating crops in green fields", category: "farm-life", location: "Nakuru County", date: "March 2024" },
+  { id: 2, src: photo2, alt: "Community seed bank meeting", category: "community", location: "Gilgil", date: "February 2024" },
+  { id: 3, src: photo3, alt: "Traditional farming techniques", category: "workshop", location: "Learning Centre", date: "January 2024" },
+  { id: 4, src: photo4, alt: "Visitors touring demonstration farm", category: "community", location: "Demonstration Farm", date: "March 2024" },
+  { id: 5, src: photo5, alt: "Seed Savers Network headquarters", category: "landscape", location: "Lake Elementaita", date: "December 2023" },
+  { id: 6, src: photo6, alt: "Farmer with indigenous harvest", category: "people", location: "Partner Farm", date: "February 2024" },
+  { id: 7, src: photo7, alt: "Seed bank storage facility", category: "facility", location: "SSN Headquarters", date: "January 2024" },
+  { id: 8, src: photo8, alt: "Indigenous seed varieties", category: "education", location: "School Program", date: "March 2024" },
+  { id: 9, src: photo9, alt: "Seed ambassadors program", category: "people", location: "Training Centre", date: "February 2024" },
+  { id: 10, src: photo10, alt: "Ecology and biodiversity", category: "landscape", location: "Conservation Area", date: "January 2024" },
+  { id: 11, src: photo11, alt: "Permaculture design", category: "workshop", location: "Learning Centre", date: "February 2024" },
+  { id: 12, src: photo12, alt: "Traditional winnowing", category: "farm-life", location: "Partner Farm", date: "March 2024" },
 ];
 
 const allVideos = [
@@ -56,17 +61,30 @@ const allTestimonials = [
   { id: 201, name: "Anna Müller", location: "Germany", type: "Researcher", quote: "This was more than travel — it was education, culture, and community. I left with practical agroecology skills and a deeper understanding of seed sovereignty.", image: annaAvatar, program: "Global Fellowship" },
   { id: 202, name: "Michael Johnson", location: "United States", type: "Institutional", quote: "The conference hosting environment was inspiring and deeply authentic. Our institution gained valuable insight into community-driven agricultural systems.", image: michaelAvatar, program: "Learning Exchange" },
   { id: 203, name: "Claire Dubois", location: "France", type: "Tourist", quote: "Participating in seed conservation and traditional cooking sessions was transformative. It connected sustainability with culture in a powerful way.", image: claireAvatar, program: "Solo Package" },
-  { id: 204, name: "Kenji Tanaka", location: "Japan", type: "Student", quote: "As an agricultural student, this experience was invaluable. It's one thing to read about permaculture, and another to see it thriving.", image: kenjiAvatar, program: "Global Fellowship" },
+  { id: 204, name: "Kenji Tanaka", location: "Japan", type: "Student", quote: "As an agricultural student, this experience was invaluable. It's one thing to read about permaculture, and another to see it thriving in practice.", image: kenjiAvatar, program: "Global Fellowship" },
   { id: 205, name: "Fatima Al-Fassi", location: "Morocco", type: "Partner", quote: "Our partnership with Seed Savers Kenya has been instrumental in our own seed bank projects. The knowledge exchange is truly bidirectional.", image: fatimaAvatar, program: "Institutional" },
-  { id: 206, name: "David O'Connell", location: "Ireland", type: "Volunteer", quote: "Volunteering here gave me a sense of purpose. The work is tangible, the community is welcoming, and the impact is real.", image: davidAvatar, program: "Volunteer Program" },
+  { id: 206, name: "David O'Connell", location: "Ireland", type: "Volunteer", quote: "Volunteering here gave me a sense of purpose. The work is tangible, the community is welcoming, and the impact is real and lasting.", image: davidAvatar, program: "Volunteer Program" },
+  { id: 207, name: "Dr. Sarah Kimani", location: "Kenya", type: "Researcher", quote: "The Seed Savers Network isn't just preserving seeds — they're preserving knowledge, culture, and hope for future generations.", image: sarahAvatar, program: "Research Partnership" },
 ];
 
 const MediaAndStoriesPage = () => {
-  const [activeTab, setActiveTab] = useState<'gallery' | 'stories' | 'impact'>('gallery');
+  const [activeTab, setActiveTab] = useState<'gallery' | 'stories'>('gallery');
   const [galleryFilter, setGalleryFilter] = useState<'all' | 'photos' | 'videos'>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [lightbox, setLightbox] = useState<{ isOpen: boolean; type: 'photo' | 'video'; src: string; title?: string; metadata?: any } | null>(null);
   const [testimonialFilter, setTestimonialFilter] = useState<string>('all');
+  const heroImageRef = useRef<HTMLDivElement | null>(null);
+
+  // Parallax effect on hero
+  useEffect(() => {
+    const onScroll = () => {
+      if (heroImageRef.current) {
+        heroImageRef.current.style.transform = `translateY(${window.scrollY * 0.28}px)`;
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // Get unique categories
   const photoCategories = ['all', ...new Set(allPhotos.map(p => p.category))];
@@ -100,47 +118,62 @@ const MediaAndStoriesPage = () => {
 
   return (
     <main className="media-stories-page">
-      {/* Hero Section */}
-      <section className="media-hero" style={{ backgroundImage: `url(${heroImage})` }}>
+      {/* Hero Section - Magazine Style */}
+      <section className="media-hero">
+        <div className="hero-img-wrap" ref={heroImageRef}>
+          <img src={heroImage} alt="Seed Savers Network" />
+        </div>
         <div className="hero-overlay"></div>
         <div className="hero-content">
-          <Link to="/" className="back-link">← Back to Home</Link>
-          <h1 className="hero-title">Our Gallery & Stories</h1>
+          <Link to="/" className="back-link">
+            <span>←</span> Back to Home
+          </Link>
+          <span className="hero-eyebrow">Seed Savers Network Kenya</span>
+          <h1 className="hero-title">
+            <span className="hero-title-line">Our Gallery</span>
+            <span className="hero-title-line">&amp; Stories</span>
+          </h1>
           <p className="hero-subtitle">
-            Experience the journey through the eyes of our community — from hands-on farming to cultural exchanges
+            Experience the journey through the eyes of our community — from hands-on farming 
+            to cultural exchanges and seed sovereignty in action.
           </p>
+          <div className="hero-scroll-cue">
+            <span>Discover</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+          </div>
         </div>
       </section>
 
       {/* Tab Navigation */}
       <section className="tab-navigation">
-        <div className="container">
+        <div className="tab-container">
           <div className="tabs">
             <button 
               className={`tab ${activeTab === 'gallery' ? 'active' : ''}`}
               onClick={() => setActiveTab('gallery')}
             >
-              <span className="tab-icon"></span>
               Visual Gallery
             </button>
             <button 
               className={`tab ${activeTab === 'stories' ? 'active' : ''}`}
               onClick={() => setActiveTab('stories')}
             >
-              <span className="tab-icon"></span>
               Visitor Stories
             </button>
           </div>
         </div>
       </section>
 
-      <div className="container">
+      <div className="media-container">
         {/* GALLERY TAB */}
         {activeTab === 'gallery' && (
           <section className="gallery-section fade-in">
             <div className="section-header">
-              <h2>Visual Journey Through Seed Savers</h2>
-              <p>Explore authentic moments from our programs, farms, and community</p>
+              <span className="section-label">Visual Archive</span>
+              <h2>Moments from the Field</h2>
+              <p>Authentic glimpses into our programs, farms, and community life</p>
             </div>
 
             {/* Filter Controls */}
@@ -174,7 +207,7 @@ const MediaAndStoriesPage = () => {
                       className={`category-filter ${selectedCategory === cat ? 'active' : ''}`}
                       onClick={() => setSelectedCategory(cat)}
                     >
-                      {cat === 'all' ? 'All Categories' : cat.charAt(0).toUpperCase() + cat.slice(1)}
+                      {cat === 'all' ? 'All Categories' : cat.charAt(0).toUpperCase() + cat.slice(1).replace('-', ' ')}
                     </button>
                   ))}
                 </div>
@@ -188,11 +221,13 @@ const MediaAndStoriesPage = () => {
                   return (
                     <div key={item.id} className="gallery-card video-card" onClick={() => openLightbox('video', item.embedUrl, { title: item.title })}>
                       <div className="card-media">
-                        <img src={item.thumbnail} alt={item.title} />
+                        <img src={item.thumbnail} alt={item.title} loading="lazy" />
                         <div className="play-button">
-                          <span>▶</span>
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/>
+                          </svg>
                         </div>
-                        <div className="video-duration">{item.duration}</div>
+                        <span className="video-duration">{item.duration}</span>
                       </div>
                       <div className="card-info">
                         <h3>{item.title}</h3>
@@ -208,6 +243,7 @@ const MediaAndStoriesPage = () => {
                     <div key={item.id} className="gallery-card photo-card" onClick={() => openLightbox('photo', item.src, { alt: item.alt, location: item.location, date: item.date })}>
                       <div className="card-media">
                         <img src={item.src} alt={item.alt} loading="lazy" />
+                        <span className="card-category">{item.category.replace('-', ' ')}</span>
                       </div>
                       <div className="card-info">
                         <h3>{item.alt}</h3>
@@ -234,8 +270,9 @@ const MediaAndStoriesPage = () => {
         {activeTab === 'stories' && (
           <section className="stories-section fade-in">
             <div className="section-header">
-              <h2>Stories From Our Community</h2>
-              <p>Real experiences from visitors, researchers, and partners around the world</p>
+              <span className="section-label">Community Voices</span>
+              <h2>Stories From Our Visitors</h2>
+              <p>Real experiences from researchers, travelers, and partners around the world</p>
             </div>
 
             {/* Featured Story */}
@@ -243,13 +280,14 @@ const MediaAndStoriesPage = () => {
               <div className="featured-content">
                 <span className="featured-badge">Featured Story</span>
                 <blockquote>
-                  "The Seed Savers Network isn't just preserving seeds  they're preserving knowledge, culture, and hope for future generations."
+                  "The Seed Savers Network isn't just preserving seeds — they're preserving knowledge, 
+                  culture, and hope for future generations."
                 </blockquote>
                 <div className="featured-author">
                   <img src={sarahAvatar} alt="Dr. Sarah Kimani" />
                   <div>
-                    <strong>sebastian</strong>
-                    <span>T.B.C</span>
+                    <strong>Dr. Sarah Kimani</strong>
+                    <span>Research Partner, Kenya</span>
                   </div>
                 </div>
               </div>
@@ -257,7 +295,7 @@ const MediaAndStoriesPage = () => {
 
             {/* Filter */}
             <div className="stories-filter">
-              <label>Filter by visitor type:</label>
+              <span className="filter-label">Filter by visitor type:</span>
               <div className="filter-buttons">
                 {testimonialTypes.map(type => (
                   <button

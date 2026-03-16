@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from "react";
 import "../styles/about.css";
 
-// ✅ Imported images from assets folder
 import agri001 from "../assets/ecology.jpeg";
 import agroecology from "../assets/women-cultivating-crops-in-green-fields-4771650.webp";
 import seedSovereignty from "../assets/agri001.jpg";
@@ -13,174 +12,190 @@ import permaculture from "../assets/permculture.jpeg";
 import foodSovereignty from "../assets/n.webp";
 import forestGardens from "../assets/images+forest.jpeg";
 
-const About = () => {
-  const sectionRef = useRef<HTMLElement | null>(null);
+/* ── tiny reveal hook ── */
+function useReveal(threshold = 0.12) {
+  const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
-
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-        }
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) { setVisible(true); obs.unobserve(el); }
       },
-      { threshold: 0.2, rootMargin: "0px 0px -50px 0px" }
+      { threshold }
     );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return { ref, visible };
+}
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+const experiences = [
+  { title: "Agroecology",           description: "Farming systems that work in harmony with biodiversity, soil health, and natural ecological cycles.", image: agroecology },
+  { title: "Seed Sovereignty",      description: "How farmers preserve indigenous seed varieties and maintain community seed systems.", image: seedSovereignty },
+  { title: "Community Engagement",  description: "Time with rural communities, learning directly from farmers and local leaders.", image: communityEngagement },
+  { title: "Cultural Exchange",     description: "Traditional food, farming rituals, and cultural heritage rooted in land stewardship.", image: culturalExchange },
+  { title: "Regenerative Travel",   description: "Travel experiences designed to restore ecosystems while supporting local livelihoods.", image: regenerativeTravel },
+  { title: "Permaculture",          description: "Ecological design systems that create resilient landscapes and sustainable food production.", image: permaculture },
+  { title: "Food Sovereignty",      description: "How communities protect local food systems and agricultural independence.", image: foodSovereignty },
+  { title: "Food Forests",          description: "Multi-layered forest gardens producing food while regenerating ecosystems.", image: forestGardens },
+];
 
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
+function ExperienceCard({ exp, index }: { exp: typeof experiences[0]; index: number }) {
+  const { ref, visible } = useReveal(0.08);
+  return (
+    <div
+      ref={ref}
+      className="ab-card"
+      data-visible={visible}
+      style={{ transitionDelay: `${(index % 4) * 80}ms` }}
+    >
+      <div className="ab-card__img">
+        <img src={exp.image} alt={exp.title} loading="lazy" />
+        <span className="ab-card__idx">{String(index + 1).padStart(2, "0")}</span>
+      </div>
+      <div className="ab-card__body">
+        <h3 className="ab-card__title">{exp.title}</h3>
+        <p className="ab-card__desc">{exp.description}</p>
+        <span className="ab-card__arrow">→</span>
+      </div>
+    </div>
+  );
+}
 
-  const experienceCards = [
-    {
-      title: "Agroecology",
-      description: "Learn regenerative farming practices rooted in biodiversity and soil health.",
-      imageUrl: agroecology
-    },
-    {
-      title: "Seed Sovereignty",
-      description: "Engage with indigenous seed systems and community-led conservation.",
-      imageUrl: seedSovereignty
-    },
-    {
-      title: "Community Engagement",
-      description: "Build meaningful relationships with local farmers and rural communities.",
-      imageUrl: communityEngagement
-    },
-    {
-      title: "Cultural Exchange",
-      description: "Experience indigenous food, traditions, and authentic rural life.",
-      imageUrl: culturalExchange
-    },
-    {
-      title: "Regenerative Travel",
-      description: "Travel that gives back to the land and communities while minimizing impact.",
-      imageUrl: regenerativeTravel
-    },
-    {
-      title: "Permaculture",
-      description: "Discover design systems that mimic natural ecosystems for sustainability.",
-      imageUrl: permaculture
-    },
-    {
-      title: "Food Sovereignty",
-      description: "Support local food systems and traditional knowledge preservation.",
-      imageUrl: foodSovereignty
-    },
-    {
-      title: "Food Forest",
-      description: "Explore multi-story food forests combining trees, shrubs, and perennial plants.",
-      imageUrl: forestGardens
-    }
-  ];
+const About = () => {
+  const storyReveal = useReveal(0.12);
+  const philoReveal = useReveal(0.12);
+  const gridReveal  = useReveal(0.08);
+  const ctaReveal   = useReveal(0.2);
 
   return (
-    <section
-      id="about"
-      ref={sectionRef}
-      className={`heritage-section ${visible ? "heritage-section--visible" : ""}`}
-    >
-      {/* Decorative elements */}
-      <div className="heritage-section__pattern">
-        <div className="heritage-section__circle heritage-section__circle--1"></div>
-        <div className="heritage-section__circle heritage-section__circle--2"></div>
-        <div className="heritage-section__leaf heritage-section__leaf--1"></div>
-        <div className="heritage-section__leaf heritage-section__leaf--2"></div>
+    <section id="about" className="ab">
+
+      {/* ── MASTHEAD RULE ── */}
+      <div className="ab__masthead">
+        <span className="ab__masthead-label">Our Story</span>
+        <span className="ab__masthead-rule" />
+        <span className="ab__masthead-vol">Vol. I — Seed Savers Network Kenya</span>
       </div>
 
-      <div className="heritage-container">
-        {/* Header */}
-        <div className="heritage-header">
-          <span className="heritage-header__subtitle">Our Story</span>
-          <h2 className="heritage-header__title">
-            What is <span className="heritage-header__highlight">Ecology, Food and Culture Tourism?</span>
+      {/* ── HEADLINE BLOCK ── */}
+      <div className="ab__headline-block">
+        <div className="ab__headline-wrap">
+          <p className="ab__kicker">What is</p>
+          <h2 className="ab__headline">
+            <span>Ecology,</span>
+            <span><em>Food</em></span>
+            <span>&amp; Culture Tourism</span>
           </h2>
-          <div className="heritage-header__divider">
-            <span className="heritage-header__line"></span>
-            <span className="heritage-header__icon">✦</span>
-            <span className="heritage-header__line"></span>
-          </div>
         </div>
+        <p className="ab__standfirst">
+          A subsection of Seed Savers Network Kenya — connecting travelers with the landscapes,
+          communities, and knowledge systems that sustain food and biodiversity across rural Kenya.
+        </p>
+      </div>
 
-        {/* Traditional Left Image - Right Text Layout */}
-        <div className="heritage-story">
-          <div className="heritage-story__image-wrapper">
-            <img 
-              src={agri001}
-              alt="Farming landscape with community members"
-              className="heritage-story__image"
-              loading="lazy"
-            />
-            <div className="heritage-story__image-border"></div>
-            <div className="heritage-story__image-accent"></div>
-          </div>
-          
-          <div className="heritage-story__content">
-            <div className="heritage-story__quote-mark" aria-hidden="true">"</div>
-            <p className="heritage-story__text">
-  Ecology, Food and Culture Tourism  is a subsection of Seed Savers Network Kenya, designed as a form of responsible 
-  travel that immerses visitors in agroecological farming, indigenous food systems, cultural 
-  exchange, and rural livelihoods - while strengthening seed sovereignty and community resilience.
-</p>
-          </div>
+      {/* ── STORY SPREAD ── */}
+      <div
+        ref={storyReveal.ref}
+        className={`ab__spread ${storyReveal.visible ? "ab__spread--on" : ""}`}
+      >
+        <div className="ab__spread-img">
+          <img src={agri001} alt="Farming landscape with community members" loading="lazy" />
+          <span className="ab__spread-caption">Nyeri County, Kenya</span>
         </div>
-
-        {/* Cards Section with Wooden Background */}
-        <div className="heritage-cards-wrapper">
-          <div className="heritage-cards__wooden-bg">
-            <div className="heritage-cards__wooden-overlay"></div>
-          </div>
-          
-          <div className="heritage-cards__header">
-            <h3 className="heritage-cards__title">Experiences That Await You</h3>
-            <p className="heritage-cards__subtitle">Eight unique pathways to connect with the land</p>
-          </div>
-
-          <div className="heritage-cards__grid">
-            {experienceCards.map((card, index) => (
-              <div 
-                key={index} 
-                className="heritage-card"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="heritage-card__image-wrapper">
-                  <img 
-                    src={card.imageUrl} 
-                    alt={card.title}
-                    className="heritage-card__image"
-                    loading="lazy"
-                  />
-                  <div className="heritage-card__image-overlay"></div>
-                </div>
-                <div className="heritage-card__content">
-                  <h4 className="heritage-card__title">{card.title}</h4>
-                  <p className="heritage-card__description">{card.description}</p>
-                  <span className="heritage-card__number">{index + 1}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+        <div className="ab__spread-text">
+          <span className="ab__pull-num">01</span>
+          <blockquote className="ab__pull">
+            Responsible travel that immerses visitors in agroecological farming, indigenous food
+            systems, cultural exchange, and rural livelihoods — while strengthening seed sovereignty
+            and community resilience.
+          </blockquote>
+          <div className="ab__byline-rule" />
+          <p className="ab__body-text">
+            Across rural Kenya, farmers have preserved indigenous crops, traditional agricultural
+            practices, and ecological knowledge for generations. These systems offer powerful insights
+            into resilience, sustainability, and cultural identity.
+          </p>
+          <p className="ab__body-text">
+            Through immersive travel, visitors participate in real farming activities, cultural
+            exchanges, and community initiatives that directly strengthen seed sovereignty and
+            rural livelihoods.
+          </p>
         </div>
+      </div>
 
-        {/* Call to Action */}
-        <div className="heritage-cta">
-          <div className="heritage-cta__content">
-            <h3 className="heritage-cta__title">Begin Your Journey</h3>
-            <p className="heritage-cta__text">Ready to experience agroecology firsthand?</p>
-            <a href="#packages" className="heritage-cta__button">
-              <span>Explore Programs</span>
-              <span className="heritage-cta__arrow">→</span>
-            </a>
+      {/* ── PHILOSOPHY STRIP ── */}
+      <div
+        ref={philoReveal.ref}
+        className={`ab__philo ${philoReveal.visible ? "ab__philo--on" : ""}`}
+      >
+        <div className="ab__philo-inner">
+          <div className="ab__philo-label">
+            <span>Philosophy</span>
+          </div>
+          <div className="ab__philo-body">
+            <h3 className="ab__philo-heading">
+              Land. People.<br /><em>Knowledge.</em>
+            </h3>
+            <p>
+              The health of ecosystems, communities, and cultures are deeply interconnected.
+              Sustainable agriculture is not only about food production — it is about preserving
+              biodiversity, knowledge, and the relationships between people and land.
+            </p>
+          </div>
+          <div className="ab__philo-img">
+            <img src={permaculture} alt="Permaculture design" loading="lazy" />
           </div>
         </div>
       </div>
+
+      {/* ── EXPERIENCES GRID ── */}
+      <div className="ab__grid-section">
+        <div className="ab__masthead">
+          <span className="ab__masthead-label">Eight Pathways</span>
+          <span className="ab__masthead-rule" />
+        </div>
+        <div className="ab__grid-headline">
+          <h2>
+            Experiences Rooted in<br /><em>Land and Culture</em>
+          </h2>
+        </div>
+        <div
+          ref={gridReveal.ref}
+          className={`ab__grid ${gridReveal.visible ? "ab__grid--on" : ""}`}
+        >
+          {experiences.map((exp, i) => (
+            <ExperienceCard key={i} exp={exp} index={i} />
+          ))}
+        </div>
+      </div>
+
+      {/* ── CTA ── */}
+      <div
+        ref={ctaReveal.ref}
+        className={`ab__cta ${ctaReveal.visible ? "ab__cta--on" : ""}`}
+      >
+        <div className="ab__cta-texture" />
+        <div className="ab__cta-inner">
+          <span className="ab__cta-kicker">Begin Here</span>
+          <h2 className="ab__cta-heading">
+            A Different Kind<br /><em>of Travel</em>
+          </h2>
+          <p className="ab__cta-sub">
+            Experience agriculture, culture, and ecology through the people who live
+            and nurture these landscapes every day.
+          </p>
+          <a href="#packages" className="ab__cta-btn">
+            Explore Programs
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
     </section>
   );
 };

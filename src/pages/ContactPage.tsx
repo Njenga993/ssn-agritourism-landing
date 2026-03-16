@@ -1,12 +1,14 @@
-// ContactPage.tsx
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { 
   FiMapPin, FiMail, FiPhone, FiClock, FiSend, 
   FiExternalLink, FiHelpCircle, FiChevronDown,
   FiMessageCircle, FiCalendar, FiUsers, FiGlobe
 } from 'react-icons/fi';
 import "../styles/contact-page.css";
+
+// Import hero image
+import contactHero from "../assets/hero_1.webp";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -21,6 +23,18 @@ const ContactPage = () => {
 
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const heroImageRef = useRef<HTMLDivElement | null>(null);
+
+  // Parallax effect on hero
+  useEffect(() => {
+    const onScroll = () => {
+      if (heroImageRef.current) {
+        heroImageRef.current.style.transform = `translateY(${window.scrollY * 0.28}px)`;
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const value = e.target.type === 'checkbox' ? (e.target as HTMLInputElement).checked : e.target.value;
@@ -51,8 +65,19 @@ const ContactPage = () => {
   const fadeInUp = {
     initial: { opacity: 0, y: 30 },
     whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 },
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
     viewport: { once: true, margin: "-100px" }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
   };
 
   // FAQ Data
@@ -92,110 +117,112 @@ const ContactPage = () => {
   ];
 
   return (
-    <div className="reach-out">
-      {/* Hero Section */}
-      <section className="reach-out__hero">
-        <div className="reach-out__hero-pattern">
-          <div className="reach-out__hero-shape"></div>
-          <div className="reach-out__hero-shape"></div>
+    <div className="contact-page">
+      {/* Hero Section - Magazine Style */}
+      <section className="contact-hero">
+        <div className="contact-hero__image-wrap" ref={heroImageRef}>
+          <img src={contactHero} alt="Seed Savers Network Kenya" />
         </div>
-        <div className="reach-out__hero-content">
-          <motion.h1 
-            className="reach-out__hero-title"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            Get in <span className="reach-out__hero-highlight">Touch</span>
-          </motion.h1>
-          <motion.p 
-            className="reach-out__hero-subtitle"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
+        <div className="contact-hero__overlay"></div>
+        <div className="contact-hero__content">
+          <span className="contact-hero__eyebrow">Seed Savers Network Kenya</span>
+          <h1 className="contact-hero__title">
+            <span className="contact-hero__title-line">Get in</span>
+            <span className="contact-hero__title-line contact-hero__title-line--highlight">Touch</span>
+          </h1>
+          <p className="contact-hero__subtitle">
             We'd love to hear from you. Reach out with any questions or to plan your visit.
-          </motion.p>
+          </p>
+          <div className="contact-hero__scroll">
+            <span>Connect</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+          </div>
         </div>
       </section>
 
-      <div className="reach-out__container">
+      <div className="contact-container">
         {/* Quick Contact Cards */}
         <motion.div 
-          className="reach-out__quick-grid"
-          variants={fadeInUp}
-          initial="initial"
-          whileInView="whileInView"
+          className="contact-quick__grid"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
         >
-          <div className="reach-out__quick-card">
-            <div className="reach-out__quick-icon-wrapper">
-              <FiMail className="reach-out__quick-icon" />
+          <motion.div className="contact-quick__card" variants={fadeInUp}>
+            <div className="contact-quick__icon-wrapper">
+              <FiMail className="contact-quick__icon" />
             </div>
-            <h3 className="reach-out__quick-title">Email Us</h3>
-            <a href="mailto:info@seedsaverskenya.org" className="reach-out__quick-link">info@seedsaverskenya.org</a>
-            <a href="mailto:visits@seedsaverskenya.org" className="reach-out__quick-link">visits@seedsaverskenya.org</a>
-          </div>
+            <h3 className="contact-quick__title">Email Us</h3>
+            <a href="mailto:info@seedsaverskenya.org" className="contact-quick__link">info@seedsaverskenya.org</a>
+            <a href="mailto:visits@seedsaverskenya.org" className="contact-quick__link">visits@seedsaverskenya.org</a>
+            <span className="contact-quick__note">Response within 24h</span>
+          </motion.div>
 
-          <div className="reach-out__quick-card">
-            <div className="reach-out__quick-icon-wrapper">
-              <FiPhone className="reach-out__quick-icon" />
+          <motion.div className="contact-quick__card" variants={fadeInUp}>
+            <div className="contact-quick__icon-wrapper">
+              <FiPhone className="contact-quick__icon" />
             </div>
-            <h3 className="reach-out__quick-title">Call Us</h3>
-            <a href="tel:+254700000000" className="reach-out__quick-link">+254 700 000 000</a>
-            <a href="tel:+254711000000" className="reach-out__quick-link">+254 711 000 000</a>
-            <span className="reach-out__quick-note">Mon-Sat, 9am-4pm</span>
-          </div>
+            <h3 className="contact-quick__title">Call Us</h3>
+            <a href="tel:+254700000000" className="contact-quick__link">+254 700 000 000</a>
+            <a href="tel:+254711000000" className="contact-quick__link">+254 711 000 000</a>
+            <span className="contact-quick__note">Mon-Sat, 9am-4pm EAT</span>
+          </motion.div>
 
-          <div className="reach-out__quick-card">
-            <div className="reach-out__quick-icon-wrapper">
-              <FiMapPin className="reach-out__quick-icon" />
+          <motion.div className="contact-quick__card" variants={fadeInUp}>
+            <div className="contact-quick__icon-wrapper">
+              <FiMapPin className="contact-quick__icon" />
             </div>
-            <h3 className="reach-out__quick-title">Visit Us</h3>
-            <address className="reach-out__quick-address">
+            <h3 className="contact-quick__title">Visit Us</h3>
+            <address className="contact-quick__address">
               Seed Savers Network Kenya<br />
               Gilgil, Nakuru County<br />
               Kenya, 20116
             </address>
-          </div>
+          </motion.div>
 
-          <div className="reach-out__quick-card">
-            <div className="reach-out__quick-icon-wrapper">
-              <FiGlobe className="reach-out__quick-icon" />
+          <motion.div className="contact-quick__card" variants={fadeInUp}>
+            <div className="contact-quick__icon-wrapper">
+              <FiGlobe className="contact-quick__icon" />
             </div>
-            <h3 className="reach-out__quick-title">Main Website</h3>
+            <h3 className="contact-quick__title">Main Website</h3>
             <a 
               href="https://seedsaverskenya.org" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="reach-out__quick-link"
+              className="contact-quick__link"
             >
               seedsaverskenya.org
             </a>
-            <span className="reach-out__quick-note">Visit for more information</span>
-          </div>
+            <span className="contact-quick__note">Visit for more information</span>
+          </motion.div>
         </motion.div>
 
         {/* Main Contact Area */}
-        <div className="reach-out__main-grid">
+        <div className="contact-main__grid">
           {/* Contact Form */}
           <motion.div 
-            className="reach-out__form-card"
+            className="contact-form__card"
             variants={fadeInUp}
             initial="initial"
             whileInView="whileInView"
             viewport={{ once: true }}
           >
-            <h2 className="reach-out__form-title">Send a Message</h2>
-            <p className="reach-out__form-subtitle">
-              Fill out the form below and we'll get back to you within 24 hours
-            </p>
+            <div className="contact-form__header">
+              <span className="section-label">Send a Message</span>
+              <h2 className="contact-form__title">Start a Conversation</h2>
+              <p className="contact-form__subtitle">
+                Fill out the form below and we'll get back to you within 24 hours
+              </p>
+            </div>
 
-            <form onSubmit={handleSubmit} className="reach-out__form">
-              <div className="reach-out__form-row">
-                <div className="reach-out__form-group">
-                  <label htmlFor="name" className="reach-out__form-label">
-                    Full Name <span className="reach-out__form-required">*</span>
+            <form onSubmit={handleSubmit} className="contact-form">
+              <div className="contact-form__row">
+                <div className="contact-form__group">
+                  <label htmlFor="name" className="contact-form__label">
+                    Full Name <span className="contact-form__required">*</span>
                   </label>
                   <input
                     type="text"
@@ -205,13 +232,13 @@ const ContactPage = () => {
                     onChange={handleChange}
                     required
                     placeholder="John Doe"
-                    className="reach-out__form-input"
+                    className="contact-form__input"
                   />
                 </div>
 
-                <div className="reach-out__form-group">
-                  <label htmlFor="email" className="reach-out__form-label">
-                    Email Address <span className="reach-out__form-required">*</span>
+                <div className="contact-form__group">
+                  <label htmlFor="email" className="contact-form__label">
+                    Email Address <span className="contact-form__required">*</span>
                   </label>
                   <input
                     type="email"
@@ -221,14 +248,14 @@ const ContactPage = () => {
                     onChange={handleChange}
                     required
                     placeholder="john@example.com"
-                    className="reach-out__form-input"
+                    className="contact-form__input"
                   />
                 </div>
               </div>
 
-              <div className="reach-out__form-row">
-                <div className="reach-out__form-group">
-                  <label htmlFor="phone" className="reach-out__form-label">Phone Number</label>
+              <div className="contact-form__row">
+                <div className="contact-form__group">
+                  <label htmlFor="phone" className="contact-form__label">Phone Number</label>
                   <input
                     type="tel"
                     id="phone"
@@ -236,32 +263,32 @@ const ContactPage = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="+254 XXX XXX XXX"
-                    className="reach-out__form-input"
+                    className="contact-form__input"
                   />
                 </div>
 
-                <div className="reach-out__form-group">
-                  <label htmlFor="preferredDate" className="reach-out__form-label">Preferred Visit Date</label>
+                <div className="contact-form__group">
+                  <label htmlFor="preferredDate" className="contact-form__label">Preferred Visit Date</label>
                   <input
                     type="date"
                     id="preferredDate"
                     name="preferredDate"
                     value={formData.preferredDate}
                     onChange={handleChange}
-                    className="reach-out__form-input"
+                    className="contact-form__input"
                   />
                 </div>
               </div>
 
-              <div className="reach-out__form-row">
-                <div className="reach-out__form-group">
-                  <label htmlFor="groupSize" className="reach-out__form-label">Group Size</label>
+              <div className="contact-form__row">
+                <div className="contact-form__group">
+                  <label htmlFor="groupSize" className="contact-form__label">Group Size</label>
                   <select
                     id="groupSize"
                     name="groupSize"
                     value={formData.groupSize}
                     onChange={handleChange}
-                    className="reach-out__form-select"
+                    className="contact-form__select"
                   >
                     <option value="">Select group size</option>
                     <option value="1">Solo (1 person)</option>
@@ -271,9 +298,9 @@ const ContactPage = () => {
                   </select>
                 </div>
 
-                <div className="reach-out__form-group">
-                  <label htmlFor="message" className="reach-out__form-label">
-                    Message <span className="reach-out__form-required">*</span>
+                <div className="contact-form__group">
+                  <label htmlFor="message" className="contact-form__label">
+                    Message <span className="contact-form__required">*</span>
                   </label>
                   <textarea
                     id="message"
@@ -283,28 +310,28 @@ const ContactPage = () => {
                     required
                     placeholder="Tell us about your visit plans or questions..."
                     rows={4}
-                    className="reach-out__form-textarea"
+                    className="contact-form__textarea"
                   />
                 </div>
               </div>
 
-              <div className="reach-out__form-checkbox">
+              <div className="contact-form__checkbox">
                 <input
                   type="checkbox"
                   id="newsletter"
                   name="newsletter"
                   checked={formData.newsletter}
                   onChange={handleChange}
-                  className="reach-out__form-checkbox-input"
+                  className="contact-form__checkbox-input"
                 />
-                <label htmlFor="newsletter" className="reach-out__form-checkbox-label">
+                <label htmlFor="newsletter" className="contact-form__checkbox-label">
                   Subscribe to our newsletter for updates and events
                 </label>
               </div>
 
               <button 
                 type="submit" 
-                className="reach-out__form-button"
+                className="contact-form__button"
                 disabled={formStatus === 'sending'}
               >
                 {formStatus === 'sending' ? (
@@ -312,20 +339,20 @@ const ContactPage = () => {
                 ) : (
                   <>
                     <span>Send Message</span>
-                    <FiSend className="reach-out__form-button-icon" />
+                    <FiSend className="contact-form__button-icon" />
                   </>
                 )}
               </button>
 
               {formStatus === 'success' && (
-                <div className="reach-out__form-success">
-                  <FiMessageCircle className="reach-out__form-success-icon" />
+                <div className="contact-form__success">
+                  <FiMessageCircle className="contact-form__success-icon" />
                   <p>Message sent successfully! We'll respond within 24 hours.</p>
                 </div>
               )}
 
               {formStatus === 'error' && (
-                <div className="reach-out__form-error">
+                <div className="contact-form__error">
                   <p>Something went wrong. Please try again or email us directly.</p>
                 </div>
               )}
@@ -334,19 +361,19 @@ const ContactPage = () => {
 
           {/* Map & Info */}
           <motion.div 
-            className="reach-out__info-card"
+            className="contact-info__card"
             variants={fadeInUp}
             initial="initial"
             whileInView="whileInView"
             viewport={{ once: true }}
           >
             {/* Map */}
-            <div className="reach-out__map-container">
+            <div className="contact-info__map-container">
               <iframe
                 title="Seed Savers Network Kenya Location"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.748582675323!2d36.333333!3d-0.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMMKwMzAnMDAuMCJTIDM2wrAyMCcwMC4wIkU!5e0!3m2!1sen!2ske!4v1620000000000!5m2!1sen!2ske"
                 loading="lazy"
-                className="reach-out__map"
+                className="contact-info__map"
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
               
@@ -354,49 +381,49 @@ const ContactPage = () => {
                 href="https://www.google.com/maps/dir//Seed+Savers+Network+Kenya+Gilgil"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="reach-out__map-directions"
+                className="contact-info__directions"
               >
-                <FiMapPin className="reach-out__map-directions-icon" />
+                <FiMapPin className="contact-info__directions-icon" />
                 <span>Get Directions</span>
-                <FiExternalLink className="reach-out__map-directions-external" />
+                <FiExternalLink className="contact-info__directions-external" />
               </a>
             </div>
 
             {/* Hours & Info */}
-            <div className="reach-out__info-grid">
-              <div className="reach-out__info-item">
-                <FiClock className="reach-out__info-icon" />
-                <div className="reach-out__info-content">
+            <div className="contact-info__grid">
+              <div className="contact-info__item">
+                <FiClock className="contact-info__item-icon" />
+                <div className="contact-info__item-content">
                   <h4>Visiting Hours</h4>
                   <p>Monday - Saturday: 9:00 AM - 4:00 PM</p>
-                  <p>Sunday: Closed (Group bookings only)</p>
+                  <p className="contact-info__item-note">Sunday: Closed (Group bookings only)</p>
                 </div>
               </div>
 
-              <div className="reach-out__info-item">
-                <FiCalendar className="reach-out__info-icon" />
-                <div className="reach-out__info-content">
+              <div className="contact-info__item">
+                <FiCalendar className="contact-info__item-icon" />
+                <div className="contact-info__item-content">
                   <h4>Best Times to Visit</h4>
                   <p>Dry Seasons: Jan-Feb & Jun-Oct</p>
-                  <p>Harvest Seasons: Varies by crop</p>
+                  <p className="contact-info__item-note">Harvest Seasons: Varies by crop</p>
                 </div>
               </div>
 
-              <div className="reach-out__info-item">
-                <FiUsers className="reach-out__info-icon" />
-                <div className="reach-out__info-content">
+              <div className="contact-info__item">
+                <FiUsers className="contact-info__item-icon" />
+                <div className="contact-info__item-content">
                   <h4>Group Bookings</h4>
                   <p>10+ people: Special rates apply</p>
-                  <p>Educational & Corporate groups welcome</p>
+                  <p className="contact-info__item-note">Educational & Corporate groups welcome</p>
                 </div>
               </div>
 
-              <div className="reach-out__info-item">
-                <FiMessageCircle className="reach-out__info-icon" />
-                <div className="reach-out__info-content">
+              <div className="contact-info__item">
+                <FiMessageCircle className="contact-info__item-icon" />
+                <div className="contact-info__item-content">
                   <h4>Response Time</h4>
                   <p>Email: Within 24 hours</p>
-                  <p>Phone: Immediate during hours</p>
+                  <p className="contact-info__item-note">Phone: Immediate during hours</p>
                 </div>
               </div>
             </div>
@@ -405,35 +432,36 @@ const ContactPage = () => {
 
         {/* FAQ Section */}
         <motion.section 
-          className="reach-out__faq"
+          className="contact-faq"
           variants={fadeInUp}
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
         >
-          <div className="reach-out__faq-header">
-            <FiHelpCircle className="reach-out__faq-header-icon" />
-            <h2 className="reach-out__faq-title">Frequently Asked Questions</h2>
-            <p className="reach-out__faq-subtitle">
+          <div className="contact-faq__header">
+            <FiHelpCircle className="contact-faq__header-icon" />
+            <span className="section-label">Common Questions</span>
+            <h2 className="contact-faq__title">Frequently Asked Questions</h2>
+            <p className="contact-faq__subtitle">
               Find answers to common questions about visiting our farm
             </p>
           </div>
 
-          <div className="reach-out__faq-grid">
+          <div className="contact-faq__grid">
             {faqData.map((faq, index) => (
-              <div key={index} className="reach-out__faq-item">
+              <div key={index} className="contact-faq__item">
                 <button
-                  className="reach-out__faq-question"
+                  className="contact-faq__question"
                   onClick={() => toggleFaq(index)}
                   aria-expanded={openFaq === index}
                 >
                   <span>{faq.question}</span>
                   <FiChevronDown 
-                    className={`reach-out__faq-icon ${openFaq === index ? 'reach-out__faq-icon--open' : ''}`}
+                    className={`contact-faq__icon ${openFaq === index ? 'contact-faq__icon--open' : ''}`}
                   />
                 </button>
                 <div 
-                  className={`reach-out__faq-answer ${openFaq === index ? 'reach-out__faq-answer--open' : ''}`}
+                  className={`contact-faq__answer ${openFaq === index ? 'contact-faq__answer--open' : ''}`}
                 >
                   <p>{faq.answer}</p>
                 </div>
@@ -444,21 +472,21 @@ const ContactPage = () => {
 
         {/* Social & Newsletter */}
         <motion.div 
-          className="reach-out__social"
+          className="contact-social"
           variants={fadeInUp}
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
         >
-          <h3 className="reach-out__social-title">Connect With Us</h3>
-          <div className="reach-out__social-links">
-            <a href="#" className="reach-out__social-link">Facebook</a>
-            <a href="#" className="reach-out__social-link">Instagram</a>
-            <a href="#" className="reach-out__social-link">Twitter</a>
-            <a href="#" className="reach-out__social-link">YouTube</a>
-            <a href="#" className="reach-out__social-link">LinkedIn</a>
+          <h3 className="contact-social__title">Connect With Us</h3>
+          <div className="contact-social__links">
+            <a href="#" className="contact-social__link">Facebook</a>
+            <a href="#" className="contact-social__link">Instagram</a>
+            <a href="#" className="contact-social__link">Twitter</a>
+            <a href="#" className="contact-social__link">YouTube</a>
+            <a href="#" className="contact-social__link">LinkedIn</a>
           </div>
-          <p className="reach-out__social-note">
+          <p className="contact-social__note">
             Follow us for updates, events, and stories from the farm
           </p>
         </motion.div>
