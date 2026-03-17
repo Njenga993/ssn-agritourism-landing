@@ -37,8 +37,8 @@ const contactDetails = [
     icon: FiPhone,
     label: "Phone",
     lines: [
-      { text: "+254 700 000 000", href: "tel:+254700000000" },
-      { text: "+254 711 000 000", href: "tel:+254711000000" },
+      { text: "+254 712 451 777", href: "tel:+254712451777" },
+      { text: "+254 718 372 360", href: "tel:+254718372360" },
     ] as LineItem[],
   },
   {
@@ -46,7 +46,7 @@ const contactDetails = [
     label: "Hours",
     lines: [
       { text: "Monday – Saturday" },
-      { text: "9:00 AM – 4:00 PM" },
+      { text: "8:00 AM – 5:00 PM" },
     ] as LineItem[],
   },
   {

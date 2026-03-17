@@ -88,7 +88,7 @@ const Hero = () => {
           </p>
 
           <div className="hero__actions">
-            <a href="#packages" className="hero__btn hero__btn--fill">
+            <a href="/packages" className="hero__btn hero__btn--fill">
               Explore Packages
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
                 <path d="M5 12h14M12 5l7 7-7 7"/>

@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import "../styles/Footer.css";
 import { 
-  FaFacebook, FaInstagram, FaLinkedin, FaMapMarkerAlt, 
-  FaEnvelope, FaRegBuilding, FaLeaf, FaSeedling 
+  FaFacebookF, FaInstagram, FaLinkedinIn, 
+  FaRegEnvelope
 } from 'react-icons/fa';
 
 const Footer = () => {
@@ -30,153 +30,95 @@ const Footer = () => {
 
   return (
     <footer ref={footerRef} className="footer">
-      {/* Decorative top border */}
-      <div className="footer__border">
-        <span className="footer__border-leaf"></span>
-        <span className="footer__border-leaf"></span>
-        <span className="footer__border-leaf"></span>
+      {/* Masthead style divider */}
+      <div className="footer__masthead">
+        <span className="footer__masthead-line"></span>
+        <span className="footer__masthead-text">Seed Savers Network Kenya</span>
+        <span className="footer__masthead-line"></span>
       </div>
 
       <div className="footer__container">
-        {/* Column 1 - About */}
+        {/* Column 1 - About - Editorial style */}
         <div className="footer__col">
-          <div className="footer__brand">
-            <FaSeedling className="footer__brand-icon" />
-            <h3 className="footer__title">SSN Agritourism</h3>
-          </div>
-          <p className="footer__description">
-            A subsection of Seed Savers Network Kenya dedicated to
-            agroecology, seed sovereignty, and immersive farm-based experiences.
+          <h3 className="footer__col-title">About</h3>
+          <p className="footer__about-text">
+            A subsection of Seed Savers Network Kenya dedicated to agroecology, 
+            seed sovereignty, and immersive farm-based experiences since 2010.
           </p>
-          
-          <div className="footer__badges">
-            <span className="footer__badge">Agroecology</span>
-            <span className="footer__badge">Seed Sovereignty</span>
-            <span className="footer__badge">Farm Experiences</span>
+          <div className="footer__manifesto">
+            <p className="footer__manifesto-line">“AgroEcology, Seeds, Food and Culture”</p>
           </div>
-
           <a
             href="https://seedsaverskenya.org/"
             target="_blank"
             rel="noopener noreferrer"
-            className="footer__link footer__link--main"
+            className="footer__readmore"
           >
-            <span>Visit Main Website</span>
-            <span className="footer__link-arrow">→</span>
+            Read More
           </a>
         </div>
 
-        {/* Column 2 - Location & Hours */}
+        {/* Column 2 - Information - Clean list style */}
         <div className="footer__col">
-          <h4 className="footer__heading">
-            <FaMapMarkerAlt className="footer__heading-icon" />
-            Visit Us
-          </h4>
+          <h3 className="footer__col-title">Information</h3>
+          <ul className="footer__list">
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/packages">Our Packages</a></li>
+            <li><a href="/tesimonies">Stories & Media</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/contact">FAQ</a></li>
+          </ul>
+        </div>
+
+        {/* Column 3 - Contact - Minimal */}
+        <div className="footer__col">
+          <h3 className="footer__col-title">Contact</h3>
           <address className="footer__address">
-            Seed Savers Network Kenya
-            <br />
-            Gilgil, Nakuru County
-            <br />
+            Gilgil, Nakuru County<br />
             Kenya
           </address>
-          
-          <div className="footer__hours">
-            <p className="footer__hours-title">Farm Hours:</p>
-            <p className="footer__hours-item">Mon - Fri: 9:00 AM - 5:00 PM</p>
-            <p className="footer__hours-item">Saturday: 10:00 AM - 3:00 PM</p>
-            <p className="footer__hours-item footer__hours-item--closed">Sunday: Closed</p>
+          <div className="footer__contact-links">
+            <a href="mailto:info@seedsaverskenya.org" className="footer__contact-link">
+              info@seedsaverskenya.org
+            </a>
+            <a href="tel:+254712451777" className="footer__contact-link">
+              +254 712 451 777
+            </a>
           </div>
-
-          <a
-            href="https://www.google.com/maps?q=Seed+Savers+Network+Kenya+Gilgil"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="footer__link footer__link--map"
-          >
-            <span>Get Directions</span>
-            <span className="footer__link-arrow">→</span>
-          </a>
         </div>
 
-        {/* Column 3 - Contact & Social */}
+        {/* Column 4 - Social - Simple */}
         <div className="footer__col">
-          <h4 className="footer__heading">
-            <FaEnvelope className="footer__heading-icon" />
-            Get in Touch
-          </h4>
-          
-          <div className="footer__contact">
-            <div className="footer__contact-item">
-              <strong>Email:</strong>
-              <a href="mailto:info@seedsaverskenya.org" className="footer__contact-link">
-                info@seedsaverskenya.org
-              </a>
-            </div>
-            <div className="footer__contact-item">
-              <strong>Phone:</strong>
-              <a href="tel:+254700000000" className="footer__contact-link">
-                +254 700 000 000
-              </a>
-            </div>
-            <div className="footer__registration">
-              <FaRegBuilding className="footer__registration-icon" />
-              <span>Tourism Reg: KRA/TT/2024/12345</span>
-            </div>
+          <h3 className="footer__col-title">Follow</h3>
+          <div className="footer__social-links">
+            <a href="#" aria-label="Facebook" className="footer__social-link">
+              <FaFacebookF />
+            </a>
+            <a href="#" aria-label="Instagram" className="footer__social-link">
+              <FaInstagram />
+            </a>
+            <a href="#" aria-label="LinkedIn" className="footer__social-link">
+              <FaLinkedinIn />
+            </a>
+            <a href="mailto:info@seedsaverskenya.org" aria-label="Email" className="footer__social-link">
+              <FaRegEnvelope />
+            </a>
           </div>
-
-          <div className="footer__social">
-            <h5 className="footer__social-title">Follow Our Journey</h5>
-            <div className="footer__social-links">
-              <a 
-                href="#" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="footer__social-link"
-                aria-label="Follow us on Facebook"
-              >
-                <FaFacebook />
-                <span className="footer__social-label">Facebook</span>
-              </a>
-              <a 
-                href="#" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="footer__social-link"
-                aria-label="Follow us on Instagram"
-              >
-                <FaInstagram />
-                <span className="footer__social-label">Instagram</span>
-              </a>
-              <a 
-                href="#" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="footer__social-link"
-                aria-label="Connect with us on LinkedIn"
-              >
-                <FaLinkedin />
-                <span className="footer__social-label">LinkedIn</span>
-              </a>
-            </div>
-          </div>
+          <p className="footer__registration">
+            Reg: KRA/TT/2024/12345
+          </p>
         </div>
       </div>
 
-      {/* Newsletter Signup */}
+      {/* Newsletter - Minimal */}
       <div className="footer__newsletter">
         <div className="footer__newsletter-container">
-          <FaLeaf className="footer__newsletter-icon" />
-          <h4 className="footer__newsletter-title">Stay Connected</h4>
-          <p className="footer__newsletter-text">
-            Subscribe to our newsletter for farm updates and event announcements
-          </p>
-          <form className="footer__newsletter-form" onSubmit={(e) => e.preventDefault()}>
+          <h4 className="footer__newsletter-title">Newsletter</h4>
+          <form className="footer__newsletter-form">
             <input 
               type="email" 
-              placeholder="Enter your email" 
+              placeholder="Your email address" 
               className="footer__newsletter-input"
-              aria-label="Email for newsletter"
-              required
             />
             <button type="submit" className="footer__newsletter-button">
               Subscribe
@@ -185,19 +127,15 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Footer Bottom */}
+      {/* Bottom - Magazine style colophon */}
       <div className="footer__bottom">
         <div className="footer__bottom-container">
           <p className="footer__copyright">
-            © {currentYear} SSN Agritourism. All rights reserved.
+            © {currentYear} Seed Savers Network Kenya. All rights reserved.
           </p>
-          <div className="footer__bottom-links">
-            <a href="/privacy" className="footer__bottom-link">Privacy Policy</a>
-            <span className="footer__separator">/</span>
-            <a href="/terms" className="footer__bottom-link">Terms of Use</a>
-            <span className="footer__separator">/</span>
-            <a href="/sitemap" className="footer__bottom-link">Sitemap</a>
-          </div>
+          <p className="footer__colophon">
+            Designed in Gilgil · Printed in nature
+          </p>
         </div>
       </div>
     </footer>

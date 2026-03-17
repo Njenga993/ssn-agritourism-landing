@@ -187,7 +187,7 @@ const About = () => {
             Experience agriculture, culture, and ecology through the people who live
             and nurture these landscapes every day.
           </p>
-          <a href="#packages" className="ab__cta-btn">
+          <a href="/packages" className="ab__cta-btn">
             Explore Programs
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
               <path d="M5 12h14M12 5l7 7-7 7" />

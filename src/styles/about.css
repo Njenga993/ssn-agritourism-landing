@@ -456,6 +456,7 @@
   opacity: 0;
   transform: translateY(36px);
   transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+  
 }
 
 .ab__cta--on {

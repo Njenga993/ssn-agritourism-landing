@@ -202,7 +202,7 @@ const Testimonials = () => {
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </Link>
-            <Link to="/media-and-stories" className="tm__btn tm__btn--ghost">
+            <Link to="/testimonials" className="tm__btn tm__btn--ghost">
               View Full Gallery
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
                 <path d="M5 12h14M12 5l7 7-7 7" />

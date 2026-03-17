@@ -1,0 +1,205 @@
+/* =========================================
+   LOADER - Magazine Style
+   ========================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap");
+
+:root {
+  --soil:      #1c1410;
+  --bark:      #2e1f0e;
+  --moss:      #2d4a22;
+  --leaf:      #4a7c3f;
+  --sage:      #8faa7a;
+  --straw:     #d9c9a3;
+  --cream:     #f4efe6;
+  --offwhite:  #faf8f4;
+  --font-display: "Playfair Display", "Georgia", serif;
+  --font-mono:    "DM Mono", "Courier New", monospace;
+  --ease-out:  cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--offwhite);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeOut 0.5s var(--ease-out) forwards;
+  animation-delay: 2.2s; /* Matches loading time */
+}
+
+.loader__container {
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+}
+
+/* Logo mark */
+.loader__logo {
+  margin-bottom: 48px;
+  display: flex;
+  justify-content: center;
+}
+
+.loader__logo-mark {
+  width: 80px;
+  height: 80px;
+  background: var(--leaf);
+  position: relative;
+  overflow: hidden;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.loader__logo-mark::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: var(--straw);
+  border-radius: 50%;
+  animation: seedPulse 1.5s ease-in-out infinite;
+}
+
+/* Progress bar */
+.loader__progress {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.loader__progress-bar {
+  height: 100%;
+  background: var(--leaf);
+  transition: width 0.1s linear;
+  position: relative;
+}
+
+.loader__progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 1px;
+  background: var(--straw);
+}
+
+/* Text */
+.loader__text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 48px;
+}
+
+.loader__issue {
+  color: var(--sage);
+}
+
+.loader__message {
+  color: var(--leaf);
+  font-weight: 500;
+}
+
+.loader__percentage {
+  color: var(--soil);
+}
+
+/* Seed animation */
+.loader__seed {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.loader__seed-dot {
+  width: 4px;
+  height: 4px;
+  background: var(--sage);
+  border-radius: 50%;
+  animation: seedDrop 1.2s ease-in-out infinite;
+}
+
+.loader__seed-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loader__seed-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+@keyframes seedPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes seedDrop {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(10px);
+    opacity: 0.5;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .loader__logo-mark {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .loader__logo-mark::after {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .loader__text {
+    font-size: 9px;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+}
