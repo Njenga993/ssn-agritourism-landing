@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { HelmetProvider } from "react-helmet-async";
 import Home from "./pages/Home";
 import PackagesPage from "./pages/PackagesPage";
 import Navbar from "./components/navbar";
-import Loader from './components/Loader';
-import BackToTop from './components/BackToTop';
+import Loader from "./components/Loader";
+import BackToTop from "./components/BackToTop";
 import Footer from "./components/Footer";
 import MediaAndStoriesPage from "./pages/MediaAndStoriesPage";
 import ContactPage from "./pages/ContactPage";
@@ -12,7 +13,7 @@ import AboutPage from "./pages/Aboutpage";
 
 const AppContent = () => {
   const [loading, setLoading] = useState(false);
-  const [previousLocation, setPreviousLocation] = useState('');
+  const [previousLocation, setPreviousLocation] = useState("");
   const location = useLocation();
 
   useEffect(() => {
@@ -25,7 +26,7 @@ const AppContent = () => {
     // Show loader only when actually changing pages
     if (previousLocation !== location.pathname) {
       setLoading(true);
-      
+
       const timer = setTimeout(() => {
         setLoading(false);
         setPreviousLocation(location.pathname);
@@ -35,18 +36,25 @@ const AppContent = () => {
     }
   }, [location, previousLocation]);
 
+  // Scroll to top on route change for better UX
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location.pathname]);
+
   return (
     <>
       {loading && <Loader />}
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/packages" element={<PackagesPage />} />
-        <Route path="/gallery" element={<MediaAndStoriesPage />} />
-        <Route path="/testimonials" element={<MediaAndStoriesPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-      </Routes>
+      <main id="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/packages" element={<PackagesPage />} />
+          <Route path="/gallery" element={<MediaAndStoriesPage />} />
+          <Route path="/testimonials" element={<MediaAndStoriesPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
+      </main>
       <BackToTop />
       <Footer />
     </>
@@ -60,19 +68,19 @@ const App = () => {
     // Initial site load - longer for first impression
     const timer = setTimeout(() => {
       setInitialLoading(false);
-    }, 2800); // Match your loader animation
+    }, 2800);
 
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <>
+    <HelmetProvider>
       {initialLoading && <Loader />}
-      
+
       <BrowserRouter>
         <AppContent />
       </BrowserRouter>
-    </>
+    </HelmetProvider>
   );
 };
 
