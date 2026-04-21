@@ -281,8 +281,7 @@ const PackagesPage: React.FC = () => {
 
         {/* Primary Meta Tags */}
         <title>
-          Agroecology Tourism Packages | Seed Savers Network Kenya - Farm-Based
-          Learning Experiences
+          Packages | Seed Savers Network Kenya - Farm-Based Learning Experiences
         </title>
         <meta
           name="title"
@@ -420,7 +419,7 @@ const PackagesPage: React.FC = () => {
             </span>
             <h1 className="journey-portal__hero-title">
               <span className="journey-portal__hero-title-line">
-                Ecology, Food
+                Seeds, Food
               </span>
               <span className="journey-portal__hero-title-line">
                 &amp; Culture

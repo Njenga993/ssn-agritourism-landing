@@ -21,7 +21,7 @@ const Home = () => {
   const homeStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: "Ecology, Food & Culture Tourism - Seed Savers Network Kenya",
+    name: " Seed, Food & Culture Tourism - Seed Savers Network Kenya",
     description:
       "Immersive agroecology tourism in Kenya. Experience seed sovereignty, indigenous food systems, and community resilience. Farm-based learning with 3000+ seed varieties across 400+ communities.",
     url: "https://agro-tourism.seedsaverskenya.org/",
@@ -113,7 +113,7 @@ const Home = () => {
   const localBusinessData = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    name: "Seed Savers Network Kenya - Ecology Food & Culture Tourism",
+    name: "Seed Food & Culture Tourism",
     image: "https://agro-tourism.seedsaverskenya.org/Agroecology Logo.png",
     description:
       "Immersive agroecology tourism and farm-based learning experiences in rural Kenya",
@@ -161,7 +161,7 @@ const Home = () => {
 
         {/* Primary Meta Tags */}
         <title>
-          Ecology, Food & Culture Tourism | Seed Savers Network Kenya -
+          Home | Seed, Food & Culture Tourism | Seed Savers Network Kenya -
           Agroecology Travel Experiences
         </title>
         <meta
@@ -196,7 +196,7 @@ const Home = () => {
         />
         <meta
           property="og:title"
-          content="Ecology, Food & Culture Tourism - Seed Savers Network Kenya"
+          content="Seed, Food & Culture Tourism - Seed Savers Network Kenya"
         />
         <meta
           property="og:description"

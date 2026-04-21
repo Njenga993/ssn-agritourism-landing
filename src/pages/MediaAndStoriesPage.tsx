@@ -450,10 +450,7 @@ const MediaAndStoriesPage = () => {
         <html lang="en" />
 
         {/* Primary Meta Tags */}
-        <title>
-          Gallery & Visitor Stories | Seed Savers Network Kenya - Agroecology
-          Tourism Experiences
-        </title>
+        <title>Gallery | Seeds, Food & Culture - Tourism Experiences</title>
         <meta
           name="title"
           content="Gallery & Visitor Stories | Seed Savers Network Kenya - Agroecology Tourism"

@@ -204,7 +204,7 @@ const About = () => {
     <>
       {/* Main SEO Component */}
       <SEO
-        title="About Us | Ecology, Food & Culture Tourism - Seed Savers Network Kenya"
+        title="About Us | Seed , Food & Culture Tourism - Seed Savers Network Kenya"
         description="Discover agroecology, seed sovereignty, and indigenous food systems in rural Kenya. Since 2009, we've connected travelers with 400+ communities preserving traditional farming knowledge and biodiversity."
         canonicalUrl="/about"
         ogImage="/og-about.jpg"
@@ -301,7 +301,7 @@ const About = () => {
               Seed Savers Network Kenya | Est. 2009
             </p>
             <h1>
-              <span>Ecology,</span>
+              <span>Seeds,</span>
               <span>Food</span>
               <span>&amp; Culture Tourism</span>
             </h1>
@@ -342,7 +342,7 @@ const About = () => {
             </div>
             <div className="intro-text">
               <p className="intro-lead">
-                <strong>Ecology, Food and Culture Tourism</strong> is an
+                <strong>Seeds, Food and Culture Tourism</strong> is an
                 initiative of <strong>Seed Savers Network Kenya</strong> —
                 connecting travelers with the landscapes, communities, and
                 knowledge systems that sustain food and biodiversity across

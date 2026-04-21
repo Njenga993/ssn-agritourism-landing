@@ -10,7 +10,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  
+
   const currentPath = location.pathname;
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const Navbar = () => {
     { href: "/about", label: "About" },
     { href: "/packages", label: "Packages" },
     { href: "/testimonials", label: "Stories" },
-    { href: "/contact", label: "Contact" }
+    { href: "/contact", label: "Contact" },
   ];
 
   const isActive = (href: string) => {
@@ -53,11 +53,15 @@ const Navbar = () => {
   };
 
   return (
-    <header className={`magazine-nav ${scrolled ? "magazine-nav--scrolled" : ""}`}>
+    <header
+      className={`magazine-nav ${scrolled ? "magazine-nav--scrolled" : ""}`}
+    >
       {/* Top bar with issue info - magazine detail */}
       <div className="magazine-nav__top">
         <div className="magazine-nav__top-container">
-          <span className="magazine-nav__issue">Vol. 1 • No. 3</span>
+          <span className="magazine-nav__issue">
+            Seeds, Food & Culture Tourism
+          </span>
           <span className="magazine-nav__date">Seed Savers Network</span>
         </div>
       </div>
@@ -66,16 +70,16 @@ const Navbar = () => {
       <div className="magazine-nav__main">
         <div className="magazine-nav__container">
           {/* Logo with your image - Now larger but navbar stays same height */}
-          <motion.div 
+          <motion.div
             className="magazine-nav__logo-wrapper"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
             <a href="/" className="magazine-nav__logo">
-              <img 
-                src={logo} 
-                alt="Seed Savers Network" 
+              <img
+                src={logo}
+                alt="Seed Savers Network"
                 className="magazine-nav__logo-image"
               />
             </a>
@@ -88,7 +92,9 @@ const Navbar = () => {
                 key={link.href}
                 href={link.href}
                 className={`magazine-nav__desktop-link ${
-                  isActive(link.href) ? "magazine-nav__desktop-link--active" : ""
+                  isActive(link.href)
+                    ? "magazine-nav__desktop-link--active"
+                    : ""
                 }`}
                 onClick={handleLinkClick}
                 style={{ transitionDelay: `${index * 0.05}s` }}
@@ -96,7 +102,7 @@ const Navbar = () => {
                 {link.label}
               </a>
             ))}
-            
+
             <a
               href="mailto:info@seedsaverskenya.org"
               className="magazine-nav__subscribe"
@@ -121,7 +127,7 @@ const Navbar = () => {
       <AnimatePresence>
         {menuOpen && (
           <>
-            <motion.div 
+            <motion.div
               className="magazine-nav__overlay"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -129,8 +135,8 @@ const Navbar = () => {
               transition={{ duration: 0.3 }}
               onClick={() => setMenuOpen(false)}
             />
-            
-            <motion.div 
+
+            <motion.div
               className="magazine-nav__mobile"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
@@ -139,7 +145,7 @@ const Navbar = () => {
             >
               <div className="magazine-nav__mobile-header">
                 <span className="magazine-nav__mobile-label">Contents</span>
-                <button 
+                <button
                   className="magazine-nav__mobile-close"
                   onClick={() => setMenuOpen(false)}
                   aria-label="Close menu"
@@ -154,7 +160,9 @@ const Navbar = () => {
                     key={link.href}
                     href={link.href}
                     className={`magazine-nav__mobile-link ${
-                      isActive(link.href) ? "magazine-nav__mobile-link--active" : ""
+                      isActive(link.href)
+                        ? "magazine-nav__mobile-link--active"
+                        : ""
                     }`}
                     onClick={handleLinkClick}
                     initial={{ opacity: 0, x: -20 }}
@@ -162,7 +170,7 @@ const Navbar = () => {
                     transition={{ delay: index * 0.1 }}
                   >
                     <span className="magazine-nav__mobile-link-number">
-                      {String(index + 1).padStart(2, '0')}
+                      {String(index + 1).padStart(2, "0")}
                     </span>
                     {link.label}
                   </motion.a>
@@ -177,11 +185,13 @@ const Navbar = () => {
                 >
                   Subscribe to Newsletter
                 </a>
-                
+
                 <div className="magazine-nav__mobile-info">
                   <p>Seed Savers Network Kenya</p>
                   <p>Gilgil, Nakuru County</p>
-                  <a href="mailto:info@seedsaverskenya.org">info@seedsaverskenya.org</a>
+                  <a href="mailto:info@seedsaverskenya.org">
+                    info@seedsaverskenya.org
+                  </a>
                 </div>
               </div>
             </motion.div>

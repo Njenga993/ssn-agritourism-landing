@@ -1,20 +1,18 @@
-// ContactPage.tsx - Fully SEO Optimized
 import { motion } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import {
   FiMapPin,
   FiMail,
   FiPhone,
   FiClock,
-  FiSend,
   FiExternalLink,
   FiHelpCircle,
   FiChevronDown,
-  FiMessageCircle,
   FiCalendar,
   FiUsers,
   FiGlobe,
+  FiArrowUpRight,
 } from "react-icons/fi";
 import "../styles/contact-page.css";
 
@@ -22,19 +20,6 @@ import "../styles/contact-page.css";
 import contactHero from "../assets/hero_1.webp";
 
 const ContactPage = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    preferredDate: "",
-    groupSize: "",
-    message: "",
-    newsletter: false,
-  });
-
-  const [formStatus, setFormStatus] = useState<
-    "idle" | "sending" | "success" | "error"
-  >("idle");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const heroImageRef = useRef<HTMLDivElement | null>(null);
 
@@ -49,55 +34,6 @@ const ContactPage = () => {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
-  ) => {
-    const value =
-      e.target.type === "checkbox"
-        ? (e.target as HTMLInputElement).checked
-        : e.target.value;
-    setFormData({
-      ...formData,
-      [e.target.name]: value,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormStatus("sending");
-
-    // Replace with your actual form submission endpoint
-    try {
-      // Simulate API call - Replace with actual fetch to your backend
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      // Example real submission:
-      // const response = await fetch('https://your-api.com/contact', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData)
-      // });
-      // if (!response.ok) throw new Error('Submission failed');
-
-      setFormStatus("success");
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        preferredDate: "",
-        groupSize: "",
-        message: "",
-        newsletter: false,
-      });
-      setTimeout(() => setFormStatus("idle"), 5000);
-    } catch (error) {
-      setFormStatus("error");
-      setTimeout(() => setFormStatus("idle"), 5000);
-    }
-  };
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
@@ -127,7 +63,7 @@ const ContactPage = () => {
       question:
         "How do I book an agritourism experience with Seed Savers Network Kenya?",
       answer:
-        "You can book through our contact form, email us directly at visits@seedsaverskenya.org, or call us during business hours. We recommend booking at least 2 weeks in advance to ensure availability for our agroecology programs and farm stays.",
+        "You can book by emailing us directly at visits@seedsaverskenya.org, or calling us during business hours. We recommend booking at least 2 weeks in advance to ensure availability for our agroecology programs and farm stays.",
     },
     {
       question:
@@ -440,14 +376,7 @@ const ContactPage = () => {
                 className="contact-quick__link"
                 aria-label="Call +254700000000"
               >
-                +254 700 000 000
-              </a>
-              <a
-                href="tel:+254711000000"
-                className="contact-quick__link"
-                aria-label="Call +254711000000"
-              >
-                +254 711 000 000
+                +254 718 372 360
               </a>
               <span className="contact-quick__note">
                 Monday-Saturday, 9am-4pm EAT
@@ -494,215 +423,127 @@ const ContactPage = () => {
 
           {/* Main Contact Area */}
           <div className="contact-main__grid">
-            {/* Contact Form */}
+            {/* Contact Information & CTA Card */}
             <motion.div
-              className="contact-form__card"
+              className="contact-cta__card"
               variants={fadeInUp}
               initial="initial"
               whileInView="whileInView"
               viewport={{ once: true }}
             >
-              <div className="contact-form__header">
-                <span className="section-label">Send a Message</span>
-                <h2 className="contact-form__title">Start a Conversation</h2>
-                <p className="contact-form__subtitle">
-                  Fill out the form below and we'll get back to you within 24
-                  hours about your agroecology tourism inquiry.
+              <div className="contact-cta__header">
+                <span className="section-label">Plan Your Visit</span>
+                <h2 className="contact-cta__title">Start a Conversation</h2>
+                <p className="contact-cta__subtitle">
+                  Reach out directly to book your agroecology tourism
+                  experience, ask about group rates, or plan an immersive farm
+                  stay.
                 </p>
               </div>
 
-              <form
-                onSubmit={handleSubmit}
-                className="contact-form"
-                action="/api/contact"
-                method="POST"
-              >
-                <div className="contact-form__row">
-                  <div className="contact-form__group">
-                    <label htmlFor="name" className="contact-form__label">
-                      Full Name{" "}
-                      <span
-                        className="contact-form__required"
-                        aria-hidden="true"
-                      >
-                        *
-                      </span>
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      placeholder="John Doe"
-                      className="contact-form__input"
-                      aria-required="true"
-                    />
-                  </div>
-
-                  <div className="contact-form__group">
-                    <label htmlFor="email" className="contact-form__label">
-                      Email Address{" "}
-                      <span
-                        className="contact-form__required"
-                        aria-hidden="true"
-                      >
-                        *
-                      </span>
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      placeholder="john@example.com"
-                      className="contact-form__input"
-                      aria-required="true"
-                    />
-                  </div>
-                </div>
-
-                <div className="contact-form__row">
-                  <div className="contact-form__group">
-                    <label htmlFor="phone" className="contact-form__label">
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      placeholder="+254 XXX XXX XXX"
-                      className="contact-form__input"
-                    />
-                  </div>
-
-                  <div className="contact-form__group">
-                    <label
-                      htmlFor="preferredDate"
-                      className="contact-form__label"
-                    >
-                      Preferred Visit Date
-                    </label>
-                    <input
-                      type="date"
-                      id="preferredDate"
-                      name="preferredDate"
-                      value={formData.preferredDate}
-                      onChange={handleChange}
-                      className="contact-form__input"
-                      min={new Date().toISOString().split("T")[0]}
-                    />
-                  </div>
-                </div>
-
-                <div className="contact-form__row">
-                  <div className="contact-form__group">
-                    <label htmlFor="groupSize" className="contact-form__label">
-                      Group Size
-                    </label>
-                    <select
-                      id="groupSize"
-                      name="groupSize"
-                      value={formData.groupSize}
-                      onChange={handleChange}
-                      className="contact-form__select"
-                    >
-                      <option value="">Select group size</option>
-                      <option value="1">Solo Traveler (1 person)</option>
-                      <option value="2-5">Small Group (2-5 people)</option>
-                      <option value="6-10">Medium Group (6-10 people)</option>
-                      <option value="11+">Large Group (11+ people)</option>
-                    </select>
-                  </div>
-
-                  <div className="contact-form__group">
-                    <label htmlFor="message" className="contact-form__label">
-                      Message{" "}
-                      <span
-                        className="contact-form__required"
-                        aria-hidden="true"
-                      >
-                        *
-                      </span>
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                      placeholder="Tell us about your agroecology visit plans or questions about our programs..."
-                      rows={4}
-                      className="contact-form__textarea"
-                      aria-required="true"
-                    />
-                  </div>
-                </div>
-
-                <div className="contact-form__checkbox">
-                  <input
-                    type="checkbox"
-                    id="newsletter"
-                    name="newsletter"
-                    checked={formData.newsletter}
-                    onChange={handleChange}
-                    className="contact-form__checkbox-input"
-                  />
-                  <label
-                    htmlFor="newsletter"
-                    className="contact-form__checkbox-label"
-                  >
-                    Subscribe to our newsletter for updates about agroecology
-                    events and programs
-                  </label>
-                </div>
-
-                <button
-                  type="submit"
-                  className="contact-form__button"
-                  disabled={formStatus === "sending"}
-                  aria-label="Send contact message"
+              <div className="contact-cta__details">
+                <a
+                  href="mailto:info@seedsaverskenya.org"
+                  className="contact-cta__detail-link"
                 >
-                  {formStatus === "sending" ? (
-                    "Sending..."
-                  ) : (
-                    <>
-                      <span>Send Message</span>
-                      <FiSend
-                        className="contact-form__button-icon"
-                        aria-hidden="true"
-                      />
-                    </>
-                  )}
-                </button>
-
-                {formStatus === "success" && (
-                  <div className="contact-form__success" role="alert">
-                    <FiMessageCircle
-                      className="contact-form__success-icon"
-                      aria-hidden="true"
-                    />
-                    <p>
-                      ✓ Message sent successfully! We'll respond within 24
-                      hours.
-                    </p>
+                  <FiMail
+                    className="contact-cta__detail-icon"
+                    aria-hidden="true"
+                  />
+                  <div className="contact-cta__detail-text">
+                    <span className="contact-cta__detail-label">
+                      General Enquiries
+                    </span>
+                    <span className="contact-cta__detail-value">
+                      info@seedsaverskenya.org
+                    </span>
                   </div>
-                )}
+                  <FiArrowUpRight
+                    className="contact-cta__detail-arrow"
+                    aria-hidden="true"
+                  />
+                </a>
 
-                {formStatus === "error" && (
-                  <div className="contact-form__error" role="alert">
-                    <p>
-                      ⚠ Something went wrong. Please try again or email us
-                      directly at info@seedsaverskenya.org
-                    </p>
+                <a
+                  href="mailto:visits@seedsaverskenya.org"
+                  className="contact-cta__detail-link"
+                >
+                  <FiMail
+                    className="contact-cta__detail-icon"
+                    aria-hidden="true"
+                  />
+                  <div className="contact-cta__detail-text">
+                    <span className="contact-cta__detail-label">
+                      Bookings & Visits
+                    </span>
+                    <span className="contact-cta__detail-value">
+                      visits@seedsaverskenya.org
+                    </span>
                   </div>
-                )}
-              </form>
+                  <FiArrowUpRight
+                    className="contact-cta__detail-arrow"
+                    aria-hidden="true"
+                  />
+                </a>
+
+                <a
+                  href="tel:+254712451777"
+                  className="contact-cta__detail-link"
+                >
+                  <FiPhone
+                    className="contact-cta__detail-icon"
+                    aria-hidden="true"
+                  />
+                  <div className="contact-cta__detail-text">
+                    <span className="contact-cta__detail-label">Phone</span>
+                    <span className="contact-cta__detail-value">
+                      +254 712 451 777
+                    </span>
+                  </div>
+                  <FiArrowUpRight
+                    className="contact-cta__detail-arrow"
+                    aria-hidden="true"
+                  />
+                </a>
+
+                <a
+                  href="tel:+254718372360"
+                  className="contact-cta__detail-link"
+                >
+                  <FiPhone
+                    className="contact-cta__detail-icon"
+                    aria-hidden="true"
+                  />
+                  <div className="contact-cta__detail-text">
+                    <span className="contact-cta__detail-label">
+                      Alternative Line
+                    </span>
+                    <span className="contact-cta__detail-value">
+                      +254 718 372 360
+                    </span>
+                  </div>
+                  <FiArrowUpRight
+                    className="contact-cta__detail-arrow"
+                    aria-hidden="true"
+                  />
+                </a>
+              </div>
+
+              <div className="contact-cta__journey">
+                <span className="contact-cta__journey-title">Your Journey</span>
+                <div className="contact-cta__journey-steps">
+                  <div className="contact-cta__journey-step">
+                    <span className="contact-cta__journey-from">Nairobi</span>
+                    <span className="contact-cta__journey-line"></span>
+                    <span className="contact-cta__journey-time">~2.5 hrs</span>
+                  </div>
+                  <div className="contact-cta__journey-step">
+                    <span className="contact-cta__journey-from">Nakuru</span>
+                    <span className="contact-cta__journey-line"></span>
+                    <span className="contact-cta__journey-time">~45 mins</span>
+                  </div>
+                </div>
+              </div>
             </motion.div>
 
             {/* Map & Info */}
@@ -717,7 +558,7 @@ const ContactPage = () => {
               <div className="contact-info__map-container">
                 <iframe
                   title="Seed Savers Network Kenya location map in Gilgil, Nakuru County"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.748582675323!2d36.333333!3d-0.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1829a5a5a5a5a5a5%3A0x0!2zMMKwMzAnMDAuMCJTIDM2wrAyMCcwMC4wIkU!5e0!3m2!1sen!2ske!4v1620000000000!5m2!1sen!2ske"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.6953909604836!2d36.26753727409346!3d-0.44976953528212466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1829a149b3e5b3e5%3A0xcde1f0a37810fe6e!2sSeed%20Savers%20Network%20Training%20and%20Stay!5e0!3m2!1sen!2ske!4v1776796651256!5m2!1sen!2ske"
                   loading="lazy"
                   className="contact-info__map"
                   referrerPolicy="no-referrer-when-downgrade"
@@ -725,7 +566,7 @@ const ContactPage = () => {
                 ></iframe>
 
                 <a
-                  href="https://www.google.com/maps/dir//Seed+Savers+Network+Kenya+Gilgil/@-0.7833,36.3667,12z"
+                  href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.6953909604836!2d36.26753727409346!3d-0.44976953528212466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1829a149b3e5b3e5%3A0xcde1f0a37810fe6e!2sSeed%20Savers%20Network%20Training%20and%20Stay!5e0!3m2!1sen!2ske!4v1776796651256!5m2!1sen!2ske"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="contact-info__directions"
@@ -735,7 +576,7 @@ const ContactPage = () => {
                     className="contact-info__directions-icon"
                     aria-hidden="true"
                   />
-                  <span>Get Directions from Your Location</span>
+                  <span>Get Directions</span>
                   <FiExternalLink
                     className="contact-info__directions-external"
                     aria-hidden="true"
@@ -789,7 +630,7 @@ const ContactPage = () => {
                 </div>
 
                 <div className="contact-info__item">
-                  <FiMessageCircle
+                  <FiMail
                     className="contact-info__item-icon"
                     aria-hidden="true"
                   />

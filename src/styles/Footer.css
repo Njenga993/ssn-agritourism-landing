@@ -1,43 +1,110 @@
 /* =========================================
-   FOOTER - EDITORIAL MAGAZINE STYLE
+   FOOTER — EDITORIAL MAGAZINE (ELEVATED)
+   Dark atmospheric · grain · light leaks
    ========================================= */
 
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap");
 
 :root {
-  --soil:      #1c1410;
-  --bark:      #2e1f0e;
-  --moss:      #2d4a22;
-  --leaf:      #4a7c3f;
-  --sage:      #8faa7a;
-  --straw:     #d9c9a3;
-  --cream:     #f4efe6;
-  --offwhite:  #faf8f4;
-  --text:      #1c1410;
-  --muted:     #6b5e4e;
-  --border:    rgba(44,31,14,0.12);
-  --border-light: rgba(44,31,14,0.06);
+  --soil: #1c1410;
+  --bark: #2e1f0e;
+  --moss: #2d4a22;
+  --leaf: #4a7c3f;
+  --leaf-bright: #6aad55;
+  --sage: #8faa7a;
+  --straw: #d9c9a3;
+  --cream: #f4efe6;
+  --offwhite: #faf8f4;
+  --text: #e8e0d2;
+  --text-bright: #f4efe6;
+  --text-dim: #b8ad96;
+  --muted: #8a7e68;
+  --border: rgba(244, 239, 230, 0.1);
+  --border-subtle: rgba(244, 239, 230, 0.06);
 
   --font-display: "Playfair Display", "Georgia", serif;
-  --font-body:    "DM Sans", "Helvetica Neue", sans-serif;
-  --font-mono:    "DM Mono", "Courier New", monospace;
+  --font-body: "DM Sans", "Helvetica Neue", sans-serif;
+  --font-mono: "DM Mono", "Courier New", monospace;
 
-  --ease-out:  cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+/* =========================================
+   Z-INDEX ARCHITECTURE
+   =========================================
+   0  → Footer background image
+   1  → ::before  (dark gradient overlay)
+   2  → ::after   (grain texture)
+   3  → .footer__light-leak  (atmospheric blobs)
+   4  → Content sections
+   ========================================= */
 
 /* =========================================
    FOOTER BASE
    ========================================= */
 .footer {
-  background: var(--offwhite);
+  position: relative;
   color: var(--text);
   font-family: var(--font-body);
   line-height: 1.6;
-  position: relative;
-  border-top: 1px solid var(--border);
+  overflow: hidden;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+  transform: translateY(30px);
+  transition:
+    opacity 1s var(--ease-out),
+    transform 1s var(--ease-out);
+
+  background-color: #0f0b08;
+  background-image: url("../assets/hero_1.webp");
+  background-size: cover;
+  background-position: center 30%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+/* Multi-layer dark gradient — vignette + directional warmth + cool undertone */
+.footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(
+      ellipse 120% 100% at 50% 50%,
+      transparent 30%,
+      rgba(15, 11, 8, 0.55) 100%
+    ),
+    linear-gradient(
+      175deg,
+      rgba(15, 11, 8, 0.92) 0%,
+      rgba(20, 16, 10, 0.88) 30%,
+      rgba(16, 14, 10, 0.92) 55%,
+      rgba(14, 20, 12, 0.88) 80%,
+      rgba(15, 11, 8, 0.94) 100%
+    ),
+    radial-gradient(
+      ellipse 45% 35% at 82% 12%,
+      rgba(217, 201, 163, 0.05) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 35% 45% at 12% 88%,
+      rgba(74, 124, 63, 0.04) 0%,
+      transparent 100%
+    );
+}
+
+/* Film grain texture */
+.footer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  mix-blend-mode: overlay;
 }
 
 .footer--visible {
@@ -45,35 +112,124 @@
   transform: translateY(0);
 }
 
+/* Content above all overlays */
+.footer__masthead,
+.footer__container,
+.footer__newsletter,
+.footer__bottom {
+  position: relative;
+  z-index: 4;
+}
+
 /* =========================================
-   MASTHEAD - Magazine style divider
+   ATMOSPHERIC LIGHT LEAKS
+   ========================================= */
+.footer__light-leak {
+  position: absolute;
+  pointer-events: none;
+  z-index: 3;
+  border-radius: 50%;
+  filter: blur(60px);
+}
+
+.footer__light-leak--warm {
+  top: -15%;
+  right: -8%;
+  width: 55%;
+  height: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(217, 201, 163, 0.07) 0%,
+    rgba(180, 150, 100, 0.03) 50%,
+    transparent 70%
+  );
+  animation: drift-warm 25s ease-in-out infinite;
+}
+
+.footer__light-leak--green {
+  bottom: -10%;
+  left: -8%;
+  width: 45%;
+  height: 45%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(74, 124, 63, 0.06) 0%,
+    rgba(45, 74, 34, 0.02) 50%,
+    transparent 70%
+  );
+  animation: drift-green 30s ease-in-out infinite;
+}
+
+@keyframes drift-warm {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(12px, -8px) scale(1.03);
+  }
+  66% {
+    transform: translate(-6px, 6px) scale(0.98);
+  }
+}
+
+@keyframes drift-green {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(-10px, 6px) scale(1.02);
+  }
+  66% {
+    transform: translate(8px, -4px) scale(0.97);
+  }
+}
+
+/* =========================================
+   MASTHEAD
    ========================================= */
 .footer__masthead {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
   max-width: 1180px;
   margin: 0 auto;
-  padding: 32px 32px 24px;
+  padding: 40px 32px 28px;
 }
 
 .footer__masthead-line {
   flex: 1;
   height: 1px;
-  background: var(--border);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--border) 20%,
+    var(--border) 80%,
+    transparent 100%
+  );
+}
+
+.footer__masthead-dot {
+  width: 4px;
+  height: 4px;
+  background: var(--leaf);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  opacity: 0.7;
 }
 
 .footer__masthead-text {
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
   color: var(--muted);
   white-space: nowrap;
 }
 
 /* =========================================
-   FOOTER CONTAINER - 4-column grid
+   FOOTER CONTAINER
    ========================================= */
 .footer__container {
   max-width: 1180px;
@@ -81,11 +237,11 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 40px;
-  padding: 40px 32px 60px;
+  padding: 48px 32px 64px;
 }
 
 /* =========================================
-   FOOTER COLUMNS - Clean editorial style
+   COLUMNS
    ========================================= */
 .footer__col {
   display: flex;
@@ -96,66 +252,78 @@
 .footer__col-title {
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
   color: var(--leaf);
-  margin: 0 0 8px;
+  margin: 0 0 12px;
   font-weight: 400;
   position: relative;
 }
 
 .footer__col-title::after {
-  content: '';
+  content: "";
   position: absolute;
-  bottom: -8px;
+  bottom: -10px;
   left: 0;
-  width: 24px;
+  width: 20px;
   height: 1px;
   background: var(--leaf);
+  opacity: 0.5;
 }
 
-/* About column */
+/* --- About --- */
 .footer__about-text {
   font-size: 14px;
-  color: var(--muted);
-  line-height: 1.7;
+  color: var(--text-dim);
+  line-height: 1.75;
   margin: 0;
   font-weight: 300;
 }
 
 .footer__manifesto {
-  margin: 8px 0;
+  border-left: 2px solid var(--leaf);
+  padding-left: 16px;
+  margin: 4px 0;
 }
 
 .footer__manifesto-line {
   font-family: var(--font-display);
   font-size: 16px;
   font-style: italic;
-  color: var(--soil);
+  color: var(--cream);
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.5;
+  opacity: 0.9;
 }
 
 .footer__readmore {
   font-family: var(--font-mono);
   font-size: 10px;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--leaf);
+  color: var(--sage);
   text-decoration: none;
-  transition: all 0.3s var(--ease-out);
+  transition: color 0.4s var(--ease-out);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 8px;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.footer__arrow {
+  font-size: 12px;
+  transition: transform 0.4s var(--ease-out);
 }
 
 .footer__readmore:hover {
-  color: var(--soil);
-  gap: 10px;
+  color: var(--cream);
 }
 
-/* Information list */
+.footer__readmore:hover .footer__arrow {
+  transform: translateX(4px);
+}
+
+/* --- Information list --- */
 .footer__list {
   list-style: none;
   padding: 0;
@@ -163,43 +331,44 @@
 }
 
 .footer__list li {
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .footer__list a {
   font-size: 14px;
-  color: var(--muted);
+  color: var(--text-dim);
   text-decoration: none;
   transition: color 0.3s var(--ease-out);
   font-weight: 300;
   display: inline-block;
   position: relative;
+  padding-bottom: 2px;
 }
 
 .footer__list a::after {
-  content: '';
+  content: "";
   position: absolute;
-  bottom: -2px;
+  bottom: 0;
   left: 0;
   width: 0;
   height: 1px;
-  background: var(--leaf);
-  transition: width 0.3s var(--ease-out);
+  background: var(--sage);
+  transition: width 0.4s var(--ease-out);
 }
 
 .footer__list a:hover {
-  color: var(--soil);
+  color: var(--cream);
 }
 
 .footer__list a:hover::after {
   width: 100%;
 }
 
-/* Contact column */
+/* --- Contact --- */
 .footer__address {
   font-style: normal;
   font-size: 14px;
-  color: var(--muted);
+  color: var(--text-dim);
   line-height: 1.8;
   margin: 0;
   font-weight: 300;
@@ -208,35 +377,35 @@
 .footer__contact-links {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .footer__contact-link {
   font-size: 14px;
-  color: var(--muted);
+  color: var(--text-dim);
   text-decoration: none;
-  transition: color 0.3s var(--ease-out);
+  transition: all 0.3s var(--ease-out);
   font-weight: 300;
-  border-bottom: 1px dashed var(--border);
-  padding-bottom: 2px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 3px;
   width: fit-content;
 }
 
 .footer__contact-link:hover {
-  color: var(--leaf);
-  border-bottom-color: var(--leaf);
+  color: var(--sage);
+  border-bottom-color: var(--sage);
 }
 
-/* Social column */
+/* --- Social --- */
 .footer__social-links {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
 .footer__social-link {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -244,7 +413,7 @@
   border: 1px solid var(--border);
   color: var(--muted);
   text-decoration: none;
-  transition: all 0.3s var(--ease-out);
+  transition: all 0.35s var(--ease-out);
   font-size: 14px;
 }
 
@@ -253,70 +422,86 @@
   border-color: var(--leaf);
   color: white;
   transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(74, 124, 63, 0.3);
 }
 
 .footer__registration {
   font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 0.5px;
-  color: var(--sage);
-  margin: 16px 0 0;
+  color: var(--muted);
+  margin: 20px 0 0;
   padding-top: 16px;
-  border-top: 1px solid var(--border-light);
+  border-top: 1px solid var(--border-subtle);
+  opacity: 0.7;
 }
 
 /* =========================================
-   NEWSLETTER - Minimal
+   NEWSLETTER — Glass panel
    ========================================= */
 .footer__newsletter {
-  background: var(--cream);
+  background: rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  padding: 48px 32px;
+  padding: 56px 32px;
 }
 
 .footer__newsletter-container {
-  max-width: 600px;
+  max-width: 560px;
   margin: 0 auto;
   text-align: center;
 }
 
 .footer__newsletter-title {
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 400;
-  color: var(--soil);
-  margin: 0 0 24px;
+  color: var(--cream);
+  margin: 0 0 8px;
   letter-spacing: -0.3px;
+}
+
+.footer__newsletter-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0 0 28px;
+  font-weight: 300;
+  font-style: italic;
 }
 
 .footer__newsletter-form {
   display: flex;
-  gap: 8px;
-  max-width: 450px;
+  gap: 10px;
+  max-width: 440px;
   margin: 0 auto;
 }
 
 .footer__newsletter-input {
   flex: 1;
   padding: 14px 18px;
-  background: white;
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border);
   font-family: var(--font-body);
   font-size: 14px;
-  color: var(--text);
-  transition: all 0.3s var(--ease-out);
+  color: var(--cream);
+  transition: all 0.35s var(--ease-out);
+  border-radius: 0;
 }
 
 .footer__newsletter-input:focus {
   outline: none;
   border-color: var(--leaf);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 3px rgba(74, 124, 63, 0.1);
 }
 
 .footer__newsletter-input::placeholder {
   color: var(--muted);
   font-weight: 300;
   font-style: italic;
+  opacity: 0.7;
 }
 
 .footer__newsletter-button {
@@ -325,25 +510,45 @@
   border: 1px solid var(--leaf);
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--leaf);
   cursor: pointer;
-  transition: all 0.3s var(--ease-out);
+  transition: all 0.35s var(--ease-out);
   white-space: nowrap;
+  border-radius: 0;
 }
 
 .footer__newsletter-button:hover {
   background: var(--leaf);
-  color: white;
+  color: var(--cream);
+  box-shadow: 0 4px 20px rgba(74, 124, 63, 0.25);
 }
 
 /* =========================================
-   BOTTOM - Magazine colophon
+   BOTTOM — Colophon bar
    ========================================= */
 .footer__bottom {
-  background: var(--offwhite);
+  background: rgba(10, 8, 5, 0.6);
   padding: 24px 32px;
+}
+
+/* Subtle glow line above bottom */
+.footer__bottom::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(217, 201, 163, 0.12) 30%,
+    rgba(143, 170, 122, 0.08) 70%,
+    transparent
+  );
+  z-index: 1;
 }
 
 .footer__bottom-container {
@@ -356,6 +561,13 @@
   gap: 16px;
 }
 
+.footer__bottom-left {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .footer__copyright {
   font-size: 12px;
   color: var(--muted);
@@ -363,13 +575,54 @@
   font-weight: 300;
 }
 
+.footer__design-credit {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--muted);
+  text-transform: uppercase;
+  border-left: 1px solid var(--border);
+  padding-left: 16px;
+  margin-left: 8px;
+}
+
+.footer__design-credit a {
+  color: var(--sage);
+  text-decoration: none;
+  transition: color 0.3s var(--ease-out);
+  position: relative;
+}
+
+.footer__design-credit a::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--sage);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.footer__design-credit a:hover {
+  color: var(--cream);
+}
+
+.footer__design-credit a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
 .footer__colophon {
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.5px;
-  color: var(--sage);
+  color: var(--muted);
   margin: 0;
   font-style: italic;
+  opacity: 0.6;
 }
 
 /* =========================================
@@ -380,76 +633,121 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 48px 40px;
   }
-  
+
   .footer__masthead {
-    padding: 32px 24px 24px;
+    padding: 36px 24px 24px;
   }
 }
 
 @media (max-width: 768px) {
+  .footer {
+    background-attachment: scroll;
+  }
+
   .footer__container {
     grid-template-columns: 1fr;
-    gap: 40px;
-    padding: 40px 24px;
+    gap: 44px;
+    padding: 40px 24px 48px;
   }
-  
+
   .footer__col-title::after {
-    width: 40px;
+    width: 32px;
   }
-  
+
   .footer__newsletter-form {
     flex-direction: column;
-    padding: 0 20px;
+    padding: 0 16px;
   }
-  
+
   .footer__newsletter-button {
     width: 100%;
+    text-align: center;
   }
-  
+
   .footer__bottom-container {
     flex-direction: column;
     text-align: center;
   }
-  
-  .footer__masthead {
-    gap: 16px;
+
+  .footer__bottom-left {
+    justify-content: center;
   }
-  
+
+  .footer__design-credit {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    padding-left: 0;
+    margin-left: 0;
+    padding-top: 12px;
+    margin-top: 8px;
+  }
+
+  .footer__masthead {
+    gap: 12px;
+    padding: 32px 20px 20px;
+  }
+
   .footer__masthead-text {
     font-size: 9px;
+    letter-spacing: 2px;
+  }
+
+  .footer__light-leak {
+    display: none;
+  }
+
+  .footer__newsletter {
+    padding: 44px 24px;
   }
 }
 
 @media (max-width: 480px) {
   .footer__container {
-    padding: 32px 20px;
+    padding: 32px 20px 40px;
   }
-  
+
   .footer__col {
     text-align: center;
     align-items: center;
   }
-  
+
   .footer__col-title::after {
     left: 50%;
     transform: translateX(-50%);
   }
-  
+
+  .footer__manifesto {
+    border-left: none;
+    border-bottom: 1px solid var(--border);
+    padding-left: 0;
+    padding-bottom: 12px;
+    text-align: center;
+  }
+
   .footer__contact-link {
     width: auto;
   }
-  
+
   .footer__social-links {
     justify-content: center;
   }
-  
+
   .footer__masthead-text {
     white-space: normal;
     text-align: center;
+    font-size: 8px;
   }
-  
+
+  .footer__masthead-dot {
+    display: none;
+  }
+
   .footer__newsletter {
-    padding: 40px 20px;
+    padding: 36px 20px;
+  }
+
+  .footer__newsletter-title {
+    font-size: 20px;
   }
 }
 
@@ -459,42 +757,65 @@
 @media (prefers-reduced-motion: reduce) {
   .footer,
   .footer__readmore,
+  .footer__arrow,
   .footer__list a::after,
   .footer__contact-link,
   .footer__social-link,
-  .footer__newsletter-button {
+  .footer__newsletter-button,
+  .footer__newsletter-input,
+  .footer__design-credit a::after {
     transition: none;
   }
-  
+
   .footer__social-link:hover {
     transform: none;
+  }
+
+  .footer__light-leak--warm,
+  .footer__light-leak--green {
+    animation: none;
   }
 }
 
 /* =========================================
-   PRINT STYLES
+   PRINT
    ========================================= */
 @media print {
   .footer {
-    background: none;
+    background: none !important;
+    background-color: white !important;
     color: black;
     opacity: 1;
     transform: none;
-    border-top: 1px solid #ccc;
+    overflow: visible;
   }
-  
-  .footer__masthead,
-  .footer__newsletter,
-  .footer__social-links {
-    display: none;
+
+  .footer::before,
+  .footer::after,
+  .footer__light-leak,
+  .footer__newsletter {
+    display: none !important;
   }
-  
+
+  .footer__masthead {
+    border-bottom: 1px solid #ccc;
+  }
+
   .footer__container {
     grid-template-columns: repeat(4, 1fr);
-  }
-  
-  .footer__list a {
     color: black;
-    text-decoration: none;
+  }
+
+  .footer__list a,
+  .footer__contact-link {
+    color: black;
+  }
+
+  .footer__manifesto-line {
+    color: black;
+  }
+
+  .footer__col-title {
+    color: #333;
   }
 }
