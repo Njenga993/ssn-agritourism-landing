@@ -10,8 +10,8 @@ import culturalExchange from "../assets/holding.webp";
 import regenerativeTravel from "../assets/hero_1.webp";
 import permaculture from "../assets/permculture.jpeg";
 import foodSovereignty from "../assets/n.webp";
-import forestGardens from "../assets/cooking.JPG";
-import Cooking from "../assets/cooking.JPG";
+import forestGardens from "../assets/cooking.png";
+import Cooking from "../assets/cooking.png";
 
 /* ── tiny reveal hook ── */
 function useReveal(threshold = 0.12) {
