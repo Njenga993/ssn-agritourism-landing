@@ -203,7 +203,7 @@ const allVideos = [
 const allTestimonials = [
   {
     id: 201,
-    name: "Anna Müller",
+    name: "Anna Muller",
     location: "Germany",
     type: "Researcher",
     quote:
@@ -211,6 +211,7 @@ const allTestimonials = [
     image: annaAvatar,
     program: "Global Fellowship",
     date: "March 2024",
+    duration: "3 Week Program",
   },
   {
     id: 202,
@@ -222,6 +223,7 @@ const allTestimonials = [
     image: michaelAvatar,
     program: "Learning Exchange",
     date: "February 2024",
+    duration: "5 Day Program",
   },
   {
     id: 203,
@@ -233,6 +235,7 @@ const allTestimonials = [
     image: claireAvatar,
     program: "Solo Package",
     date: "January 2024",
+    duration: "2 Week Program",
   },
   {
     id: 204,
@@ -244,6 +247,7 @@ const allTestimonials = [
     image: kenjiAvatar,
     program: "Global Fellowship",
     date: "March 2024",
+    duration: "4 Week Program",
   },
   {
     id: 205,
@@ -255,6 +259,7 @@ const allTestimonials = [
     image: fatimaAvatar,
     program: "Institutional",
     date: "February 2024",
+    duration: "Ongoing",
   },
   {
     id: 206,
@@ -266,6 +271,7 @@ const allTestimonials = [
     image: davidAvatar,
     program: "Volunteer Program",
     date: "January 2024",
+    duration: "6 Week Program",
   },
   {
     id: 207,
@@ -277,14 +283,13 @@ const allTestimonials = [
     image: sarahAvatar,
     program: "Research Partnership",
     date: "December 2023",
+    duration: "Ongoing",
   },
 ];
 
 const MediaAndStoriesPage = () => {
   const [activeTab, setActiveTab] = useState<"gallery" | "stories">("gallery");
-  const [galleryFilter, setGalleryFilter] = useState<
-    "all" | "photos" | "videos"
-  >("all");
+  const [galleryFilter, setGalleryFilter] = useState<"all" | "photos" | "videos">("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [lightbox, setLightbox] = useState<{
     isOpen: boolean;
@@ -309,6 +314,7 @@ const MediaAndStoriesPage = () => {
   }, []);
 
   const photoCategories = ["all", ...new Set(allPhotos.map((p) => p.category))];
+  const testimonialTypes = ["all", ...new Set(allTestimonials.map((t) => t.type))];
 
   const filteredGalleryItems = () => {
     let items = [];
@@ -328,11 +334,6 @@ const MediaAndStoriesPage = () => {
     if (testimonialFilter === "all") return allTestimonials;
     return allTestimonials.filter((t) => t.type === testimonialFilter);
   };
-
-  const testimonialTypes = [
-    "all",
-    ...new Set(allTestimonials.map((t) => t.type)),
-  ];
 
   const openLightbox = (
     type: "photo" | "video",
@@ -448,8 +449,6 @@ const MediaAndStoriesPage = () => {
     <>
       <Helmet>
         <html lang="en" />
-
-        {/* Primary Meta Tags */}
         <title>Gallery | Seeds, Food & Culture - Tourism Experiences</title>
         <meta
           name="title"
@@ -465,14 +464,10 @@ const MediaAndStoriesPage = () => {
         />
         <meta name="author" content="Seed Savers Network Kenya" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
-
-        {/* Canonical URL */}
         <link
           rel="canonical"
           href="https://agro-tourism.seedsaverskenya.org/gallery"
         />
-
-        {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
@@ -498,8 +493,6 @@ const MediaAndStoriesPage = () => {
         />
         <meta property="og:site_name" content="Seed Savers Network Kenya" />
         <meta property="og:locale" content="en_KE" />
-
-        {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:url"
@@ -521,15 +514,11 @@ const MediaAndStoriesPage = () => {
           name="twitter:image:alt"
           content="Seed Savers Network Kenya gallery"
         />
-
-        {/* Additional SEO */}
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, viewport-fit=cover"
         />
         <meta name="theme-color" content="#2d5a27" />
-
-        {/* Structured Data */}
         <script type="application/ld+json">
           {JSON.stringify(generateImageGalleryStructuredData())}
         </script>
@@ -539,8 +528,6 @@ const MediaAndStoriesPage = () => {
         <script type="application/ld+json">
           {JSON.stringify(generateTestimonialsStructuredData())}
         </script>
-
-        {/* Aggregate Rating Schema */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -567,7 +554,7 @@ const MediaAndStoriesPage = () => {
       </Helmet>
 
       <main className="media-stories-page">
-        {/* Hero Section - Magazine Style */}
+        {/* Hero Section - Magazine Style (KEPT AS IS) */}
         <section
           className="media-hero"
           aria-label="Gallery and stories hero section"
@@ -582,7 +569,7 @@ const MediaAndStoriesPage = () => {
           <div className="hero-overlay" aria-hidden="true"></div>
           <div className="hero-content">
             <Link to="/" className="back-link" aria-label="Return to home page">
-              <span aria-hidden="true">←</span> Back to Home
+              <span aria-hidden="true">&#8592;</span> Back to Home
             </Link>
             <span className="hero-eyebrow">
               Seed Savers Network Kenya | Est. 2009
@@ -647,10 +634,17 @@ const MediaAndStoriesPage = () => {
               className="gallery-section fade-in"
               aria-label="Photo and video gallery"
             >
-              <div className="section-header">
-                <span className="section-label">Visual Archive Since 2009</span>
-                <h2>Moments from the Field</h2>
-                <p>
+              {/* Gallery Header */}
+              <div className="gallery-header">
+                <div className="gallery-header__label">
+                  <span className="gallery-header__label-text">Visual Archive</span>
+                  <span className="gallery-header__label-rule"></span>
+                  <span className="gallery-header__label-date">Since 2009</span>
+                </div>
+                <h2 className="gallery-header__title">
+                  Moments <em>from the Field</em>
+                </h2>
+                <p className="gallery-header__description">
                   Authentic glimpses into our programs, farms, and community
                   life across rural Kenya
                 </p>
@@ -665,50 +659,56 @@ const MediaAndStoriesPage = () => {
                     aria-label="Show all media"
                   >
                     All Media
+                    <span className="media-filter__count">{allPhotos.length + allVideos.length}</span>
                   </button>
                   <button
                     className={`media-filter ${galleryFilter === "photos" ? "active" : ""}`}
                     onClick={() => setGalleryFilter("photos")}
                     aria-label="Show only photos"
                   >
-                    Photos ({allPhotos.length})
+                    Photographs
+                    <span className="media-filter__count">{allPhotos.length}</span>
                   </button>
                   <button
                     className={`media-filter ${galleryFilter === "videos" ? "active" : ""}`}
                     onClick={() => setGalleryFilter("videos")}
                     aria-label="Show only videos"
                   >
-                    Videos ({allVideos.length})
+                    Films
+                    <span className="media-filter__count">{allVideos.length}</span>
                   </button>
                 </div>
 
                 {galleryFilter !== "videos" && (
                   <div className="category-filters">
-                    {photoCategories.map((cat) => (
-                      <button
-                        key={cat}
-                        className={`category-filter ${selectedCategory === cat ? "active" : ""}`}
-                        onClick={() => setSelectedCategory(cat)}
-                        aria-label={`Filter by ${cat === "all" ? "all categories" : cat}`}
-                      >
-                        {cat === "all"
-                          ? "All Categories"
-                          : cat.charAt(0).toUpperCase() +
-                            cat.slice(1).replace("-", " ")}
-                      </button>
-                    ))}
+                    <span className="category-filters__label">Filter by Category</span>
+                    <div className="category-filters__buttons">
+                      {photoCategories.map((cat) => (
+                        <button
+                          key={cat}
+                          className={`category-filter ${selectedCategory === cat ? "active" : ""}`}
+                          onClick={() => setSelectedCategory(cat)}
+                          aria-label={`Filter by ${cat === "all" ? "all categories" : cat}`}
+                        >
+                          {cat === "all"
+                            ? "All"
+                            : cat.charAt(0).toUpperCase() +
+                              cat.slice(1).replace("-", " ")}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
 
               {/* Gallery Grid */}
               <div className="gallery-grid">
-                {filteredGalleryItems().map((item) => {
+                {filteredGalleryItems().map((item, ) => {
                   if ("embedUrl" in item) {
                     return (
-                      <div
+                      <article
                         key={item.id}
-                        className="gallery-card video-card"
+                        className="gallery-card gallery-card--video"
                         onClick={() =>
                           openLightbox("video", item.embedUrl, {
                             title: item.title,
@@ -718,44 +718,38 @@ const MediaAndStoriesPage = () => {
                         tabIndex={0}
                         aria-label={`Play video: ${item.title}`}
                       >
-                        <div className="card-media">
+                        <div className="gallery-card__media">
                           <img
                             src={item.thumbnail}
                             alt={item.title}
                             loading="lazy"
                             decoding="async"
                           />
-                          <div className="play-button" aria-hidden="true">
-                            <svg
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                            >
-                              <polygon
-                                points="5 3 19 12 5 21 5 3"
-                                fill="currentColor"
-                              />
+                          <div className="gallery-card__play">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M8 5v14l11-7z" />
                             </svg>
                           </div>
-                          <span className="video-duration">
+                          <span className="gallery-card__duration">
                             {item.duration}
                           </span>
                         </div>
-                        <div className="card-info">
-                          <h3>{item.title}</h3>
-                          <div className="meta">
+                        <div className="gallery-card__info">
+                          <span className="gallery-card__type">Video</span>
+                          <h3 className="gallery-card__title">{item.title}</h3>
+                          <div className="gallery-card__meta">
                             <span>{item.date}</span>
+                            <span className="gallery-card__separator">|</span>
                             <span>{item.views} views</span>
                           </div>
                         </div>
-                      </div>
+                      </article>
                     );
                   } else {
                     return (
-                      <div
+                      <article
                         key={item.id}
-                        className="gallery-card photo-card"
+                        className="gallery-card gallery-card--photo"
                         onClick={() =>
                           openLightbox("photo", item.src, {
                             alt: item.alt,
@@ -768,25 +762,27 @@ const MediaAndStoriesPage = () => {
                         tabIndex={0}
                         aria-label={`View photo: ${item.alt}`}
                       >
-                        <div className="card-media">
+                        <div className="gallery-card__media">
                           <img
                             src={item.src}
                             alt={item.alt}
                             loading="lazy"
                             decoding="async"
                           />
-                          <span className="card-category">
+                          <span className="gallery-card__category">
                             {item.category.replace("-", " ")}
                           </span>
                         </div>
-                        <div className="card-info">
-                          <h3>{item.alt}</h3>
-                          <div className="meta">
-                            <span>📍 {item.location}</span>
-                            <span>📅 {item.date}</span>
+                        <div className="gallery-card__info">
+                          <span className="gallery-card__type">Photograph</span>
+                          <h3 className="gallery-card__title">{item.alt}</h3>
+                          <div className="gallery-card__meta">
+                            <span>{item.location}</span>
+                            <span className="gallery-card__separator">|</span>
+                            <span>{item.date}</span>
                           </div>
                         </div>
-                      </div>
+                      </article>
                     );
                   }
                 })}
@@ -794,7 +790,16 @@ const MediaAndStoriesPage = () => {
 
               {filteredGalleryItems().length === 0 && (
                 <div className="no-results">
-                  <p>No media found matching your criteria</p>
+                  <p>No media found matching your criteria.</p>
+                  <button
+                    className="no-results__reset"
+                    onClick={() => {
+                      setGalleryFilter("all");
+                      setSelectedCategory("all");
+                    }}
+                  >
+                    Reset All Filters
+                  </button>
                 </div>
               )}
             </section>
@@ -806,12 +811,17 @@ const MediaAndStoriesPage = () => {
               className="stories-section fade-in"
               aria-label="Visitor testimonials and stories"
             >
-              <div className="section-header">
-                <span className="section-label">
-                  Community Voices Since 2009
-                </span>
-                <h2>Stories From Our Visitors</h2>
-                <p>
+              {/* Stories Header */}
+              <div className="stories-header">
+                <div className="stories-header__label">
+                  <span className="stories-header__label-text">Community Voices</span>
+                  <span className="stories-header__label-rule"></span>
+                  <span className="stories-header__label-date">Since 2009</span>
+                </div>
+                <h2 className="stories-header__title">
+                  Stories <em>From Our Visitors</em>
+                </h2>
+                <p className="stories-header__description">
                   Real experiences from researchers, travelers, and partners
                   from around the world
                 </p>
@@ -819,22 +829,40 @@ const MediaAndStoriesPage = () => {
 
               {/* Featured Story */}
               <div className="featured-story">
-                <div className="featured-content">
-                  <span className="featured-badge">Featured Story</span>
-                  <blockquote>
-                    "The Seed Savers Network isn't just preserving seeds —
-                    they're preserving knowledge, culture, and hope for future
-                    generations."
-                  </blockquote>
-                  <div className="featured-author">
-                    <img
-                      src={sarahAvatar}
-                      alt="Dr. Sarah Kimani - Research Partner"
-                      loading="lazy"
-                    />
-                    <div>
-                      <strong>Dr. Sarah Kimani</strong>
-                      <span>Research Partner, Kenya</span>
+                <div className="featured-story__inner">
+                  <div className="featured-story__content">
+                    <span className="featured-story__badge">Featured Story</span>
+                    <blockquote className="featured-story__quote">
+                      "The Seed Savers Network isn't just preserving seeds — they're 
+                      preserving knowledge, culture, and hope for future generations."
+                    </blockquote>
+                    <div className="featured-story__author">
+                      <div className="featured-story__avatar">
+                        <img
+                          src={sarahAvatar}
+                          alt="Dr. Sarah Kimani - Research Partner"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div className="featured-story__author-info">
+                        <strong>Dr. Sarah Kimani</strong>
+                        <span>Research Partner, Kenya</span>
+                        <span className="featured-story__program">Research Partnership</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="featured-story__stats">
+                    <div className="featured-stat">
+                      <span className="featured-stat__number">200+</span>
+                      <span className="featured-stat__label">Participants</span>
+                    </div>
+                    <div className="featured-stat">
+                      <span className="featured-stat__number">15+</span>
+                      <span className="featured-stat__label">Countries</span>
+                    </div>
+                    <div className="featured-stat">
+                      <span className="featured-stat__number">4.9</span>
+                      <span className="featured-stat__label">Rating</span>
                     </div>
                   </div>
                 </div>
@@ -842,12 +870,12 @@ const MediaAndStoriesPage = () => {
 
               {/* Filter */}
               <div className="stories-filter">
-                <span className="filter-label">Filter by visitor type:</span>
-                <div className="filter-buttons">
+                <span className="stories-filter__label">Filter by visitor type</span>
+                <div className="stories-filter__buttons">
                   {testimonialTypes.map((type) => (
                     <button
                       key={type}
-                      className={`story-filter-btn ${testimonialFilter === type ? "active" : ""}`}
+                      className={`stories-filter__btn ${testimonialFilter === type ? "active" : ""}`}
                       onClick={() => setTestimonialFilter(type)}
                       aria-label={`Filter testimonials by ${type}`}
                     >
@@ -859,36 +887,73 @@ const MediaAndStoriesPage = () => {
 
               {/* Testimonials Grid */}
               <div className="testimonials-grid">
-                {filteredTestimonials().map((testimonial) => (
-                  <div
+                {filteredTestimonials().map((testimonial, index) => (
+                  <article
                     key={testimonial.id}
                     className="testimonial-card"
+                    style={{ transitionDelay: `${index * 80}ms` }}
                     itemScope
                     itemType="https://schema.org/Review"
                   >
-                    <div className="testimonial-header">
-                      <img
-                        src={testimonial.image}
-                        alt={`${testimonial.name} from ${testimonial.location}`}
-                        className="testimonial-avatar"
-                        loading="lazy"
-                      />
-                      <div>
-                        <h3 itemProp="author">{testimonial.name}</h3>
-                        <p className="testimonial-meta">
-                          {testimonial.location} • {testimonial.type}
-                        </p>
+                    <div className="testimonial-card__inner">
+                      <div className="testimonial-card__header">
+                        <div className="testimonial-card__avatar-wrapper">
+                          <img
+                            src={testimonial.image}
+                            alt={`${testimonial.name} from ${testimonial.location}`}
+                            className="testimonial-card__avatar"
+                            loading="lazy"
+                          />
+                          <span className="testimonial-card__verified">
+                            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M4 8l3 3 5-5" />
+                            </svg>
+                          </span>
+                        </div>
+                        <div className="testimonial-card__author">
+                          <h3 className="testimonial-card__name" itemProp="author">
+                            {testimonial.name}
+                          </h3>
+                          <span className="testimonial-card__location">
+                            {testimonial.location}
+                          </span>
+                          <span className="testimonial-card__type">
+                            {testimonial.type}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="testimonial-card__content">
+                        <blockquote className="testimonial-card__quote" itemProp="reviewBody">
+                          <span className="testimonial-card__quote-mark">"</span>
+                          {testimonial.quote}
+                        </blockquote>
+                      </div>
+
+                      <div className="testimonial-card__footer">
+                        <div className="testimonial-card__rating">
+                          {[...Array(5)].map((_, i) => (
+                            <svg
+                              key={i}
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                              className="testimonial-card__star"
+                            >
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                          ))}
+                        </div>
+                        <div className="testimonial-card__meta-right">
+                          <span className="testimonial-card__program" itemProp="itemReviewed">
+                            {testimonial.program}
+                          </span>
+                          <span className="testimonial-card__duration">
+                            {testimonial.duration}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                    <div className="testimonial-content">
-                      <p itemProp="reviewBody">"{testimonial.quote}"</p>
-                    </div>
-                    <div className="testimonial-footer">
-                      <span className="program-badge" itemProp="itemReviewed">
-                        {testimonial.program}
-                      </span>
-                    </div>
-                  </div>
+                  </article>
                 ))}
               </div>
             </section>
@@ -912,7 +977,9 @@ const MediaAndStoriesPage = () => {
                 onClick={closeLightbox}
                 aria-label="Close lightbox"
               >
-                ×
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
               </button>
 
               {lightbox.type === "photo" ? (
@@ -931,8 +998,9 @@ const MediaAndStoriesPage = () => {
                         {lightbox.metadata.description}
                       </p>
                       <div className="lightbox-details">
-                        <span>📍 {lightbox.metadata.location}</span>
-                        <span>📅 {lightbox.metadata.date}</span>
+                        <span>{lightbox.metadata.location}</span>
+                        <span className="lightbox-details__separator">|</span>
+                        <span>{lightbox.metadata.date}</span>
                       </div>
                     </div>
                   )}

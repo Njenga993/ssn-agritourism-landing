@@ -41,76 +41,146 @@ const experiences = [
     description:
       "Farming systems that work in harmony with biodiversity, soil health, and natural ecological cycles.",
     image: agroecology,
+    icon: "",
+    category: "farming",
   },
   {
     title: "Seed Sovereignty",
     description:
       "How farmers preserve indigenous seed varieties and maintain community seed systems.",
     image: seedSovereignty,
+    icon: "",
+    category: "knowledge",
   },
   {
     title: "Community Engagement",
     description:
       "Time with rural communities, learning directly from farmers and local leaders.",
     image: communityEngagement,
+    icon: "",
+    category: "people",
   },
   {
     title: "Cultural Exchange",
     description:
       "Traditional food, farming rituals, and cultural heritage rooted in land stewardship.",
     image: culturalExchange,
+    icon: "",
+    category: "culture",
   },
   {
     title: "Regenerative Travel",
     description:
       "Travel experiences designed to restore ecosystems while supporting local livelihoods.",
     image: regenerativeTravel,
+    icon: "",
+    category: "travel",
   },
   {
     title: "Permaculture",
     description:
       "Ecological design systems that create resilient landscapes and sustainable food production.",
     image: permaculture,
+    icon: "",
+    category: "farming",
   },
   {
     title: "Food Sovereignty",
     description:
       "How communities protect local food systems and agricultural independence.",
     image: foodSovereignty,
+    icon: "",
+    category: "food",
   },
   {
-    title: "Cooking and Cuisine",
+    title: "Cooking & Cuisine",
     description:
-      " Hands-on cooking sessions with local farmers, learning to prepare traditional dishes using indigenous ingredients.",
+      "Hands-on cooking sessions with local farmers, learning to prepare traditional dishes using indigenous ingredients.",
     image: forestGardens,
+    icon: "",
+    category: "food",
   },
 ];
 
-function ExperienceCard({
-  exp,
-  index,
-}: {
-  exp: (typeof experiences)[0];
-  index: number;
-}) {
-  const { ref, visible } = useReveal(0.08);
+// Featured pathway component (hero card)
+function FeaturedPathway({ exp, index }: { exp: typeof experiences[0]; index: number }) {
+  const { ref, visible } = useReveal(0.1);
+  
   return (
     <div
       ref={ref}
-      className="ab-card"
-      data-visible={visible}
-      style={{ transitionDelay: `${(index % 4) * 80}ms` }}
+      className={`eight-featured ${visible ? "eight-featured--visible" : ""}`}
     >
-      <div className="ab-card__img">
+      <div className="eight-featured__image-wrapper">
         <img src={exp.image} alt={exp.title} loading="lazy" />
-        <span className="ab-card__idx">
-          {String(index + 1).padStart(2, "0")}
-        </span>
+        <div className="eight-featured__overlay">
+          <span className="eight-featured__number">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <span className="eight-featured__icon">{exp.icon}</span>
+        </div>
       </div>
-      <div className="ab-card__body">
-        <h3 className="ab-card__title">{exp.title}</h3>
-        <p className="ab-card__desc">{exp.description}</p>
-        <span className="ab-card__arrow">→</span>
+      
+      <div className="eight-featured__content">
+        <div className="eight-featured__tag">Featured Pathway</div>
+        <h3 className="eight-featured__title">{exp.title}</h3>
+        <p className="eight-featured__description">{exp.description}</p>
+        
+        <div className="eight-featured__stats">
+          <div className="eight-featured__stat">
+            <span className="eight-featured__stat-value">500+</span>
+            <span className="eight-featured__stat-label">Visitors</span>
+          </div>
+          <div className="eight-featured__stat">
+            <span className="eight-featured__stat-value">4.9</span>
+            <span className="eight-featured__stat-label">Rating</span>
+          </div>
+          
+        </div>
+
+        
+      </div>
+    </div>
+  );
+}
+
+// Grid card component (redesigned)
+function PathwayCard({ exp, index }: { exp: typeof experiences[0]; index: number }) {
+  const { ref, visible } = useReveal(0.08);
+  
+  return (
+    <div
+      ref={ref}
+      className={`eight-card ${visible ? "eight-card--visible" : ""}`}
+      style={{ transitionDelay: `${(index % 6) * 75}ms` }}
+      data-category={exp.category}
+    >
+      <div className="eight-card__inner">
+        <div className="eight-card__icon-wrapper">
+          <span className="eight-card__icon">{exp.icon}</span>
+          <span className="eight-card__number">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+        </div>
+        
+        <div className="eight-card__image-wrapper">
+          <img src={exp.image} alt={exp.title} loading="lazy" />
+          <div className="eight-card__image-shine"></div>
+        </div>
+        
+        <div className="eight-card__content">
+          <h3 className="eight-card__title">{exp.title}</h3>
+          <p className="eight-card__description">{exp.description}</p>
+          
+          <div className="eight-card__bottom">
+            <span className="eight-card__category">{exp.category}</span>
+            <span className="eight-card__arrow">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -119,8 +189,13 @@ function ExperienceCard({
 const About = () => {
   const storyReveal = useReveal(0.12);
   const philoReveal = useReveal(0.12);
-  const gridReveal = useReveal(0.08);
-  const ctaReveal = useReveal(0.2);
+ 
+  
+  const [activeFilter, setActiveFilter] = useState("All Pathways");
+
+  const filteredExperiences = activeFilter === "All Pathways" 
+    ? experiences 
+    : experiences.filter(exp => exp.category === activeFilter.toLowerCase());
 
   return (
     <section id="about" className="ab">
@@ -215,30 +290,108 @@ const About = () => {
         </div>
       </div>
 
-      {/* ── EXPERIENCES GRID ── */}
-      <div className="ab__grid-section">
-        <div className="ab__masthead">
-          <span className="ab__masthead-label">Eight Pathways</span>
-          <span className="ab__masthead-rule" />
-        </div>
-        <div className="ab__grid-headline">
-          <h2>
-            Experiences Rooted in
-            <br />
-            <em>Land and Culture</em>
+      {/* ── EIGHT PATHWAYS (REDESIGNED) ── */}
+      <div className="eight-pathways">
+        {/* Section Header */}
+        <div className="eight-header">
+          <div className="eight-header__top-line">
+            <span className="eight-header__overline">Discover</span>
+            <span className="eight-header__divider"></span>
+            <span className="eight-header__overline">Eight Pathways</span>
+          </div>
+          
+          <h2 className="eight-header__title">
+            <span className="eight-header__title-line">Experiences</span>
+            <span className="eight-header__title-line">
+              Rooted in{" "}
+              <em className="eight-header__title-emphasis">Land</em>
+            </span>
+            <span className="eight-header__title-line">
+              &amp; <em className="eight-header__title-emphasis">Culture</em>
+            </span>
           </h2>
+          
+          <p className="eight-header__description">
+            Each pathway offers a unique lens into Kenya's agricultural 
+            heritage — from seed saving to cultural cuisine.
+          </p>
+
+          {/* Filter Tags */}
+          <div className="eight-header__filters">
+            {["All Pathways", "Farming", "Knowledge", "Culture", "Food", "Travel", "People"].map((filter) => (
+              <button
+                key={filter}
+                className={`eight-filter ${activeFilter === filter ? "eight-filter--active" : ""}`}
+                onClick={() => setActiveFilter(filter)}
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
         </div>
-        <div
-          ref={gridReveal.ref}
-          className={`ab__grid ${gridReveal.visible ? "ab__grid--on" : ""}`}
-        >
-          {experiences.map((exp, i) => (
-            <ExperienceCard key={i} exp={exp} index={i} />
-          ))}
+
+        {/* Filtered Pathways Display */}
+        {filteredExperiences.length === 8 && (
+          <>
+            {/* Featured Pathway (1st item - hero layout) - only show when all are visible */}
+            <div className="eight-featured-wrapper">
+              <FeaturedPathway exp={filteredExperiences[0]} index={0} />
+            </div>
+
+            {/* Pathways Grid (remaining 7 items) */}
+            <div className="eight-grid-wrapper">
+              <div className="eight-grid">
+                {filteredExperiences.slice(1).map((exp, i) => (
+                  <PathwayCard key={i} exp={exp} index={i + 1} />
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Filtered Grid (when showing specific categories) */}
+        {filteredExperiences.length !== 8 && (
+          <div className="eight-grid-wrapper">
+            <div className="eight-grid">
+              {filteredExperiences.map((exp, i) => (
+                <PathwayCard key={i} exp={exp} index={experiences.indexOf(exp)} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {filteredExperiences.length === 0 && (
+          <div className="eight-empty">
+            <p>No pathways found for this category.</p>
+          </div>
+        )}
+
+        {/* Bottom CTA */}
+        <div className="eight-bottom-cta">
+          <div className="eight-bottom-cta__content">
+            <span className="eight-bottom-cta__kicker">Ready to Begin?</span>
+            <h3 className="eight-bottom-cta__heading">
+              Choose Your Pathway Into Kenya's Living Agricultural Heritage
+            </h3>
+            <p className="eight-bottom-cta__text">
+              Every experience supports local farmers and strengthens seed sovereignty.
+            </p>
+            <div className="eight-bottom-cta__actions">
+              <a href="/about" className="eight-bottom-cta__btn eight-bottom-cta__btn--primary">
+                Read More
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+              <a href="/contact" className="eight-bottom-cta__btn eight-bottom-cta__btn--secondary">
+                Speak to a Us
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* ── CTA ── */}
+      {/* ── CTA ── 
       <div
         ref={ctaReveal.ref}
         className={`ab__cta ${ctaReveal.visible ? "ab__cta--on" : ""}`}
@@ -267,7 +420,7 @@ const About = () => {
             </svg>
           </a>
         </div>
-      </div>
+      </div>*/}
     </section>
   );
 };

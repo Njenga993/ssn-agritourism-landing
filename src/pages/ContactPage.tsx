@@ -372,11 +372,18 @@ const ContactPage = () => {
               </div>
               <h2 className="contact-quick__title">Call Us</h2>
               <a
-                href="tel:+254700000000"
+                href="tel:+254718372360"
                 className="contact-quick__link"
-                aria-label="Call +254700000000"
+                aria-label="Call +254718372360 for inquiries"
               >
                 +254 718 372 360
+              </a>
+              <a
+                href="tel:+254712451777"
+                className="contact-quick__link"
+                aria-label="Call +254712451777"
+              >
+                +254 712 451 777
               </a>
               <span className="contact-quick__note">
                 Monday-Saturday, 9am-4pm EAT
